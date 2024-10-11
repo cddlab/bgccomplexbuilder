@@ -8,3 +8,18 @@ dependencies = ["biopython", "matplotlib", "numpy>=2", "pandas"]
 
 [tool.uv]
 dev-dependencies = ["mypy", "notebook", "pytest", "ruff"]
+
+[tool.ruff]
+line-length = 88         # Same as Black.
+target-version = "py311"
+fixable = ["ALL"]        # Allow fix for all enabled rules (when `--fix`) is provided.
+unfixable = []
+
+[tool.ruff.format]
+quote-style = "double" # Like Black, use double quotes for strings.
+
+[tool.hatch.metadata]
+allow-direct-references = true
+
+[tool.hatch.build.targets.wheel]
+packages = ["repseek"]
