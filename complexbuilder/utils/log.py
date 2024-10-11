@@ -1,5 +1,5 @@
 import logging
-from logging import StreamHandler, Formatter
+from logging import Formatter, StreamHandler
 from pathlib import Path
 
 

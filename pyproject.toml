@@ -7,7 +7,7 @@ requires-python = ">=3.11"
 dependencies = ["biopython", "matplotlib", "numpy>=2", "pandas"]
 
 [tool.uv]
-dev-dependencies = ["mypy", "notebook", "pytest", "ruff"]
+dev-dependencies = ["mypy", "notebook", "pytest", "ruff", "pyyaml"]
 
 [tool.ruff]
 select = [
