@@ -10,9 +10,19 @@ dependencies = ["biopython", "matplotlib", "numpy>=2", "pandas"]
 dev-dependencies = ["mypy", "notebook", "pytest", "ruff"]
 
 [tool.ruff]
-line-length = 88         # Same as Black.
+select = [
+    "F", # Flake8
+    "B", # Black
+    "I", # isort
+    "E", # error
+    "W", # warning
+]
+ignore = []
+exclude = [".ruff_cache", ".ruff.toml", ".ruff.lock"]
+indent-width = 4
+line-length = 88 # Same as Black.
 target-version = "py311"
-fixable = ["ALL"]        # Allow fix for all enabled rules (when `--fix`) is provided.
+fixable = ["ALL"] # Allow fix for all enabled rules (when `--fix`) is provided.
 unfixable = []
 
 [tool.ruff.format]
@@ -22,4 +32,4 @@ quote-style = "double" # Like Black, use double quotes for strings.
 allow-direct-references = true
 
 [tool.hatch.build.targets.wheel]
-packages = ["repseek"]
+packages = ["complexbuilder"]
