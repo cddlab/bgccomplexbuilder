@@ -1,3 +1,4 @@
+import requests
 from Bio.Seq import Seq
 from Bio.SeqRecord import SeqRecord
 
@@ -35,3 +36,23 @@ def make_multiple_msa(seqs: dict, copies: int | tuple) -> SeqRecord:
 
     record = SeqRecord(Seq(out_sequence), id=out_header, description="")
     return record
+
+
+def get_protein_sequence(uniprot_id: str) -> str:
+    """Retrieve the amino acid sequence from UniProt using a given UniProt ID."""
+    url = f"https://www.uniprot.org/uniprot/{uniprot_id}.fasta"
+
+    response = requests.get(url)
+
+    if response.status_code != 200:
+        raise ValueError(
+            f"Failed to retrieve data for {uniprot_id}."
+            "HTTP Status: {response.status_code}"
+        )
+
+    fasta_data = response.text
+    sequence = "".join(
+        line.strip() for line in fasta_data.splitlines() if not line.startswith(">")
+    )
+
+    return sequence

@@ -4,7 +4,7 @@ version = "0.0.1"
 description = "module to build and predict protein multimer with AlphaFold"
 readme = "README.md"
 requires-python = ">=3.11"
-dependencies = ["biopython", "matplotlib", "numpy>=2", "pandas"]
+dependencies = ["biopython>=1.84", "matplotlib", "numpy>=2", "pandas", "requests"]
 
 [tool.uv]
 dev-dependencies = ["mypy", "notebook", "pytest", "ruff", "pyyaml"]

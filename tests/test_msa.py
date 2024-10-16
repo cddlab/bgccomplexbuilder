@@ -1,6 +1,6 @@
 import pytest
 
-from complexbuilder.utils.msa import make_multiple_msa
+from complexbuilder.utils.msa import get_protein_sequence, make_multiple_msa
 
 
 @pytest.mark.parametrize(
@@ -36,3 +36,33 @@ def test_make_multiple_msa(seqs, copies, expected_output):
     """test of make_multiple_msa"""
     assert make_multiple_msa(seqs, copies).seq == expected_output
     assert make_multiple_msa(seqs, copies).id == "_".join(seqs.keys())
+
+
+@pytest.mark.parametrize(
+    "uniprot_id, expected_output, raises_exception",
+    [
+        (
+            "P69905",
+            (
+                "MVLSPADKTNVKAAWGKVGAHAGEYGAEALERMFLSFPTTKTYFPHFDLSHGSAQVKGHGKKVADALTNAVAHVDDMPN"
+                "ALSALSDLHAHKLRVDPVNFKLLSHCLLVTLAAHLPAEFTPAVHASLDKFLASVSTVLTSKYR"
+            ),
+            False,  # 正常系: 例外が発生しない
+        ),
+        (
+            "P9C9999",
+            None,  # No expected output
+            True,  # Invalid uniprot_id
+        ),
+    ],
+)
+def test_get_protein_sequence(uniprot_id, expected_output, raises_exception):
+    """Test get_protein_sequence with multiple cases."""
+    if raises_exception:
+        with pytest.raises(ValueError, match="Failed to retrieve data"):
+            get_protein_sequence(uniprot_id)
+    else:
+        sequence = get_protein_sequence(uniprot_id)
+        assert (
+            sequence == expected_output
+        ), "The sequence does not match the expected result."
