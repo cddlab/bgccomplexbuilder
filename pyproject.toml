@@ -7,7 +7,7 @@ requires-python = ">=3.11"
 dependencies = ["biopython>=1.84", "matplotlib", "numpy>=2", "pandas", "requests"]
 
 [tool.uv]
-dev-dependencies = ["mypy", "notebook", "pytest", "ruff", "pyyaml"]
+dev-dependencies = ["mypy", "notebook", "pytest", "pytest-cov", "ruff", "pyyaml"]
 
 [tool.ruff]
 select = [
@@ -17,7 +17,7 @@ select = [
     "E", # error
     "W", # warning
 ]
-ignore = []
+ignore = ["F401"]
 exclude = [".ruff_cache", ".ruff.toml", ".ruff.lock"]
 indent-width = 4
 line-length = 88 # Same as Black.
@@ -27,6 +27,12 @@ unfixable = []
 
 [tool.ruff.format]
 quote-style = "double" # Like Black, use double quotes for strings.
+
+[tool.ruff.lint.isort]
+known-third-party = ["fastapi", "pydantic", "starlette"]
+
+[tool.pytest.ini_options]
+addopts = "-v --color=yes --cov=complexbuilder --cov-report=term-missing"
 
 [tool.hatch.metadata]
 allow-direct-references = true
