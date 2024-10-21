@@ -25,6 +25,11 @@ target-version = "py311"
 fixable = ["ALL"] # Allow fix for all enabled rules (when `--fix`) is provided.
 unfixable = []
 
+[tool.ruff.isort]
+combine-as-imports = true
+section-order = ["future", "standard-library", "third-party", "first-party", "local-folder"]
+split-on-trailing-comma = true
+
 [tool.ruff.format]
 quote-style = "double" # Like Black, use double quotes for strings.
 
