@@ -38,7 +38,7 @@ def make_multiple_msa(seqs: dict, copies: int | tuple) -> SeqRecord:
     return record
 
 
-def get_protein_sequence(uniprot_id: str) -> str:
+def get_protein_sequence_from_uniprot(uniprot_id: str) -> str:
     """Retrieve the amino acid sequence from UniProt using a given UniProt ID."""
     url = f"https://www.uniprot.org/uniprot/{uniprot_id}.fasta"
 
