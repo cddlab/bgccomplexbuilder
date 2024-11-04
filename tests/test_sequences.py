@@ -1,44 +1,33 @@
 import pytest
+from Bio.Seq import Seq
+from Bio.SeqRecord import SeqRecord
 
-from complexbuilder.utils.msa import (
+from complexbuilder.common.sequences import (
+    concatenate_two_sequences,
+    generate_seqs_combinations,
     get_protein_sequence_from_uniprot,
-    make_multiple_msa,
 )
 
 
-@pytest.mark.parametrize(
-    "seqs, copies, expected_output",
-    [
-        pytest.param(
-            {"seq1": "MTEITAAMVKELREST", "seq2": "AKAIKES"},
-            (1, 2),
-            "MTEITAAMVKELREST:AKAIKES:AKAIKES",
-            id="positive case",
-        ),
-        pytest.param(
-            {"seq3": "MTEITAAMVKELRESTAA"},
-            (2,),
-            "MTEITAAMVKELRESTAA:MTEITAAMVKELRESTAA",
-            id="test2",
-        ),
-        pytest.param(
-            {"seq3": "MTEITAAMVKELRESTAA"},
-            2,
-            "MTEITAAMVKELRESTAA:MTEITAAMVKELRESTAA",
-            id="test3",
-        ),
-        pytest.param(
-            {"seq1": "MTEITAAMVKELREST", "seq2": "AKAIKES"},
-            (2, 1),
-            "MTEITAAMVKELREST:MTEITAAMVKELREST:AKAIKES",
-            id="test4",
-        ),
-    ],
-)
-def test_make_multiple_msa(seqs, copies, expected_output):
-    """test of make_multiple_msa"""
-    assert make_multiple_msa(seqs, copies).seq == expected_output
-    assert make_multiple_msa(seqs, copies).id == "_".join(seqs.keys())
+def test_generate_seqs_combinations():
+    """test of generate_seqs_combinations"""
+    seq1 = SeqRecord(
+        Seq("MTEITAAMVKELREST"), id="seq1", description="Example sequence 1"
+    )
+
+    seq2 = SeqRecord(Seq("AKAIKES"), id="seq2", description="Example sequence 2")
+    seq3 = SeqRecord(Seq("TAKCLSICKSITK"), id="seq3", description="Example sequence 3")
+    seqs = [seq1, seq2, seq3]
+    generate_seqs_combinations(seqs)
+    assert len(generate_seqs_combinations(seqs)) == 6
+    test1, test2 = generate_seqs_combinations(seqs)[0]
+    assert test1.seq + test2.seq == "MTEITAAMVKELRESTMTEITAAMVKELREST"
+    concatenated_seqs: list[SeqRecord] = [
+        concatenate_two_sequences(seq1, seq2)
+        for seq1, seq2 in generate_seqs_combinations(seqs)
+    ]
+    assert concatenated_seqs[0].seq == "MTEITAAMVKELREST:MTEITAAMVKELREST"
+    assert concatenated_seqs[0].id == "seq1_seq1"
 
 
 @pytest.mark.parametrize(

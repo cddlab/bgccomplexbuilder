@@ -1,5 +1,6 @@
-import Bio.PDB.alphafold_db
 from pathlib import Path
+
+import Bio.PDB.alphafold_db
 
 
 def truncate_low_plddt_terminal_residues(pdbfile: Path, threshold: float = 50.0):
@@ -13,6 +14,3 @@ def truncate_low_plddt_terminal_residues(pdbfile: Path, threshold: float = 50.0)
     # assert pdbfile.exists()
     if not pdbfile.exists():
         raise FileNotFoundError(f"{pdbfile} does not exist.")
-
-    parser = Bio.PDB.PDBParser(QUIET=True)
-    structure = parser.get_structure("protein", pdbfile)

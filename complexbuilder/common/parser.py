@@ -1,12 +1,10 @@
 # %%
 import json
 import re
-from dataclasses import dataclass
 from pathlib import Path
 
 from Bio import SeqIO
 from Bio.Seq import Seq
-from Bio.SeqFeature import FeatureLocation, SeqFeature
 from Bio.SeqRecord import SeqRecord
 
 
@@ -22,7 +20,7 @@ def classify_proteins(
         - genbank_file (str | Path): Path to the GenBank file.
         - clip_length (int): The maximum length of the protein sequence to truncate.
             Default is 1500.
-    returns:
+    Returns:
         - nonnrpspksproteins (list[SeqRecord]): List of SeqRecord objects
             for proteins that do not belong to NRPS_PKS.
         - nrpspksproteins (list[SeqRecord]): List of SeqRecord objects
@@ -69,11 +67,6 @@ def classify_proteins(
     return nonnrpspksproteins, nrpspksproteins
 
 
-# %%
-genbank_file = "/Users/YoshitakaM/Downloads/mibig_gbk_3.1/BGC0000028.gbk"
-nonnrpspksproteins, nrpspksproteins = classify_proteins(genbank_file)
-for nrpspksprotein in nrpspksproteins:
-    print(nrpspksprotein.id, nrpspksprotein.description, len(nrpspksprotein.seq))
 # %%
 # json_directory = "/Users/YoshitakaM/Downloads/mibig_json_minimal"
 json_directory = "/Users/YoshitakaM/Downloads/mibig_json_3.1"

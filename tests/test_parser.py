@@ -1,6 +1,6 @@
 import pytest
 
-from complexbuilder.utils.parser import classify_proteins, parse_mibig_json
+from complexbuilder.common.parser import classify_proteins, parse_mibig_json
 
 
 def test_parse_mibig_json():

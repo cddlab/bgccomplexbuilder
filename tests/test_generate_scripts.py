@@ -2,9 +2,7 @@ import textwrap
 
 import pytest
 
-from complexbuilder.utils.generate_scripts import (
-    generate_colabfold_search_runner,
-)
+from complexbuilder.common.generate_scripts import generate_colabfold_search_runner
 
 
 @pytest.mark.parametrize(
