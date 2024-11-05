@@ -30,6 +30,11 @@ def test_generate_seqs_combinations():
     assert concatenated_seqs[0].id == "seq1_seq1"
 
 
+def test_BGC0000053():
+    """test for BGC0000053.gbk. There is no product and"""
+    pass
+
+
 @pytest.mark.parametrize(
     "uniprot_id, expected_output, raises_exception",
     [

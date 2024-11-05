@@ -46,29 +46,32 @@ def concatenate_two_sequences(seq1: SeqRecord, seq2: SeqRecord) -> SeqRecord:
 
 
 def generate_multimer_input_for_colabfold(
-    seqs: list[SeqRecord], extention: str = "csv"
-) -> str | ValueError:
+    seqs: list[SeqRecord], extention: str = "csv", use_productname: bool = False
+) -> str:
     """
     Generate a string for input of ColabFold from a list of SeqRecord objects.
 
     Args:
         - seqs: list[SeqRecord], the list of SeqRecord objects
         - extention: str, "csv" or "fasta" are only allowed. Default is "csv"
+        - use_productname: bool, if True, use product name defined as the description.
     """
-    output: str = ""
-    if extention == "csv":
-        for seq1, seq2 in generate_seqs_combinations(seqs):
-            concat_seqrecord = concatenate_two_sequences(seq1, seq2)
-            output += f"{concat_seqrecord.id},{concat_seqrecord.seq}\n"
-        return output
+    if extention not in ["csv", "fasta"]:
+        raise ValueError("Only 'csv' and 'fasta' are allowed for the extention.")
 
-    elif extention == "fasta":
-        for seq1, seq2 in generate_seqs_combinations(seqs):
-            concat_seqrecord = concatenate_two_sequences(seq1, seq2)
-            output += f">{concat_seqrecord.id}\n{concat_seqrecord.seq}\n"
-        return output
-    else:
-        return ValueError("The extention must be 'csv' or 'fasta'.")
+    output: str = ""
+
+    for seq1, seq2 in generate_seqs_combinations(seqs):
+        concat_seqrecord = concatenate_two_sequences(seq1, seq2)
+        if use_productname:
+            id = concat_seqrecord.description
+        else:
+            id = concat_seqrecord.id
+        if extention == "csv":
+            output += f"{id},{concat_seqrecord.seq}\n"
+        elif extention == "fasta":
+            output += f">{id}\n{concat_seqrecord.seq}\n"
+    return output
 
 
 def get_protein_sequence_from_uniprot(uniprot_id: str) -> str:

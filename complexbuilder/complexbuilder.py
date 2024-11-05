@@ -1,17 +1,10 @@
 #!/usr/bin/env python3
+# %%
 import argparse
-from itertools import combinations_with_replacement
-from pathlib import Path
-
-from Bio import SeqIO
-from Bio.Seq import Seq
-from Bio.SeqRecord import SeqRecord
+import os
 
 from complexbuilder.common.parser import classify_proteins
-from complexbuilder.common.sequences import (
-    concatenate_two_sequences,
-    generate_seqs_combinations,
-)
+from complexbuilder.common.sequences import generate_multimer_input_for_colabfold
 
 parser = argparse.ArgumentParser(
     description="Extract protein sequences from GenBank files."
@@ -31,12 +24,23 @@ parser.add_argument(
     default=1500,
     help="Maximum length of protein sequences to extract.",
 )
-args = parser.parse_args()
+# args = parser.parse_args()
+# nonnrpspksproteins, nrpspksproteins = classify_proteins(
+#     args.input, clip_length=args.clip_length
+# )
+for i in range(1, 101):
+    file = f"/Users/YoshitakaM/Downloads/mibig_gbk_3.1/BGC{i:07d}.gbk"
+    basename = os.path.basename(file)
+    if not os.path.exists(file):
+        continue
+    nonnrpspksproteins, nrpspksproteins = classify_proteins(
+        file,
+        clip_length=1500,
+    )
+    output = generate_multimer_input_for_colabfold(
+        nonnrpspksproteins, extention="fasta", use_productname=False
+    )
+    with open(f"{os.path.splitext(basename)[0]}.fasta", "w") as f:
+        f.write(output)
 
-nonnrpspksproteins, nrpspksproteins = classify_proteins(
-    args.input, clip_length=args.clip_length
-)
-for seq1, seq2 in generate_seqs_combinations(nrpspksproteins):
-    concatenated_seq = concatenate_two_sequences(seq1, seq2)
-    print(concatenated_seq)
-# combine the two lists of SeqRecord objects
+# %%
