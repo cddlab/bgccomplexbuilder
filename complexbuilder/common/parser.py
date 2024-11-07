@@ -3,6 +3,8 @@ import json
 import re
 from pathlib import Path
 
+import matplotlib.pyplot as plt
+import numpy as np
 from Bio import SeqIO
 from Bio.Seq import Seq
 from Bio.SeqRecord import SeqRecord
@@ -84,7 +86,6 @@ def classify_proteins(
     return nonnrpspksproteins, nrpspksproteins
 
 
-# %%
 # json_directory = "/Users/YoshitakaM/Downloads/mibig_json_minimal"
 json_directory = "/Users/YoshitakaM/Downloads/mibig_json_3.1"
 
