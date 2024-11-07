@@ -30,6 +30,12 @@ def test_generate_seqs_combinations():
     assert concatenated_seqs[0].id == "seq1_seq1"
 
 
+def test_BGC0000037():
+    """test for BGC0000037.gbk. There is only 1 gene that has
+    a NRPS/PKS domain. The output fasta should be 0 bytes."""
+    pass
+
+
 def test_BGC0000053():
     """test for BGC0000053.gbk. There is no product and"""
     pass
