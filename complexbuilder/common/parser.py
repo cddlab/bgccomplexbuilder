@@ -6,6 +6,7 @@ from pathlib import Path
 from Bio import SeqIO
 from Bio.Seq import Seq
 from Bio.SeqRecord import SeqRecord
+from loguru import logger
 
 
 def classify_proteins(
@@ -31,13 +32,23 @@ def classify_proteins(
     nrpspksproteins: list[SeqRecord] = []
     genbank_file = Path(genbank_file)
     for record in SeqIO.parse(genbank_file, "genbank"):
-        print(f"Record ID: {record.id}")
+        logger.info(f"Record ID: {record.id}")
         for feature in record.features:
             if feature.type == "CDS":
                 # protein_id and aa_sequence are required fields
-                protein_id = feature.qualifiers.get("protein_id")[0]
                 aa_sequence = feature.qualifiers.get("translation")[0]
-                name = feature.qualifiers.get("product")[0]
+                if "protein_id" in feature.qualifiers:
+                    protein_id = feature.qualifiers.get("protein_id")[0]
+                elif "locus_tag" in feature.qualifiers:
+                    # fallback to locus_tag if protein_id is not available
+                    protein_id = feature.qualifiers.get("locus_tag")[0]
+                else:
+                    logger.warning("No protein ID and locus tag found. Use gene ID.")
+                    protein_id = feature.qualifiers.get("gene")[0]
+                if "product" in feature.qualifiers:
+                    product = feature.qualifiers.get("product")[0]
+                else:
+                    product = ""
                 aa_len = len(aa_sequence)
                 # truncate the protein sequence if it exceeds <clip_length> residues
                 if "NRPS_PKS" in feature.qualifiers and aa_len > clip_length:
@@ -62,8 +73,14 @@ def classify_proteins(
                             )
                 else:
                     nonnrpspksproteins.append(
-                        SeqRecord(Seq(aa_sequence), id=protein_id, description=name)
+                        SeqRecord(Seq(aa_sequence), id=protein_id, description=product)
                     )
+    if nonnrpspksproteins == []:
+        logger.warning("No protein sequences found in the GenBank file.")
+    if nrpspksproteins == []:
+        logger.warning("No NRPS/PKS domains found in the GenBank file.")
+    logger.info(f"Number of non-NRPS/PKS proteins: {len(nonnrpspksproteins)}")
+    logger.info(f"Number of NRPS/PKS proteins: {len(nrpspksproteins)}")
     return nonnrpspksproteins, nrpspksproteins
 
 

@@ -1,25 +1,16 @@
-import logging
-from logging import Formatter, StreamHandler
-from pathlib import Path
+import os
+import sys
+
+from loguru import logger
+
+os.environ["JUPYTER_PLATFORM_DIRS"] = "1"
 
 
-def setup_logging(log_file: Path, mode: str = "w") -> None:
-    log_file.parent.mkdir(exist_ok=True, parents=True)
-    logger = logging.getLogger(__name__)
-    if logger.handlers:
-        for handler in logger.handlers:
-            handler.close()
-            logger.removeHandler(handler)
-    logger.setLevel(logging.INFO)
-    stream_handler = StreamHandler()
-    stream_handler.setLevel(logging.DEBUG)
-    handler_format = Formatter(
-        "%(asctime)s %(filename)s:%(lineno)d - %(levelname)s - %(message)s"
-    )
-    stream_handler.setFormatter(handler_format)
-    logger.addHandler(stream_handler)
-    logging.basicConfig(
-        level=logging.INFO,
-        format="%(asctime)s %(filename)s:%(lineno)d - %(levelname)s - %(message)s",
-        handlers=[stream_handler, logging.FileHandler(log_file, mode=mode)],
+def log_setup(level="DEBUG"):
+    logger.remove()
+    logger.add(
+        sys.stderr,
+        colorize=True,
+        format="<green>{time:YYYY-MM-DD at HH:mm:ss}</green>-{level}: {message}",
+        level=level,
     )

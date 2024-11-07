@@ -1,4 +1,4 @@
-import complexbuilder.utils.machinetype as mt
+import complexbuilder.common.machinetype as mt
 
 
 def generate_colabfold_search_runner(type: str, inputname: str, outputdir: str) -> str:

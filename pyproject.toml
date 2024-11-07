@@ -1,10 +1,10 @@
 [project]
 name = "complexbuilder"
 version = "0.0.1"
-description = "module to build and predict protein multimer with AlphaFold"
+description = "module to build and predict protein multimer with ColabFold"
 readme = "README.md"
 requires-python = ">=3.11"
-dependencies = ["biopython>=1.84", "matplotlib", "numpy>=2", "pandas", "requests"]
+dependencies = ["biopython>=1.84", "matplotlib", "numpy>=2", "pandas", "requests", "loguru"]
 
 [tool.uv]
 dev-dependencies = ["mypy", "notebook", "pytest", "pytest-cov", "ruff", "pyyaml"]
@@ -37,6 +37,9 @@ quote-style = "double" # Like Black, use double quotes for strings.
 known-third-party = ["fastapi", "pydantic", "starlette"]
 
 [tool.pytest.ini_options]
+filterwarnings = [
+    "ignore:.*Jupyter is migrating.*:DeprecationWarning",
+]
 addopts = "-v --color=yes --cov=complexbuilder --cov-report=term-missing"
 
 [tool.hatch.metadata]
