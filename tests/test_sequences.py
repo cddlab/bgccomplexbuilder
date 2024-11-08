@@ -40,10 +40,7 @@ def test_BGC0000037():
     i = 37
     file = f"/Users/YoshitakaM/Downloads/mibig_gbk_3.1/BGC{i:07d}.gbk"
     basename = os.path.basename(file)
-    nonnrpspksproteins, nrpspksproteins = classify_proteins(
-        file,
-        clip_length=1500,
-    )
+    nonnrpspksproteins, nrpspksproteins = classify_proteins(file)
     output = generate_multimer_input_for_colabfold(
         nonnrpspksproteins, extention="fasta", use_productname=False
     )
@@ -56,10 +53,7 @@ def test_BGC0000053():
     Falls back to locus_tag."""
     i = 53
     file = f"/Users/YoshitakaM/Downloads/mibig_gbk_3.1/BGC{i:07d}.gbk"
-    nonnrpspksproteins, nrpspksproteins = classify_proteins(
-        file,
-        clip_length=1500,
-    )
+    nonnrpspksproteins, nrpspksproteins = classify_proteins(file)
     _ = generate_multimer_input_for_colabfold(
         nonnrpspksproteins, extention="fasta", use_productname=False
     )
@@ -69,10 +63,7 @@ def test_BGC0000087():
     """test for BGC0000087.gbk. Some proteins do not have protein id and locus tag."""
     i = 87
     file = f"/Users/YoshitakaM/Downloads/mibig_gbk_3.1/BGC{i:07d}.gbk"
-    nonnrpspksproteins, nrpspksproteins = classify_proteins(
-        file,
-        clip_length=1500,
-    )
+    nonnrpspksproteins, nrpspksproteins = classify_proteins(file)
     _ = generate_multimer_input_for_colabfold(
         nonnrpspksproteins, extention="fasta", use_productname=False
     )

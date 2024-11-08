@@ -3,6 +3,8 @@
 import argparse
 import os
 
+from loguru import logger
+
 from complexbuilder.common.log import log_setup
 from complexbuilder.common.parser import classify_proteins
 from complexbuilder.common.sequences import generate_multimer_input_for_colabfold
@@ -26,15 +28,13 @@ parser.add_argument(
     help="Maximum length of protein sequences to extract.",
 )
 log_setup(level="WARNING")
-for i in range(87, 101):
+for i in range(1818, 1819):
     file = f"/Users/YoshitakaM/Downloads/mibig_gbk_3.1/BGC{i:07d}.gbk"
     basename = os.path.basename(file)
     if not os.path.exists(file):
+        logger.warning(f"File {file} not found.")
         continue
-    nonnrpspksproteins, nrpspksproteins = classify_proteins(
-        file,
-        clip_length=1500,
-    )
+    nonnrpspksproteins, nrpspksproteins = classify_proteins(file)
     output = generate_multimer_input_for_colabfold(
         nonnrpspksproteins, extention="fasta", use_productname=False
     )
