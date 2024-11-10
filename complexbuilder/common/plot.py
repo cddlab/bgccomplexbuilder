@@ -57,7 +57,8 @@ def _json_to_pae(file: str | Path) -> np.ndarray:
 
 # paes = [
 #     _json_to_pae(
-#         "/Users/YoshitakaM/Desktop/Orf1196_Orf1198T/Orf1196_Orf1198_T_predicted_aligned_error_v1.json"
+#         "/Users/YoshitakaM/Desktop/Orf1196_Orf1198T/
+# Orf1196_Orf1198_T_predicted_aligned_error_v1.json"
 #     )
 # ]
 # paes_plot = plot_paes(paes, Ls=[599, 130], dpi=300)
