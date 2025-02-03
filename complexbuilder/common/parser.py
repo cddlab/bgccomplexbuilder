@@ -1,5 +1,4 @@
 # %%
-import json
 import re
 from pathlib import Path
 
@@ -10,7 +9,7 @@ from loguru import logger
 
 
 def classify_proteins(
-    genbank_file: str | Path,
+    genbank_file: str | Path, max_length: int, decompose_nrpspks: bool = False
 ) -> tuple[list[SeqRecord], list[SeqRecord]]:
     """Collect protein sequences from GenBank file and return a list of
     SeqRecord objects.
@@ -19,13 +18,14 @@ def classify_proteins(
 
     Args:
         - genbank_file (str | Path): Path to the GenBank file.
-        - clip_length (int): The maximum length of the protein sequence to truncate.
-            Default is 1500.
+        - max_length (int): Maximum length of protein sequences
     Returns:
         - nonnrpspksproteins (list[SeqRecord]): List of SeqRecord objects
             for proteins that do not belong to NRPS_PKS.
         - nrpspksproteins (list[SeqRecord]): List of SeqRecord objects
             for proteins that belong to NRPS_PKS.
+        - decompose_nrpspks (bool): If True, decompose the NRPS_PKS proteins
+            into individual domains.
     """
 
     nonnrpspksproteins: list[SeqRecord] = []
@@ -44,7 +44,7 @@ def classify_proteins(
                     protein_id = feature.qualifiers.get("locus_tag")[0]
                 else:
                     logger.warning(
-                        f"No protein ID and locus tag found\n in {genbank_file} . "
+                        f"No protein ID and locus tag found in {genbank_file} . "
                         "Use gene ID."
                     )
                     protein_id = feature.qualifiers.get("gene")[0]
@@ -55,52 +55,51 @@ def classify_proteins(
                 # truncate the protein sequence if it exceeds <clip_length> residues
                 if "NRPS_PKS" in feature.qualifiers:
                     pattern = r"Domain: \S+ \((\d+)-(\d+)\).*nrpspksdomains_(\S+)"
-                    for idx in range(len(feature.qualifiers["NRPS_PKS"])):
-                        match = re.search(pattern, feature.qualifiers["NRPS_PKS"][idx])
-                        if match:
-                            start_res = int(match.group(1))
-                            end_res = int(match.group(2))
-                            domainname = match.group(3)
-                            nrpspksproteins.append(
-                                SeqRecord(
-                                    Seq(aa_sequence[start_res:end_res]),
-                                    id=protein_id,
-                                    description=domainname,
+                    if len(aa_sequence) < max_length:
+                        nrpspksproteins.append(
+                            SeqRecord(
+                                Seq(aa_sequence),
+                                id=protein_id,
+                                description=product,
+                            )
+                        )
+                    elif decompose_nrpspks:
+                        for idx in range(len(feature.qualifiers["NRPS_PKS"])):
+                            match = re.search(
+                                pattern, feature.qualifiers["NRPS_PKS"][idx]
+                            )
+                            if match:
+                                start_res = int(match.group(1))
+                                end_res = int(match.group(2))
+                                domainname = match.group(3)
+                                nrpspksproteins.append(
+                                    SeqRecord(
+                                        Seq(aa_sequence[start_res:end_res]),
+                                        id=f"{protein_id}@{idx}",
+                                        description=domainname,
+                                    )
                                 )
-                            )
-                        else:
-                            raise ValueError(
-                                "Domain residue regions not found for Record ID: "
-                                f"{record.id}"
-                            )
+                            else:
+                                raise ValueError(
+                                    "Domain residue regions not found for Record ID: "
+                                    f"{record.id}"
+                                )
                 else:
                     nonnrpspksproteins.append(
                         SeqRecord(Seq(aa_sequence), id=protein_id, description=product)
                     )
     if nonnrpspksproteins == []:
         logger.warning(
-            "No non-NRPS/PKS protein sequences found \nin "
+            "No non-NRPS/PKS protein sequences found in "
             f"the GenBank file {genbank_file} ."
         )
     if nrpspksproteins == []:
         logger.warning(
-            f"No NRPS/PKS domains found \nin the GenBank file {genbank_file} ."
+            f"No NRPS/PKS domains found in the GenBank file {genbank_file} ."
         )
     logger.info(f"Number of non-NRPS/PKS proteins: {len(nonnrpspksproteins)}")
     logger.info(f"Number of NRPS/PKS proteins: {len(nrpspksproteins)}")
     return nonnrpspksproteins, nrpspksproteins
-
-
-# json_directory = "/Users/YoshitakaM/Downloads/mibig_json_minimal"
-json_directory = "/Users/YoshitakaM/Downloads/mibig_json_3.1"
-
-
-# すべてのjsonファイルをmibig_dataのdictに変換
-def parse_mibig_json(mibig_json: str) -> dict:
-    """Parse a MIBiG JSON file and return a dictionary with the parsed data."""
-    with open(mibig_json, "r") as f:
-        mibig_data = json.load(f)
-    return mibig_data
 
 
 # %%

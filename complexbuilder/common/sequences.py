@@ -1,22 +1,31 @@
-from itertools import combinations_with_replacement
+from itertools import combinations_with_replacement, product
 
 import requests
 from Bio.Seq import Seq
 from Bio.SeqRecord import SeqRecord
 
 
-def generate_seqs_combinations(seqs: list[SeqRecord]) -> list[tuple]:
+def generate_seqs_combinations(
+    seqs: tuple[list[SeqRecord], ...],
+) -> list[tuple]:
     """
     Generate all possible combinations of two elements from the list,
     allowing for duplicates but not considering (A, B) and (B, A) as different.
 
     Args:
-        - seqs: SeqRecord, the list of elements to combine
+        - seqs: SeqRecord, the list of elements to combine. If seqs has only one element,
+                it is considered as a list of SeqRecord objects.
 
     Returns:
         - combinations: list of tuples, each tuple contains a pair of elements
     """
-    return list(combinations_with_replacement(seqs, 2))
+    if len(seqs) == 1:
+        return list(combinations_with_replacement(seqs[0], 2))
+    elif len(seqs) == 2:
+        nonnrpspksproteins, nrpspksproteins = seqs
+        return list(product(nonnrpspksproteins, nrpspksproteins))
+    else:
+        raise ValueError("Only two lists of SeqRecord objects are allowed.")
 
 
 def concatenate_two_sequences(seq1: SeqRecord, seq2: SeqRecord) -> SeqRecord:
@@ -46,49 +55,54 @@ def concatenate_two_sequences(seq1: SeqRecord, seq2: SeqRecord) -> SeqRecord:
 
 
 def generate_multimer_input_for_colabfold(
-    seqs: list[SeqRecord], extention: str = "csv", use_productname: bool = False
-) -> str:
+    *proteins: list[SeqRecord],
+    extention: str = "csv",
+    use_productname: bool = False,
+) -> list[str]:
     """
     Generate a string for input of ColabFold from a list of SeqRecord objects.
 
+
     Args:
-        - seqs: list[SeqRecord], the list of SeqRecord objects
+        - proteins: list[SeqRecord], the list of SeqRecord objects
         - extention: str, "csv" or "fasta" are only allowed. Default is "csv"
         - use_productname: bool, if True, use product name defined as the description.
     """
     if extention not in ["csv", "fasta"]:
         raise ValueError("Only 'csv' and 'fasta' are allowed for the extention.")
 
-    output: str = ""
-
-    for seq1, seq2 in generate_seqs_combinations(seqs):
+    concat_seqs = []
+    if len(proteins) != 1 and len(proteins) != 2:
+        raise ValueError("Only one or two lists of SeqRecord objects are allowed.")
+    for seq1, seq2 in generate_seqs_combinations(proteins):
         concat_seqrecord = concatenate_two_sequences(seq1, seq2)
         if use_productname:
             id = concat_seqrecord.description
         else:
             id = concat_seqrecord.id
         if extention == "csv":
-            output += f"{id},{concat_seqrecord.seq}\n"
+            concat_seqs.append(f"{id},{concat_seqrecord.seq}\n")
         elif extention == "fasta":
-            output += f">{id}\n{concat_seqrecord.seq}\n"
-    return output
+            concat_seqs.append(f">{id}\n{concat_seqrecord.seq}\n")
+    return concat_seqs
 
 
-def get_protein_sequence_from_uniprot(uniprot_id: str) -> str:
-    """Retrieve the amino acid sequence from UniProt using a given UniProt ID."""
-    url = f"https://www.uniprot.org/uniprot/{uniprot_id}.fasta"
-
-    response = requests.get(url)
-
-    if response.status_code != 200:
-        raise ValueError(
-            f"Failed to retrieve data for {uniprot_id}."
-            "HTTP Status: {response.status_code}"
-        )
-
-    fasta_data = response.text
-    sequence = "".join(
-        line.strip() for line in fasta_data.splitlines() if not line.startswith(">")
-    )
-
-    return sequence
+def concatenate_chunks(chunks: list[str], max_bytes: int = 500000) -> list[str]:
+    """
+    Concatenate the chunks of sequences but not exceeding the maximum bytes.
+    Args:
+        - chunks: list[str], the list of sequence chunks
+        - max_bytes: int, the maximum bytes of the concatenated sequence
+    Returns:
+        - concatenated_chunks: list[str], the list of concatenated sequence chunks
+    """
+    concatenated_chunks = []
+    current_chunk = ""
+    for chunk in chunks:
+        if len(current_chunk) + len(chunk) <= max_bytes:
+            current_chunk += chunk
+        else:
+            concatenated_chunks.append(current_chunk)
+            current_chunk = chunk
+    concatenated_chunks.append(current_chunk)
+    return concatenated_chunks

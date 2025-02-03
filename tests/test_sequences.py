@@ -34,6 +34,19 @@ def test_generate_seqs_combinations():
     assert concatenated_seqs[0].id == "seq1_seq1"
 
 
+def test_BGC0000028():
+    """test for BGC0000028.gbk."""
+    i = 28
+    file = f"/Users/YoshitakaM/Downloads/mibig_gbk_3.1/BGC{i:07d}.gbk"
+    basename = os.path.basename(file)
+    nonnrpspksproteins, nrpspksproteins = classify_proteins(file)
+    output = generate_multimer_input_for_colabfold(
+        nonnrpspksproteins, extention="fasta", use_productname=False
+    )
+    with open(f"{os.path.splitext(basename)[0]}.fasta", "w") as f:
+        f.write(output)
+
+
 def test_BGC0000037():
     """test for BGC0000037.gbk. There is only 1 gene that has
     a NRPS/PKS domain. The output fasta should be 0 bytes."""
