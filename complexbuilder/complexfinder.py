@@ -1,65 +1,140 @@
 #!/usr/bin/env python3
 # %%
-import argparse
 import json
-import os
 from pathlib import Path
 
 import matplotlib.pyplot as plt
 import numpy as np
 import scipy.ndimage as ndimage
 from loguru import logger
+from mpl_toolkits.axes_grid1 import make_axes_locatable
 from skimage.filters import threshold_otsu
 from skimage.measure import label
-from skimage.morphology import remove_small_objects, skeletonize
+from skimage.morphology import remove_small_objects
 
 
-def parse_jsonfile(file: str | Path) -> dict:
-    """
-    Parse a chain_iptm tuple from "summary_confidences.json" file in the
-    specified directory.
+def get_chain_ids_and_lengths(token_chain_ids: list[str]) -> dict:
+    """Get the chain IDs and lengths from the token chain IDs.
     Args:
-        file (str): Path to "summary_confidences.json" file.
+        token_chain_ids (list[str]): List of token chain IDs
     Returns:
+        count_dict (dict): Dictionary containing the chain IDs and lengths
     """
-    with open(os.path.join(file)) as f:
-        data = json.load(f)
-    return data
+    unique_chain_ids = list(dict.fromkeys(token_chain_ids))
+    count_dict = {
+        chain_id: token_chain_ids.count(chain_id) for chain_id in unique_chain_ids
+    }
+    return count_dict
 
 
-def show_valley_mask(subdirectory: str) -> np.ndarray:
+def create_valley_mask(
+    confidencefile: str | Path, threshold: float = -1.0
+) -> np.ndarray:
     """
-    Visualize the valley mask.
+    Create a valley mask from the PAE matrix in a confidence file.
     Args:
-        subdirectory (str): Subdirectory name.
+        confidencefile (str | Path): Path to the confidence file.
     Returns:
         labeled_valleys (np.ndarray): Labeled valley mask.
     """
-    print(subdirectory)
-    confidencefile = pae_directory / subdirectory / f"{subdirectory}_confidences.json"
+
     with open(confidencefile) as f:
         confidencedata = json.load(f)
     pae = np.array(confidencedata["pae"])
-    pae_rev = 32.75 - pae
 
     data_smooth = ndimage.gaussian_filter(pae, sigma=1)
-    threshold = threshold_otsu(data_smooth)
+    threshold = threshold_otsu(data_smooth) if threshold < 0 else threshold
+    logger.debug(f"Threshold: {threshold}")
     valley_mask = data_smooth < threshold
-    valley_mask = remove_small_objects(valley_mask, min_size=20)
+    valley_mask = remove_small_objects(valley_mask, min_size=100)
     labeled_valleys = label(valley_mask, return_num=False)
-    plt.figure(figsize=(6, 6))
-    plt.imshow(pae, cmap="Greens_r")
-    plt.colorbar(label="Value")
-    plt.contour(labeled_valleys, colors="blue", linewidths=1)
-    plt.title("Detected Valley Regions")
-    plt.show()
+    return np.asarray(labeled_valleys)
 
-    return labeled_valleys
+
+def list_subdirectories(path: str | Path) -> list[str]:
+    return [p.name for p in Path(path).iterdir() if p.is_dir()]
+
+
+def map_with_colorbar(
+    fig,
+    ax,
+    data,
+    labeled_valleys,
+    chain_ids_and_lengths,
+    model_name="",
+    cmap="Greens_r",
+    vmin=0,
+    vmax=31.75,
+    **kwargs,
+):
+    """Add a colorbar to the plot.
+
+    Args:
+        mappable (plt.cm.ScalarMappable): ScalarMappable object
+        ax: Axes object
+    """
+    ax.set_title(model_name)
+    ax.set_xlabel("Scored Residue")
+    ax.set_ylabel("Aligned Residue")
+    mappable: plt.cm.ScalarMappable = ax.imshow(
+        data["pae"],
+        label=model_name,
+        cmap=cmap,
+        vmin=vmin,
+        vmax=vmax,
+    )
+    # add black trace between the boundaries of the chains
+    pos = 0
+    positions = []
+    labels = []
+    for chain_id, chain_len in chain_ids_and_lengths.items():
+        pos += chain_len
+        ax.axvline(x=pos, color="black", linewidth=0.5)
+        ax.axhline(y=pos, color="black", linewidth=0.5)
+        labels.append(chain_id)
+        positions.append(pos)
+    ax.set_xlim(0, pos)
+    ax.set_ylim(pos, 0)
+    ax.set_aspect("equal")
+    ax.contour(labeled_valleys, colors="blue", linewidths=1)
+
+    divider = make_axes_locatable(ax)
+    cax = divider.append_axes("bottom", size="5%", pad=0.5)
+    cbar = fig.colorbar(mappable, cax=cax, ax=ax, **kwargs)
+    return cbar
 
 
 # %%
-pae_directory = Path("/Users/YoshitakaM/Desktop/BGC0000028/af3")
-a = show_valley_mask("adc79625.1_adc79625.1")
-# %%
-b = show_valley_mask("adc79628.1_adc79628.1")
+logger.remove()
+af3directory = Path("/Users/YoshitakaM/Desktop/BGC0001296/af3")
+subdirectories = list_subdirectories(af3directory)
+cmap = "Greens_r"
+for subdirectory in subdirectories:
+    confidencefile = af3directory / subdirectory / f"{subdirectory}_confidences.json"
+    with open(confidencefile) as f:
+        data = json.load(f)
+    chain_ids_and_lengths = get_chain_ids_and_lengths(data["token_chain_ids"])
+    labeled_valleys = create_valley_mask(confidencefile)
+    fig, ax = plt.subplots(figsize=(3.6, 4.2), dpi=100)
+    map_with_colorbar(
+        fig,
+        ax,
+        data,
+        labeled_valleys,
+        chain_ids_and_lengths,
+        model_name=subdirectory,
+        cmap=cmap,
+        orientation="horizontal",
+        pad=0.2,
+        label="Expected Position Error (Ångströms)",
+    )
+    plt.tight_layout()
+    plt.savefig(f"{af3directory}/{subdirectory}/{subdirectory}_valleys.png")
+    # print iptm value
+    summaryfile = (
+        af3directory / subdirectory / f"{subdirectory}_summary_confidences.json"
+    )
+    with open(summaryfile) as f:
+        summarydata = json.load(f)
+    print(f"dir: {subdirectory}, iptm: {summarydata['iptm']}")
 # %%
