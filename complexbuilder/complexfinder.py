@@ -45,10 +45,8 @@ def create_valley_mask(
     data_smooth = ndimage.gaussian_filter(pae, sigma=1)
     threshold = threshold_otsu(data_smooth) if threshold < 0 else threshold
     logger.debug(f"Threshold: {threshold}")
-    valley_mask = data_smooth < threshold
-    valley_mask = remove_small_objects(valley_mask, min_size=100)
-    labeled_valleys = label(valley_mask, return_num=False)
-    return np.asarray(labeled_valleys)
+    valley_mask = remove_small_objects(data_smooth < threshold, min_size=100)
+    return np.asarray(valley_mask, dtype=int)
 
 
 def list_subdirectories(path: str | Path) -> list[str]:
@@ -104,11 +102,47 @@ def map_with_colorbar(
     return cbar
 
 
+def create_interchain_mask(chain_ids_and_lengths: dict[str, int]) -> np.ndarray:
+    """
+    Create a mask for the interchain regions.
+    Args:
+        chain_ids_and_lengths (dict[str, int]): Dictionary containing the chain IDs
+        and lengths
+    Returns:
+        interchain_mask (np.ndarray[int, int]): Mask for the interchain regions.
+        Regions from the same chain are set to 0, otherwise 1.
+    """
+    total_length = sum(chain_ids_and_lengths.values())
+    interchain_mask = np.ones((total_length, total_length), dtype=int)
+    pos = 0
+    # set the interchain regions to 0
+    for _, chain_len in chain_ids_and_lengths.items():
+        interchain_mask[pos : pos + chain_len, pos : pos + chain_len] = 0
+        pos += chain_len
+    return interchain_mask
+
+
 # %%
+
 logger.remove()
 af3directory = Path("/Users/YoshitakaM/Desktop/BGC0001296/af3")
 subdirectories = list_subdirectories(af3directory)
 cmap = "Greens_r"
+subdirectory = "bat51058.1_bat51062.1"
+confidencefile = af3directory / subdirectory / f"{subdirectory}_confidences.json"
+with open(confidencefile) as f:
+    data = json.load(f)
+chain_ids_and_lengths = get_chain_ids_and_lengths(data["token_chain_ids"])
+lowpae_mask = create_valley_mask(confidencefile)
+interchain_mask = create_interchain_mask(chain_ids_and_lengths)
+interchain_valley_mask = lowpae_mask * interchain_mask
+aligned_residues = np.sum(interchain_valley_mask, axis=0)
+scored_residues = np.sum(interchain_valley_mask, axis=1)
+# %%
+
+# 2次元labeled_valleysをaxisごとに加算
+aligned_residues = np.sum(labeled_valleys, axis=0)
+# %%
 for subdirectory in subdirectories:
     confidencefile = af3directory / subdirectory / f"{subdirectory}_confidences.json"
     with open(confidencefile) as f:
@@ -134,7 +168,7 @@ for subdirectory in subdirectories:
     summaryfile = (
         af3directory / subdirectory / f"{subdirectory}_summary_confidences.json"
     )
-    with open(summaryfile) as f:
-        summarydata = json.load(f)
-    print(f"dir: {subdirectory}, iptm: {summarydata['iptm']}")
+    # with open(summaryfile) as f:
+    #     summarydata = json.load(f)
+    # print(f"dir: {subdirectory}, iptm: {summarydata['iptm']}")
 # %%
