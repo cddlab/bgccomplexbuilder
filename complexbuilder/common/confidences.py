@@ -1,3 +1,4 @@
+# %%
 import json
 import math
 import os
@@ -5,18 +6,18 @@ import sys
 
 import numpy as np
 
-pae_file_path = sys.argv[1]
-pdb_path = sys.argv[2]
-pae_cutoff = float(sys.argv[3])
-dist_cutoff = float(sys.argv[4])
-pae_string = str(int(pae_cutoff))
+pae_file_path = "tests/testfiles/testAB_confidences.json"
+pdb_path = "tests/testfiles/testAB_model.cif"
+pae_cutoff = 10.0
+dist_cutoff = 10.0
+pae_string = "10"
 if pae_cutoff < 10:
     pae_string = "0" + pae_string
 dist_string = str(int(dist_cutoff))
 if dist_cutoff < 10:
     dist_string = "0" + dist_string
 
-
+# %%
 if os.path.splitext(pdb_path)[1] == ".pdb":
     pdb_stem = os.path.splitext(pdb_path)[0]
     path_stem = f"{pdb_stem}_{pae_string}_{dist_string}"
@@ -51,9 +52,6 @@ else:
 file_path = path_stem + ".txt"
 file2_path = path_stem + "_byres.txt"
 pml_path = path_stem + ".pml"
-OUT = open(file_path, "w")
-PML = open(pml_path, "w")
-OUT2 = open(file2_path, "w")
 
 
 def ptm_func(x, d0):
@@ -253,8 +251,6 @@ atomsitefield_dict = (
     {}
 )  # contains order of atom_site fields in mmCIF files; handles any mmCIF field order
 
-# For af3 and boltz1: need mask to identify CA atom tokens in plddt vector and pae matrix;
-# Skip ligand atom tokens and non-CA-atom tokens in PTMs (those not in residue_set)
 token_mask = list()
 residue_set = {
     "ALA",
@@ -339,12 +335,15 @@ numres = len(residues)
 CA_atom_num = np.array(
     [res["atom_num"] - 1 for res in residues]
 )  # for AF3 atom indexing from 0
+# [   1    9   16  23   30   37   44   51   58   65   72   79   86   93]
 CB_atom_num = np.array(
     [res["atom_num"] - 1 for res in cb_residues]
 )  # for AF3 atom indexing from 0
+# [4  12  19  26  33  40  47  54  61  68  75  82  89  96]
 coordinates = np.array([res["coor"] for res in cb_residues])
+
 chains = np.array(chains)
-unique_chains = np.unique(chains)
+unique_chains = np.unique(chains)  # ["A", "B"]
 token_array = np.array(token_mask)
 ntokens = np.sum(token_array)
 
@@ -352,3 +351,135 @@ ntokens = np.sum(token_array)
 distances = np.sqrt(
     ((coordinates[:, np.newaxis, :] - coordinates[np.newaxis, :, :]) ** 2).sum(axis=2)
 )
+# %%
+
+if af3:
+    if os.path.exists(pae_file_path):
+        with open(pae_file_path, "r") as file:
+            data = json.load(file)
+    else:
+        print("AF3 PAE file does not exist: ", pae_file_path)
+        sys.exit()
+
+    atom_plddts = np.array(data["atom_plddts"])
+    plddt = atom_plddts[CA_atom_num]  # pull out residue plddts from Calpha atoms
+    cb_plddt = atom_plddts[
+        CB_atom_num
+    ]  # pull out residue plddts from Cbeta atoms for pDockQ
+
+    # Get pairwise residue PAE matrix by identifying one token per protein residue.
+    # Modified residues have separate tokens for each atom, so need to pull out Calpha atom as token
+    # Skip ligands
+    if "pae" in data:
+        pae_matrix_af3 = np.array(data["pae"])
+    else:
+        print("no PAE data in AF3 json file; quitting")
+        sys.exit()
+
+    # Set pae_matrix for AF3 from subset of full PAE matrix from json file
+    token_array = np.array(token_mask)
+    pae_matrix = pae_matrix_af3[
+        np.ix_(token_array.astype(bool), token_array.astype(bool))
+    ]
+
+    # Get iptm matrix from AF3 summary_confidences file
+    iptm_af3 = {
+        chain1: {chain2: 0 for chain2 in unique_chains if chain1 != chain2}
+        for chain1 in unique_chains
+    }
+
+    summary_file_path = None
+    if "confidences" in pae_file_path:
+        summary_file_path = pae_file_path.replace("confidences", "summary_confidences")
+    elif "full_data" in pae_file_path:
+        summary_file_path = pae_file_path.replace("full_data", "summary_confidences")
+
+    if summary_file_path is not None and os.path.exists(summary_file_path):
+        with open(summary_file_path, "r") as file:
+            data_summary = json.load(file)
+        af3_chain_pair_iptm_data = data_summary["chain_pair_iptm"]
+        for chain1 in unique_chains:
+            nchain1 = ord(chain1) - ord("A")  # map A,B,C... to 0,1,2...
+            for chain2 in unique_chains:
+                if chain1 == chain2:
+                    continue
+                nchain2 = ord(chain2) - ord("A")
+                iptm_af3[chain1][chain2] = af3_chain_pair_iptm_data[nchain1][nchain2]
+    else:
+        print("AF3 summary file does not exist: ", summary_file_path)
+
+
+# %%
+def init_chainpairdict_zeros(chainlist: list[str]) -> dict:
+    """
+    Initializes a nested dictionary with all values set to 0
+    Args:
+        chainlist: A list of chain IDs
+    Returns:
+        A nested dictionary with all values set to 0
+    Example:
+    chainlist = ["A", "B", "C"]
+    chainpairdict = init_chainpairdict_zeros(chainlist)
+    {
+        "A": {"B": 0, "C": 0},
+        "B": {"A": 0, "C": 0},
+        "C": {"A": 0, "B": 0},
+    }
+    """
+    return {
+        chain1: {chain2: 0 for chain2 in chainlist if chain1 != chain2}
+        for chain1 in chainlist
+    }
+
+
+def init_chainpairdict_npzeros(chainlist: list, arraysize: tuple | int) -> dict:
+    """
+    Initializes a nested dictionary with NumPy arrays of zeros for each chain pair.
+
+    Each key in the returned dictionary is a chain identifier from the chainlist.
+    For each key (chain1), a sub-dictionary is created with keys for every other chain (chain2,
+    where chain1 != chain2), each containing a NumPy array of zeros with the given shape.
+
+    Args:
+        chainlist (list): A list of chain identifiers.
+        arraysize (tuple or int): The shape or size to be passed to np.zeros.
+
+    Returns:
+        dict: A nested dictionary where for each chain1, each chain2 (chain1 != chain2)
+              has an associated NumPy array of zeros.
+    """
+    return {
+        chain1: {
+            chain2: np.zeros(arraysize) for chain2 in chainlist if chain1 != chain2
+        }
+        for chain1 in chainlist
+    }
+
+
+def init_chainpairdict_set(chainlist: list) -> dict:
+    """
+    Initializes a nested dictionary with empty sets for each chain pair.
+
+    Each key in the returned dictionary is a chain identifier from the chainlist.
+    For each key (chain1), a sub-dictionary is created with keys for every other chain (chain2,
+    where chain1 != chain2), each containing an empty set.
+
+    Args:
+        chainlist (list): A list of chain identifiers.
+
+    Returns:
+        dict: A nested dictionary where for each chain1, each chain2 (chain1 != chain2)
+              has an associated empty set.
+    Examples:
+    >>> chainlist = ["A", "B", "C"]
+    >>> init_chainpairdict_set(chainlist)
+    {
+        "A": {"B": set(), "C": set()},
+        "B": {"A": set(), "C": set()},
+        "C": {"A": set(), "B": set()},
+    }
+    """
+    return {
+        chain1: {chain2: set() for chain2 in chainlist if chain1 != chain2}
+        for chain1 in chainlist
+    }
