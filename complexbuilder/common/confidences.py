@@ -240,7 +240,8 @@ def contiguous_ranges(numbers: set[int]) -> str:
     return string
 
 
-# Load residues from AlphaFold PDB or mmCIF file into lists; each residue is a dictionary
+# Load residues from AlphaFold PDB or mmCIF file into lists;
+# each residue is a dictionary
 # Read PDB file to get CA coordinates, chainids, and residue numbers
 # Convert to np arrays, and calculate distances
 residues = []
@@ -368,8 +369,8 @@ if af3:
     ]  # pull out residue plddts from Cbeta atoms for pDockQ
 
     # Get pairwise residue PAE matrix by identifying one token per protein residue.
-    # Modified residues have separate tokens for each atom, so need to pull out Calpha atom as token
-    # Skip ligands
+    # Modified residues have separate tokens for each atom,
+    # so need to pull out Calpha atom as token Skip ligands
     if "pae" in data:
         pae_matrix_af3 = np.array(data["pae"])
     else:
@@ -437,8 +438,9 @@ def init_chainpairdict_npzeros(chainlist: list, arraysize: tuple | int) -> dict:
     Initializes a nested dictionary with NumPy arrays of zeros for each chain pair.
 
     Each key in the returned dictionary is a chain identifier from the chainlist.
-    For each key (chain1), a sub-dictionary is created with keys for every other chain (chain2,
-    where chain1 != chain2), each containing a NumPy array of zeros with the given shape.
+    For each key (chain1), a sub-dictionary is created with keys for every other chain
+    (chain2, where chain1 != chain2), each containing a NumPy array of zeros with
+    the given shape.
 
     Args:
         chainlist (list): A list of chain identifiers.
@@ -461,8 +463,8 @@ def init_chainpairdict_set(chainlist: list) -> dict:
     Initializes a nested dictionary with empty sets for each chain pair.
 
     Each key in the returned dictionary is a chain identifier from the chainlist.
-    For each key (chain1), a sub-dictionary is created with keys for every other chain (chain2,
-    where chain1 != chain2), each containing an empty set.
+    For each key (chain1), a sub-dictionary is created with keys for
+    every other chain (chain2, where chain1 != chain2), each containing an empty set.
 
     Args:
         chainlist (list): A list of chain identifiers.
@@ -483,3 +485,407 @@ def init_chainpairdict_set(chainlist: list) -> dict:
         chain1: {chain2: set() for chain2 in chainlist if chain1 != chain2}
         for chain1 in chainlist
     }
+
+
+def compute_pdockq_all(
+    unique_chains, numres, chains, distances, cb_plddt, pae_matrix, cutoff=8.0
+):
+    """
+    各チェーン対ごとにpDockQおよびpDockQ2の値を計算する
+    共通処理としてpdockq_unique_residuesを算出し、
+    pdockqはcb_plddtとnpairsの情報を用い、
+    pdockq2はcb_plddtとPAEに基づくptm値を用いる。
+    Returns:
+        pdockq: dict
+        pdockq2: dict
+    """
+    # 共通で使用するpdockq_unique_residuesの算出
+    pdockq_unique_residues = {
+        c1: {c2: set() for c2 in unique_chains if c1 != c2} for c1 in unique_chains
+    }
+    for chain1 in unique_chains:
+        for chain2 in unique_chains:
+            if chain1 == chain2:
+                continue
+            for i in range(numres):
+                if chains[i] != chain1:
+                    continue
+                valid_pairs = (chains == chain2) & (distances[i] <= cutoff)
+                if valid_pairs.any():
+                    pdockq_unique_residues[chain1][chain2].add(i)
+                    for residue in np.where(valid_pairs)[0]:
+                        pdockq_unique_residues[chain1][chain2].add(residue)
+
+    # pDockQ, pDockQ2の計算
+    pdockq = {c1: {c2: 0.0 for c2 in unique_chains if c1 != c2} for c1 in unique_chains}
+    pdockq2 = {
+        c1: {c2: 0.0 for c2 in unique_chains if c1 != c2} for c1 in unique_chains
+    }
+    lis = {c1: {c2: 0.0 for c2 in unique_chains if c1 != c2} for c1 in unique_chains}
+    for chain1 in unique_chains:
+        for chain2 in unique_chains:
+            if chain1 == chain2:
+                continue
+            npairs_pdockq = 0
+            npairs_pdockq2 = 0
+            total_ptm = 0.0
+            for i in range(numres):
+                if chains[i] != chain1:
+                    continue
+                valid_pairs = (chains == chain2) & (distances[i] <= cutoff)
+                npairs_pdockq += np.sum(valid_pairs)
+                if valid_pairs.any():
+                    npairs_pdockq2 += np.sum(valid_pairs)
+                    pae_list = pae_matrix[i][valid_pairs]
+                    # ptm_func_vecはグローバルで定義済みのベクトル版関数
+                    pae_list_ptm = ptm_func_vec(pae_list, 10.0)
+                    total_ptm += pae_list_ptm.sum()
+            if npairs_pdockq > 0:
+                mean_plddt = cb_plddt[
+                    list(pdockq_unique_residues[chain1][chain2])
+                ].mean()
+                x = mean_plddt * math.log10(npairs_pdockq)
+                pdockq[chain1][chain2] = (
+                    0.724 / (1 + math.exp(-0.052 * (x - 152.611))) + 0.018
+                )
+            else:
+                pdockq[chain1][chain2] = 0.0
+
+            if npairs_pdockq2 > 0:
+                mean_plddt = cb_plddt[
+                    list(pdockq_unique_residues[chain1][chain2])
+                ].mean()
+                mean_ptm = total_ptm / npairs_pdockq2
+                x = mean_plddt * mean_ptm
+                pdockq2[chain1][chain2] = (
+                    1.31 / (1 + math.exp(-0.075 * (x - 84.733))) + 0.005
+                )
+            else:
+                pdockq2[chain1][chain2] = 0.0
+            # LIS
+            mask = (chains[:, None] == chain1) & (chains[None, :] == chain2)
+            selected_pae = pae_matrix[mask]
+            if selected_pae.size > 0:
+                valid_pae = selected_pae[selected_pae <= 12]
+                if valid_pae.size > 0:
+                    scores = (12 - valid_pae) / 12
+                    lis[chain1][chain2] = np.mean(scores)
+                else:
+                    lis[chain1][chain2] = 0.0
+            else:
+                lis[chain1][chain2] = 0.0
+
+    return pdockq, pdockq2, lis
+
+
+def compute_byres_iptm_ipsae(
+    unique_chains, numres, chains, pae_matrix, pae_cutoff, dist_cutoff, residues
+):
+    """
+    各チェーン対ごとに by-residue の ipTM/ipSAE を計算し、
+    同時に、ユニークな残基や valid pair 数も記録する。
+    """
+    # 辞書の初期化（既存の初期化関数を使用）
+    iptm_d0chn_byres = init_chainpairdict_npzeros(unique_chains, numres)
+    ipsae_d0chn_byres = init_chainpairdict_npzeros(unique_chains, numres)
+    ipsae_d0dom_byres = init_chainpairdict_npzeros(unique_chains, numres)
+    ipsae_d0res_byres = init_chainpairdict_npzeros(unique_chains, numres)
+    n0chn = init_chainpairdict_zeros(unique_chains)
+    n0res_byres = init_chainpairdict_npzeros(unique_chains, numres)
+    d0res_byres = init_chainpairdict_npzeros(unique_chains, numres)
+    valid_pair_counts = init_chainpairdict_zeros(unique_chains)
+    unique_residues_chain1 = init_chainpairdict_set(unique_chains)
+    unique_residues_chain2 = init_chainpairdict_set(unique_chains)
+    dist_valid_pair_counts = init_chainpairdict_zeros(unique_chains)
+    dist_unique_residues_chain1 = init_chainpairdict_set(unique_chains)
+    dist_unique_residues_chain2 = init_chainpairdict_set(unique_chains)
+
+    for chain1 in unique_chains:
+        for chain2 in unique_chains:
+            if chain1 == chain2:
+                continue
+            # 全体残基数 n0chn, d0chn の算出
+            n0chn[chain1][chain2] = np.sum(chains == chain1) + np.sum(chains == chain2)
+            d0 = calc_d0(n0chn[chain1][chain2])
+            ptm_matrix_d0chn = ptm_func_vec(pae_matrix, d0)
+
+            valid_pairs_iptm = chains == chain2
+            valid_pairs_matrix = (chains == chain2) & (pae_matrix < pae_cutoff)
+            # Assuming valid_pairs_matrix is already defined
+            n0res_byres_all = np.sum(valid_pairs_matrix, axis=1)
+            d0res_byres_all = calc_d0_array(n0res_byres_all)
+
+            n0res_byres[chain1][chain2] = n0res_byres_all
+            d0res_byres[chain1][chain2] = d0res_byres_all
+            for i in range(numres):
+                if chains[i] != chain1:
+                    continue
+                valid_pairs_ipsae = valid_pairs_matrix[i]
+                iptm_d0chn_byres[chain1][chain2][i] = (
+                    ptm_matrix_d0chn[i, valid_pairs_iptm].mean()
+                    if valid_pairs_iptm.any()
+                    else 0.0
+                )
+                ipsae_d0chn_byres[chain1][chain2][i] = (
+                    ptm_matrix_d0chn[i, valid_pairs_ipsae].mean()
+                    if valid_pairs_ipsae.any()
+                    else 0.0
+                )
+                # Track unique residues contributing to the IPSAE for chain1,chain2
+                valid_pair_counts[chain1][chain2] += np.sum(valid_pairs_ipsae)
+                if valid_pairs_ipsae.any():
+                    iresnum = residues[i]["resnum"]
+                    unique_residues_chain1[chain1][chain2].add(iresnum)
+                    for j in np.where(valid_pairs_ipsae)[0]:
+                        unique_residues_chain2[chain1][chain2].add(
+                            residues[j]["resnum"]
+                        )
+
+                # Track unique residues contributing to iptm in interface
+                valid_pairs = (
+                    (chains == chain2)
+                    & (pae_matrix[i] < pae_cutoff)
+                    & (distances[i] < dist_cutoff)
+                )
+                dist_valid_pair_counts[chain1][chain2] += np.sum(valid_pairs)
+
+                # Track unique residues contributing to the IPTM
+                if valid_pairs.any():
+                    iresnum = residues[i]["resnum"]
+                    dist_unique_residues_chain1[chain1][chain2].add(iresnum)
+                    for j in np.where(valid_pairs)[0]:
+                        dist_unique_residues_chain2[chain1][chain2].add(
+                            residues[j]["resnum"]
+                        )
+
+    results = {
+        "iptm_d0chn_byres": iptm_d0chn_byres,
+        "ipsae_d0chn_byres": ipsae_d0chn_byres,
+        "ipsae_d0dom_byres": ipsae_d0dom_byres,
+        "ipsae_d0res_byres": ipsae_d0res_byres,
+        "n0chn": n0chn,
+        "n0res_byres": n0res_byres,
+        "d0res_byres": d0res_byres,
+        "valid_pair_counts": valid_pair_counts,
+        "unique_residues_chain1": unique_residues_chain1,
+        "unique_residues_chain2": unique_residues_chain2,
+        "dist_valid_pair_counts": dist_valid_pair_counts,
+        "dist_unique_residues_chain1": dist_unique_residues_chain1,
+        "dist_unique_residues_chain2": dist_unique_residues_chain2,
+    }
+    return results
+
+
+def compute_interchain_max(
+    unique_chains,
+    iptm_d0chn_byres,
+    ipsae_d0chn_byres,
+    ipsae_d0dom_byres,
+    ipsae_d0res_byres,
+    n0res_byres,
+    d0res_byres,
+):
+    """
+    各チェーン対について、by-residue の ipTM/ipSAE 値の中で
+    最大値（asymmetric, max）を求める。
+    """
+    # 各値の asymmetric および最大値用辞書の初期化（init_chainpairdict_zeros 使用）
+    iptm_d0chn_asym = init_chainpairdict_zeros(unique_chains)
+    ipsae_d0chn_asym = init_chainpairdict_zeros(unique_chains)
+    ipsae_d0dom_asym = init_chainpairdict_zeros(unique_chains)
+    ipsae_d0res_asym = init_chainpairdict_zeros(unique_chains)
+    n0res = init_chainpairdict_zeros(unique_chains)
+    d0res = init_chainpairdict_zeros(unique_chains)
+
+    for chain1 in unique_chains:
+        for chain2 in unique_chains:
+            if chain1 == chain2:
+                continue
+            # by-residue毎の値から最大値とその residue を算出
+            interchain = iptm_d0chn_byres[chain1][chain2]
+            max_index = np.argmax(interchain)
+            iptm_d0chn_asym[chain1][chain2] = interchain[max_index]
+
+            interchain = ipsae_d0chn_byres[chain1][chain2]
+            max_index = np.argmax(interchain)
+            ipsae_d0chn_asym[chain1][chain2] = interchain[max_index]
+
+            interchain = ipsae_d0dom_byres[chain1][chain2]
+            max_index = np.argmax(interchain)
+            ipsae_d0dom_asym[chain1][chain2] = interchain[max_index]
+
+            interchain = ipsae_d0res_byres[chain1][chain2]
+            max_index = np.argmax(interchain)
+            ipsae_d0res_asym[chain1][chain2] = interchain[max_index]
+
+            n0res[chain1][chain2] = n0res_byres[chain1][chain2][max_index]
+            d0res[chain1][chain2] = d0res_byres[chain1][chain2][max_index]
+
+    return {
+        "iptm_d0chn_asym": iptm_d0chn_asym,
+        "ipsae_d0chn_asym": ipsae_d0chn_asym,
+        "ipsae_d0dom_asym": ipsae_d0dom_asym,
+        "ipsae_d0res_asym": ipsae_d0res_asym,
+        "n0res": n0res,
+        "d0res": d0res,
+    }
+
+
+# %%
+pdockq, pdockq2, lis = compute_pdockq_all(
+    unique_chains, numres, chains, distances, cb_plddt, pae_matrix, cutoff=8.0
+)
+
+results_byres = compute_byres_iptm_ipsae(
+    unique_chains, numres, chains, pae_matrix, pae_cutoff, dist_cutoff, residues
+)
+
+interchain_results = compute_interchain_max(
+    unique_chains,
+    results_byres["iptm_d0chn_byres"],
+    results_byres["ipsae_d0chn_byres"],
+    results_byres["ipsae_d0dom_byres"],
+    results_byres["ipsae_d0res_byres"],
+    results_byres["n0res_byres"],
+    results_byres["d0res_byres"],
+)
+
+
+# %%
+def write_byres(
+    byres_filepath,
+    unique_chains,
+    numres,
+    chains,
+    pae_matrix,
+    pae_cutoff,
+    plddt,
+    residues,
+    results_byres,
+):
+    """
+    compute_byres_iptm_ipsae などで計算済みの辞書（results_byres）と、
+    グローバル変数（pae_matrix、pae_cutoff、plddt、chains、residuesなど）を用いて、
+    各残基ごとの ipTM/ipSAE 出力結果をファイルへ書き出す。
+
+    results_byres には以下のキーが含まれることを前提とする:
+      - "iptm_d0chn_byres"
+      - "ipsae_d0chn_byres"
+      - "ipsae_d0dom_byres"
+      - "ipsae_d0res_byres"
+      - "n0chn"
+      - "n0res_byres"
+      - "unique_residues_chain1"
+      - "unique_residues_chain2"
+    """
+    # results_byres から必要な辞書を取得
+    iptm_d0chn_byres = results_byres["iptm_d0chn_byres"]
+    ipsae_d0chn_byres = results_byres["ipsae_d0chn_byres"]
+    ipsae_d0dom_byres = results_byres["ipsae_d0dom_byres"]
+    ipsae_d0res_byres = results_byres["ipsae_d0res_byres"]
+    d0res_byres = results_byres["d0res_byres"]
+    n0chn = results_byres["n0chn"]
+    n0res_byres = results_byres["n0res_byres"]
+    # unique_residues は set 型のネスト辞書
+    unique_residues_chain1 = results_byres["unique_residues_chain1"]
+    unique_residues_chain2 = results_byres["unique_residues_chain2"]
+
+    # ヘッダー出力
+    with open(byres_filepath, "w") as OUT2:
+        OUT2.write(
+            "i   AlignChn ScoredChain  AlignResNum  AlignResType  AlignRespLDDT      "
+            "n0chn  n0dom  n0res    d0chn     d0dom     d0res   ipTM_pae  ipSAE_d0chn "
+            "ipSAE_d0dom    ipSAE \n"
+        )
+
+        # d0chn, n0dom, d0dom の計算
+        d0chn = {c1: {} for c1 in unique_chains}
+        n0dom = {c1: {} for c1 in unique_chains}
+        d0dom = {c1: {} for c1 in unique_chains}
+        for chain1 in unique_chains:
+            for chain2 in unique_chains:
+                if chain1 == chain2:
+                    continue
+                # n0chn: 各チェーンの残基数の和
+                n0chn_val = np.sum(chains == chain1) + np.sum(chains == chain2)
+                # d0chn: calc_d0 により算出（calc_d0 は既存の関数）
+                d0chn[chain1][chain2] = calc_d0(n0chn_val)
+                # n0dom: ユニークな残基数（各 chain の set の要素数）
+                residues_1 = len(unique_residues_chain1[chain1][chain2])
+                residues_2 = len(unique_residues_chain2[chain1][chain2])
+                n0dom[chain1][chain2] = residues_1 + residues_2
+                d0dom[chain1][chain2] = calc_d0(n0dom[chain1][chain2])
+
+        # 各 chain ペアごとの by-residue 出力計算
+        for chain1 in unique_chains:
+            for chain2 in unique_chains:
+                if chain1 == chain2:
+                    continue
+
+                # ptm_matrix_d0dom の計算: pae_matrix の各要素に
+                # d0dom[chain1][chain2] を引数として ptm_func_vec を適用
+                ptm_matrix_d0dom = ptm_func_vec(pae_matrix, d0dom[chain1][chain2])
+                # valid_pairs_matrix: chain2 に属し、かつ pae_matrix < pae_cutoff
+                # となるマスク
+                valid_pairs_matrix = (chains == chain2) & (pae_matrix < pae_cutoff)
+                # 各残基毎の valid pair 数および d0res の算出
+                n0res_byres_all = np.sum(valid_pairs_matrix, axis=1)
+                d0res_byres_all = calc_d0_array(n0res_byres_all)
+                # 辞書の更新（results_byres 内の n0res_byres, d0res_byres を更新）
+                n0res_byres[chain1][chain2] = n0res_byres_all
+                # d0res_byres は各残基ごとに d0res を格納する配列
+                d0res_byres[chain1][chain2] = d0res_byres_all
+
+                # 各 residue の出力計算
+                for i in range(numres):
+                    if chains[i] != chain1:
+                        continue
+
+                    valid_pairs = valid_pairs_matrix[i]
+                    ipsae_d0dom_byres[chain1][chain2][i] = (
+                        ptm_matrix_d0dom[i, valid_pairs].mean()
+                        if valid_pairs.any()
+                        else 0.0
+                    )
+
+                    ptm_row_d0res = ptm_func_vec(
+                        pae_matrix[i], d0res_byres[chain1][chain2][i]
+                    )
+                    ipsae_d0res_byres[chain1][chain2][i] = (
+                        ptm_row_d0res[valid_pairs].mean() if valid_pairs.any() else 0.0
+                    )
+
+                    outstring = f"{i+1:<4d}    " + (
+                        f"{chain1:4}      "
+                        f"{chain2:4}      "
+                        f'{residues[i]["resnum"]:4d}           '
+                        f'{residues[i]["res"]:3}        '
+                        f"{plddt[i]:8.2f}         "
+                        f"{int(n0chn[chain1][chain2]):5d}  "
+                        f"{int(n0dom[chain1][chain2]):5d}  "
+                        f"{int(n0res_byres[chain1][chain2][i]):5d}  "
+                        f"{d0chn[chain1][chain2]:8.3f}  "
+                        f"{d0dom[chain1][chain2]:8.3f}  "
+                        f"{d0res_byres[chain1][chain2][i]:8.3f}   "
+                        f"{iptm_d0chn_byres[chain1][chain2][i]:8.4f}    "
+                        f"{ipsae_d0chn_byres[chain1][chain2][i]:8.4f}    "
+                        f"{ipsae_d0dom_byres[chain1][chain2][i]:8.4f}    "
+                        f"{ipsae_d0res_byres[chain1][chain2][i]:8.4f}\n"
+                    )
+                    OUT2.write(outstring)
+
+
+# %%
+write_byres(
+    "/Users/YoshitakaM/Desktop/byres.txt",
+    unique_chains,
+    numres,
+    chains,
+    pae_matrix,
+    pae_cutoff,
+    plddt,
+    residues,
+    results_byres,
+)
+
+# %%
