@@ -138,10 +138,7 @@ interchain_mask = create_interchain_mask(chain_ids_and_lengths)
 interchain_valley_mask = lowpae_mask * interchain_mask
 aligned_residues = np.sum(interchain_valley_mask, axis=0)
 scored_residues = np.sum(interchain_valley_mask, axis=1)
-# %%
 
-# 2次元labeled_valleysをaxisごとに加算
-aligned_residues = np.sum(labeled_valleys, axis=0)
 # %%
 for subdirectory in subdirectories:
     confidencefile = af3directory / subdirectory / f"{subdirectory}_confidences.json"

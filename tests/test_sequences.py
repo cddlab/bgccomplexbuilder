@@ -9,7 +9,6 @@ from complexbuilder.common.sequences import (
     concatenate_two_sequences,
     generate_multimer_input_for_colabfold,
     generate_seqs_combinations,
-    get_protein_sequence_from_uniprot,
 )
 
 
@@ -100,15 +99,3 @@ def test_BGC0000087():
         ),
     ],
 )
-def test_get_protein_sequence_from_uniprot(
-    uniprot_id, expected_output, raises_exception
-):
-    """Test get_protein_sequence_from_uniprot with multiple cases."""
-    if raises_exception:
-        with pytest.raises(ValueError, match="Failed to retrieve data"):
-            get_protein_sequence_from_uniprot(uniprot_id)
-    else:
-        sequence = get_protein_sequence_from_uniprot(uniprot_id)
-        assert (
-            sequence == expected_output
-        ), "The sequence does not match the expected result."

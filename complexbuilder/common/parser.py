@@ -9,7 +9,7 @@ from loguru import logger
 
 
 def classify_proteins(
-    genbank_file: str | Path, max_length: int, decompose_nrpspks: bool = False
+    genbank_file: str | Path, max_length: int = 1500, decompose_nrpspks: bool = False
 ) -> tuple[list[SeqRecord], list[SeqRecord]]:
     """Collect protein sequences from GenBank file and return a list of
     SeqRecord objects.
