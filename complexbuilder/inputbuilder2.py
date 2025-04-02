@@ -6,7 +6,7 @@ import os
 from loguru import logger
 
 from complexbuilder.common.log import log_setup
-from complexbuilder.common.parser import classify_proteins
+from complexbuilder.common.parser import classify_proteins2
 from complexbuilder.common.sequences import (
     concatenate_chunks,
     generate_multimer_input_for_colabfold,
@@ -27,7 +27,7 @@ parser.add_argument(
     "--max_length",
     metavar="maximum length",
     type=int,
-    default=1500,
+    default=1950,
     help="Maximum length of protein sequences to extract.",
 )
 parser.add_argument(
@@ -53,13 +53,13 @@ parser.add_argument("--end", type=int, default=1, help="End index of the BGC ID.
 args = parser.parse_args(
     [
         "--max_length",
-        "1500",
+        "1950",
         "--maxbytes",
         "6000000",
         "--start",
-        "287",
+        "414",
         "--end",
-        "287",
+        "1000",
     ]
 )
 
@@ -70,46 +70,21 @@ for i in range(args.start, args.end + 1):
     if not os.path.exists(file):
         logger.warning(f"File {file} not found.")
         continue
-    nonnrpspksproteins, nrpspksproteins = classify_proteins(
-        file, args.max_length, decompose_nrpspks=False
-    )
-    if len(nonnrpspksproteins) > 0:
-        nonnrps_chunks = generate_multimer_input_for_colabfold(
-            nonnrpspksproteins,
+    proteins = classify_proteins2(file, args.max_length, decompose_nrpspks=False)
+    if len(proteins) > 0:
+        protein_chunks = generate_multimer_input_for_colabfold(
+            proteins,
             extention="fasta",
             use_productname=args.use_productname,
         )
-        split_chunks = concatenate_chunks(nonnrps_chunks, args.maxbytes)
+        split_chunks = concatenate_chunks(protein_chunks, args.maxbytes)
         if len(split_chunks) == 1:
-            with open(f"{os.path.splitext(basename)[0]}.fasta", "w") as f:
+            with open(f"new{os.path.splitext(basename)[0]}.fasta", "w") as f:
                 f.write(split_chunks[0])
         else:
             for i, chunk in enumerate(split_chunks):
                 num = i + 1
-                with open(f"{os.path.splitext(basename)[0]}_{i}.fasta", "w") as f:
+                with open(f"new{os.path.splitext(basename)[0]}_{i}.fasta", "w") as f:
                     f.write(chunk)
-    if len(nrpspksproteins) > 0:
-        nrps_chunks = generate_multimer_input_for_colabfold(
-            nrpspksproteins,
-            extention="fasta",
-            use_productname=args.use_productname,
-        )
-        nonnrps_nrps_chunks = generate_multimer_input_for_colabfold(
-            nonnrpspksproteins,
-            nrpspksproteins,
-            extention="fasta",
-            use_productname=args.use_productname,
-        )
-        merged_chunks = nrps_chunks + nonnrps_nrps_chunks
-        split_chunks = concatenate_chunks(merged_chunks, args.maxbytes)
-        if len(split_chunks) == 1:
-            with open(f"{os.path.splitext(basename)[0]}_nrpspks.fasta", "w") as f:
-                f.write(split_chunks[0])
-        else:
-            for i, chunk in enumerate(split_chunks):
-                num = i + 1
-                with open(
-                    f"{os.path.splitext(basename)[0]}_nrpspks_{i}.fasta", "w"
-                ) as f:
-                    f.write(chunk)
+
 # %%
