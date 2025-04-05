@@ -6,14 +6,14 @@ readme = "README.md"
 requires-python = ">=3.11"
 dependencies = [
     "biopython>=1.84",
- "matplotlib",
- "numpy>=2",
- "pandas",
- "requests",
- "scipy",
- "scikit-image",
- "loguru",
- "alphafold3-tools",
+    "matplotlib",
+    "numpy>=2",
+    "pandas",
+    "requests",
+    "scipy",
+    "scikit-image",
+    "loguru",
+    "alphafold3-tools",
 ]
 
 [tool.uv]
@@ -23,6 +23,12 @@ dev-dependencies = ["mypy", "notebook", "pytest", "pytest-cov", "ruff", "pyyaml"
 alphafold3-tools = { git = "https://github.com/cddlab/alphafold3_tools.git" }
 
 [tool.ruff]
+indent-width = 4
+line-length = 88 # Same as Black.
+exclude = [".ruff_cache", ".ruff.toml", ".ruff.lock"]
+target-version = "py311"
+
+[tool.ruff.lint]
 select = [
     "F", # Flake8
     "B", # Black
@@ -30,12 +36,8 @@ select = [
     "E", # error
     "W", # warning
 ]
-ignore = ["F401", "E203"]
-exclude = [".ruff_cache", ".ruff.toml", ".ruff.lock"]
-indent-width = 4
-line-length = 88 # Same as Black.
-target-version = "py311"
-fixable = ["ALL"] # Allow fix for all enabled rules (when `--fix`) is provided.
+ignore = ["F401", "E501"]
+fixable = ["ALL"]
 unfixable = []
 
 [tool.ruff.isort]
@@ -44,7 +46,7 @@ section-order = ["future", "standard-library", "third-party", "first-party", "lo
 split-on-trailing-comma = true
 
 [tool.ruff.format]
-quote-style = "double" # Like Black, use double quotes for strings.
+quote-style = "double"
 
 [tool.ruff.lint.isort]
 known-third-party = ["fastapi", "pydantic", "starlette"]

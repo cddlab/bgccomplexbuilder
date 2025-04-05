@@ -2,9 +2,12 @@
 # %%
 import json
 import os
-import sys
 
 from alphafold3tools import paeplot
+from alphafold3tools.log import log_setup
+from loguru import logger
+
+log_setup(level="INFO")
 
 
 def run_ipsae_on_af3(
@@ -14,16 +17,19 @@ def run_ipsae_on_af3(
     bgc_number: int,
     pae_cutoff: float = 10,
     dist_cutoff: float = 10,
-    ipsae_cutoff: float = 0.5,
     is_overwrite: bool = False,
 ) -> None:
     target_directory = f"{bgc_directory}/BGC{bgc_number:07d}"
     if not os.path.exists(f"{target_directory}/af3"):
         print(f"af3 directory not found in {target_directory}")
-    elif os.path.exists(f"{target_directory}/af3/ipsaeDONE.txt") and not is_overwrite:
-        print(f"ipSAE already ran on {target_directory}")
+    elif (
+        os.path.exists(f"{target_directory}/af3/complexmetrics.json")
+        and not is_overwrite
+    ):
+        print(f"'complexmetrics.json' already exists on {target_directory}")
     else:
-        hit_complexes = []
+        ipsaes = []
+        af3_iptms = []
         af3_subdirs = [
             d
             for d in os.listdir(f"{target_directory}/af3")
@@ -33,14 +39,15 @@ def run_ipsae_on_af3(
             paeplot.plot_all_paes(
                 f"{target_directory}/af3/{af3_subdir}",
                 "af3pae",
-                dpi=200,
+                dpi=100,
             )
             paeplot.plot_best_pae(
                 f"{target_directory}/af3/{af3_subdir}",
                 "af3pae_best",
-                dpi=200,
+                dpi=100,
             )
-            print(f"Running ipSAE on {af3_subdir}")
+            # print(f"Running ipSAE on {af3_subdir}")
+            logger.info(f"Running ipSAE on {af3_subdir}")
             os.system(
                 f"{python_binary} {ipsae_py_script} "
                 f"{target_directory}/af3/{af3_subdir}/{af3_subdir}_confidences.json "
@@ -107,30 +114,35 @@ def run_ipsae_on_af3(
                                 }
                             )
 
-                json.dump(results, f, indent=4)
-            if results[0]["ipSAE"] > ipsae_cutoff:
-                hit_complexes.append((af3_subdir, results[0]["ipSAE"]))
-        # put DONE marker
-        with open(f"{target_directory}/af3/ipsaeDONE.txt", "w") as f:
-            f.write(
-                f"Hit complexes (ipSAE > {ipsae_cutoff})\n"
-                + "\n".join([f"{c[0]}: {c[1]}" for c in hit_complexes])
-            )
+                json.dump(results, f, indent=2)
+
+            ipsaes.append({f"{af3_subdir}": results[0]["ipSAE"]})
+            af3_iptms.append({f"{af3_subdir}": results[0]["ipTM_af"]})
+
+        # Sort the results by ipSAE and ipTM
+        ipsaes.sort(key=lambda x: list(x.values())[0], reverse=True)
+        af3_iptms.sort(key=lambda x: list(x.values())[0], reverse=True)
+        out = {
+            "ipSAE": ipsaes,
+            "ipTM": af3_iptms,
+        }
+        with open(f"{target_directory}/af3/complexmetrics.json", "w") as f:
+            json.dump(out, f, indent=2)
 
 
 # %%
 
 
 ipsae_py_script = (
-    "/Volumes/MacintoshHD/workdir/complexbuilder/complexbuilder/common/ipsae.py"
+    "/Users/YoshitakaM/Desktop/work/complexbuilder/complexbuilder/common/ipsae.py"
 )
 bgc_directory = "/Users/YoshitakaM/Desktop/BGC_heteromer"
-python_binary = "/Volumes/MacintoshHD/workdir/complexbuilder/.venv/bin/python3.12"
+python_binary = "/Users/YoshitakaM/Desktop/work/complexbuilder/.venv/bin/python3.12"
 pae_cutoff = 10
 dist_cutoff = 10
 ipsae_cutoff = 0.5
-start = int(sys.argv[1])
-end = int(sys.argv[2])
+start = 1296
+end = 1296
 
 for bgc_number in range(start, end + 1):
     run_ipsae_on_af3(
@@ -140,6 +152,7 @@ for bgc_number in range(start, end + 1):
         bgc_number=bgc_number,
         pae_cutoff=pae_cutoff,
         dist_cutoff=dist_cutoff,
-        ipsae_cutoff=ipsae_cutoff,
         is_overwrite=True,
     )
+
+# %%
