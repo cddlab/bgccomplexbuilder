@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 # %%
+import argparse
 import json
 import os
 
@@ -20,29 +21,26 @@ def run_ipsae_on_af3(
     is_overwrite: bool = False,
 ) -> None:
     target_directory = f"{bgc_directory}/BGC{bgc_number:07d}"
-    if not os.path.exists(f"{target_directory}/af3"):
+    if not os.path.exists(f"{target_directory}"):
         print(f"af3 directory not found in {target_directory}")
-    elif (
-        os.path.exists(f"{target_directory}/af3/complexmetrics.json")
-        and not is_overwrite
-    ):
+    elif os.path.exists(f"{target_directory}/complexmetrics.json") and not is_overwrite:
         print(f"'complexmetrics.json' already exists on {target_directory}")
     else:
         ipsaes = []
         af3_iptms = []
         af3_subdirs = [
             d
-            for d in os.listdir(f"{target_directory}/af3")
-            if os.path.isdir(os.path.join(f"{target_directory}/af3", d))
+            for d in os.listdir(f"{target_directory}")
+            if os.path.isdir(os.path.join(f"{target_directory}", d))
         ]
         for af3_subdir in af3_subdirs:
             paeplot.plot_all_paes(
-                f"{target_directory}/af3/{af3_subdir}",
+                f"{target_directory}/{af3_subdir}",
                 "af3pae",
                 dpi=100,
             )
             paeplot.plot_best_pae(
-                f"{target_directory}/af3/{af3_subdir}",
+                f"{target_directory}/{af3_subdir}",
                 "af3pae_best",
                 dpi=100,
             )
@@ -50,18 +48,18 @@ def run_ipsae_on_af3(
             logger.info(f"Running ipSAE on {af3_subdir}")
             os.system(
                 f"{python_binary} {ipsae_py_script} "
-                f"{target_directory}/af3/{af3_subdir}/{af3_subdir}_confidences.json "
-                f"{target_directory}/af3/{af3_subdir}/{af3_subdir}_model.cif "
+                f"{target_directory}/{af3_subdir}/{af3_subdir}_confidences.json "
+                f"{target_directory}/{af3_subdir}/{af3_subdir}_model.cif "
                 f"{pae_cutoff} {dist_cutoff}"
             )
 
             results = []
 
             with open(
-                f"{target_directory}/af3/{af3_subdir}/{af3_subdir}_ipsae.json", "w"
+                f"{target_directory}/{af3_subdir}/{af3_subdir}_ipsae.json", "w"
             ) as f:
                 with open(
-                    f"{target_directory}/af3/{af3_subdir}/{af3_subdir}_model_{pae_cutoff}_{dist_cutoff}.txt"
+                    f"{target_directory}/{af3_subdir}/{af3_subdir}_model_{pae_cutoff}_{dist_cutoff}.txt"
                 ) as g:
                     lines = g.readlines()
 
@@ -126,33 +124,112 @@ def run_ipsae_on_af3(
             "ipSAE": ipsaes,
             "ipTM": af3_iptms,
         }
-        with open(f"{target_directory}/af3/complexmetrics.json", "w") as f:
+        with open(f"{target_directory}/complexmetrics.json", "w") as f:
             json.dump(out, f, indent=2)
 
 
 # %%
 
 
-ipsae_py_script = (
-    "/Users/YoshitakaM/Desktop/work/complexbuilder/complexbuilder/common/ipsae.py"
-)
-bgc_directory = "/Users/YoshitakaM/Desktop/BGC_heteromer"
-python_binary = "/Users/YoshitakaM/Desktop/work/complexbuilder/.venv/bin/python3.12"
-pae_cutoff = 10
-dist_cutoff = 10
-ipsae_cutoff = 0.5
-start = 1296
-end = 1296
+# ipsae_py_script = (
+#     "/Users/YoshitakaM/Desktop/work/complexbuilder/complexbuilder/common/ipsae.py"
+# )
+# bgc_directory = "/Users/YoshitakaM/Desktop/BGC_heteromer"
+# python_binary = "/Users/YoshitakaM/Desktop/work/complexbuilder/.venv/bin/python3.12"
+# pae_cutoff = 10
+# dist_cutoff = 10
+# ipsae_cutoff = 0.5
+# start = 1296
+# end = 1296
 
-for bgc_number in range(start, end + 1):
-    run_ipsae_on_af3(
-        bgc_directory=bgc_directory,
-        python_binary=python_binary,
-        ipsae_py_script=ipsae_py_script,
-        bgc_number=bgc_number,
-        pae_cutoff=pae_cutoff,
-        dist_cutoff=dist_cutoff,
-        is_overwrite=True,
-    )
+# for bgc_number in range(start, end + 1):
+#     run_ipsae_on_af3(
+#         bgc_directory=bgc_directory,
+#         python_binary=python_binary,
+#         ipsae_py_script=ipsae_py_script,
+#         bgc_number=bgc_number,
+#         pae_cutoff=pae_cutoff,
+#         dist_cutoff=dist_cutoff,
+#         is_overwrite=True,
+#     )
 
 # %%
+
+
+def main():
+    parser = argparse.ArgumentParser(
+        description="Generate bash script to transfer files."
+    )
+    parser.add_argument(
+        "--bgc_directory",
+        metavar="BGC directory",
+        default="/data2/moriwaki/BGCcomplex/merged",
+        type=str,
+        help="Path to root direcotory of BGCs.",
+    )
+    parser.add_argument(
+        "--python_binary",
+        metavar="Python binary",
+        default="/data2/moriwaki/complexbuilder/.venv/bin/python3.12",
+        type=str,
+        help="Path to the Python binary.",
+    )
+    parser.add_argument(
+        "--ipsae_py_script",
+        metavar="ipSAE script",
+        default="/data2/moriwaki/complexbuilder/complexbuilder/common/ipsae.py",
+        type=str,
+        help="Path to the ipSAE script.",
+    )
+    parser.add_argument(
+        "-p",
+        "--pae_cutoff",
+        metavar="PAE cutoff",
+        default=10,
+        type=float,
+        help="PAE cutoff value.",
+    )
+    parser.add_argument(
+        "-d",
+        "--dist_cutoff",
+        metavar="Distance cutoff",
+        default=10,
+        type=float,
+        help="Distance cutoff value.",
+    )
+    parser.add_argument(
+        "-s",
+        "--nstart",
+        metavar="start number",
+        type=int,
+        help="Start number of the BGC.",
+    )
+    parser.add_argument(
+        "-e",
+        "--nend",
+        metavar="end number",
+        type=int,
+        help="End number of the BGC.",
+    )
+    args = parser.parse_args()
+    bgc_directory = args.bgc_directory
+    python_binary = args.python_binary
+    ipsae_py_script = args.ipsae_py_script
+    pae_cutoff = args.pae_cutoff
+    dist_cutoff = args.dist_cutoff
+    start = args.nstart
+    end = args.nend
+    for bgc_number in range(start, end + 1):
+        run_ipsae_on_af3(
+            bgc_directory=bgc_directory,
+            python_binary=python_binary,
+            ipsae_py_script=ipsae_py_script,
+            bgc_number=bgc_number,
+            pae_cutoff=pae_cutoff,
+            dist_cutoff=dist_cutoff,
+            is_overwrite=False,
+        )
+
+
+if __name__ == "__main__":
+    main()

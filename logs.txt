@@ -1,0 +1,767 @@
+File /data2/moriwaki/BGCcomplex/newfastas/newBGC0000005.fasta does not exist. Skipping.
+File /data2/moriwaki/BGCcomplex/newfastas/newBGC0000015.fasta does not exist. Skipping.
+File /data2/moriwaki/BGCcomplex/newfastas/newBGC0000025.fasta does not exist. Skipping.
+File /data2/moriwaki/BGCcomplex/newfastas/newBGC0000037.fasta does not exist. Skipping.
+File /data2/moriwaki/BGCcomplex/newfastas/newBGC0000041.fasta does not exist. Skipping.
+File /data2/moriwaki/BGCcomplex/newfastas/newBGC0000049.fasta does not exist. Skipping.
+File /data2/moriwaki/BGCcomplex/newfastas/newBGC0000061.fasta does not exist. Skipping.
+File /data2/moriwaki/BGCcomplex/newfastas/newBGC0000064.fasta does not exist. Skipping.
+File /data2/moriwaki/BGCcomplex/newfastas/newBGC0000071.fasta does not exist. Skipping.
+File /data2/moriwaki/BGCcomplex/newfastas/newBGC0000089.fasta does not exist. Skipping.
+File /data2/moriwaki/BGCcomplex/newfastas/newBGC0000095.fasta does not exist. Skipping.
+File /data2/moriwaki/BGCcomplex/newfastas/newBGC0000099.fasta does not exist. Skipping.
+File /data2/moriwaki/BGCcomplex/newfastas/newBGC0000107.fasta does not exist. Skipping.
+File /data2/moriwaki/BGCcomplex/newfastas/newBGC0000108.fasta does not exist. Skipping.
+File /data2/moriwaki/BGCcomplex/newfastas/newBGC0000139.fasta does not exist. Skipping.
+File /data2/moriwaki/BGCcomplex/newfastas/newBGC0000155.fasta does not exist. Skipping.
+File /data2/moriwaki/BGCcomplex/newfastas/newBGC0000169.fasta does not exist. Skipping.
+File /data2/moriwaki/BGCcomplex/newfastas/newBGC0000174.fasta does not exist. Skipping.
+File /data2/moriwaki/BGCcomplex/newfastas/newBGC0000183.fasta does not exist. Skipping.
+File /data2/moriwaki/BGCcomplex/newfastas/newBGC0000206.fasta does not exist. Skipping.
+File /data2/moriwaki/BGCcomplex/newfastas/newBGC0000228.fasta does not exist. Skipping.
+File /data2/moriwaki/BGCcomplex/newfastas/newBGC0000230.fasta does not exist. Skipping.
+File /data2/moriwaki/BGCcomplex/newfastas/newBGC0000246.fasta does not exist. Skipping.
+File /data2/moriwaki/BGCcomplex/newfastas/newBGC0000250.fasta does not exist. Skipping.
+File /data2/moriwaki/BGCcomplex/newfastas/newBGC0000251.fasta does not exist. Skipping.
+File /data2/moriwaki/BGCcomplex/newfastas/newBGC0000276.fasta does not exist. Skipping.
+File /data2/moriwaki/BGCcomplex/newfastas/newBGC0000284.fasta does not exist. Skipping.
+File /data2/moriwaki/BGCcomplex/newfastas/newBGC0000299.fasta does not exist. Skipping.
+File /data2/moriwaki/BGCcomplex/newfastas/newBGC0000307.fasta does not exist. Skipping.
+File /data2/moriwaki/BGCcomplex/newfastas/newBGC0000314.fasta does not exist. Skipping.
+File /data2/moriwaki/BGCcomplex/newfastas/newBGC0000317.fasta does not exist. Skipping.
+File /data2/moriwaki/BGCcomplex/newfastas/newBGC0000318.fasta does not exist. Skipping.
+File /data2/moriwaki/BGCcomplex/newfastas/newBGC0000338.fasta does not exist. Skipping.
+File /data2/moriwaki/BGCcomplex/newfastas/newBGC0000342.fasta does not exist. Skipping.
+File /data2/moriwaki/BGCcomplex/newfastas/newBGC0000356.fasta does not exist. Skipping.
+File /data2/moriwaki/BGCcomplex/newfastas/newBGC0000357.fasta does not exist. Skipping.
+File /data2/moriwaki/BGCcomplex/newfastas/newBGC0000358.fasta does not exist. Skipping.
+File /data2/moriwaki/BGCcomplex/newfastas/newBGC0000361.fasta does not exist. Skipping.
+File /data2/moriwaki/BGCcomplex/newfastas/newBGC0000370.fasta does not exist. Skipping.
+File /data2/moriwaki/BGCcomplex/newfastas/newBGC0000389.fasta does not exist. Skipping.
+File /data2/moriwaki/BGCcomplex/newfastas/newBGC0000390.fasta does not exist. Skipping.
+File /data2/moriwaki/BGCcomplex/newfastas/newBGC0000406.fasta does not exist. Skipping.
+File /data2/moriwaki/BGCcomplex/newfastas/newBGC0000438.fasta does not exist. Skipping.
+File /data2/moriwaki/BGCcomplex/newfastas/newBGC0000456.fasta does not exist. Skipping.
+File /data2/moriwaki/BGCcomplex/newfastas/newBGC0000458.fasta does not exist. Skipping.
+File /data2/moriwaki/BGCcomplex/newfastas/newBGC0000462.fasta does not exist. Skipping.
+File /data2/moriwaki/BGCcomplex/newfastas/newBGC0000463.fasta does not exist. Skipping.
+File /data2/moriwaki/BGCcomplex/newfastas/newBGC0000481.fasta does not exist. Skipping.
+File /data2/moriwaki/BGCcomplex/newfastas/newBGC0000512.fasta does not exist. Skipping.
+File /data2/moriwaki/BGCcomplex/newfastas/newBGC0000524.fasta does not exist. Skipping.
+File /data2/moriwaki/BGCcomplex/newfastas/newBGC0000596.fasta does not exist. Skipping.
+File /data2/moriwaki/BGCcomplex/newfastas/newBGC0000629.fasta does not exist. Skipping.
+File /data2/moriwaki/BGCcomplex/newfastas/newBGC0000655.fasta does not exist. Skipping.
+File /data2/moriwaki/BGCcomplex/newfastas/newBGC0000661.fasta does not exist. Skipping.
+File /data2/moriwaki/BGCcomplex/newfastas/newBGC0000680.fasta does not exist. Skipping.
+File /data2/moriwaki/BGCcomplex/newfastas/newBGC0000681.fasta does not exist. Skipping.
+File /data2/moriwaki/BGCcomplex/newfastas/newBGC0000691.fasta does not exist. Skipping.
+File /data2/moriwaki/BGCcomplex/newfastas/newBGC0000695.fasta does not exist. Skipping.
+File /data2/moriwaki/BGCcomplex/newfastas/newBGC0000697.fasta does not exist. Skipping.
+File /data2/moriwaki/BGCcomplex/newfastas/newBGC0000710.fasta does not exist. Skipping.
+File /data2/moriwaki/BGCcomplex/newfastas/newBGC0000717.fasta does not exist. Skipping.
+File /data2/moriwaki/BGCcomplex/newfastas/newBGC0000718.fasta does not exist. Skipping.
+File /data2/moriwaki/BGCcomplex/newfastas/newBGC0000726.fasta does not exist. Skipping.
+File /data2/moriwaki/BGCcomplex/newfastas/newBGC0000750.fasta does not exist. Skipping.
+File /data2/moriwaki/BGCcomplex/newfastas/newBGC0000771.fasta does not exist. Skipping.
+File /data2/moriwaki/BGCcomplex/newfastas/newBGC0000805.fasta does not exist. Skipping.
+File /data2/moriwaki/BGCcomplex/newfastas/newBGC0000808.fasta does not exist. Skipping.
+File /data2/moriwaki/BGCcomplex/newfastas/newBGC0000822.fasta does not exist. Skipping.
+File /data2/moriwaki/BGCcomplex/newfastas/newBGC0000823.fasta does not exist. Skipping.
+File /data2/moriwaki/BGCcomplex/newfastas/newBGC0000824.fasta does not exist. Skipping.
+File /data2/moriwaki/BGCcomplex/newfastas/newBGC0000828.fasta does not exist. Skipping.
+File /data2/moriwaki/BGCcomplex/newfastas/newBGC0000835.fasta does not exist. Skipping.
+File /data2/moriwaki/BGCcomplex/newfastas/newBGC0000839.fasta does not exist. Skipping.
+File /data2/moriwaki/BGCcomplex/newfastas/newBGC0000887.fasta does not exist. Skipping.
+File /data2/moriwaki/BGCcomplex/newfastas/newBGC0000915.fasta does not exist. Skipping.
+File /data2/moriwaki/BGCcomplex/newfastas/newBGC0000928.fasta does not exist. Skipping.
+File /data2/moriwaki/BGCcomplex/newfastas/newBGC0000931.fasta does not exist. Skipping.
+File /data2/moriwaki/BGCcomplex/newfastas/newBGC0000952.fasta does not exist. Skipping.
+File /data2/moriwaki/BGCcomplex/newfastas/newBGC0000962.fasta does not exist. Skipping.
+File /data2/moriwaki/BGCcomplex/newfastas/newBGC0000987.fasta does not exist. Skipping.
+Directory aay42393.1_aay42395.1 not found in /data2/moriwaki/BGCcomplex/predicted/BGC0001000 or /data2/moriwaki/BGCcomplex/restfastas/BGC0001000_rest. Skipping.
+Directory aay42393.1_aay42396.1 not found in /data2/moriwaki/BGCcomplex/predicted/BGC0001000 or /data2/moriwaki/BGCcomplex/restfastas/BGC0001000_rest. Skipping.
+Directory aay42393.1_aay42399.1 not found in /data2/moriwaki/BGCcomplex/predicted/BGC0001000 or /data2/moriwaki/BGCcomplex/restfastas/BGC0001000_rest. Skipping.
+Directory aay42393.1_aay42400.1 not found in /data2/moriwaki/BGCcomplex/predicted/BGC0001000 or /data2/moriwaki/BGCcomplex/restfastas/BGC0001000_rest. Skipping.
+Directory aay42394.1_aay42395.1 not found in /data2/moriwaki/BGCcomplex/predicted/BGC0001000 or /data2/moriwaki/BGCcomplex/restfastas/BGC0001000_rest. Skipping.
+Directory aay42394.1_aay42396.1 not found in /data2/moriwaki/BGCcomplex/predicted/BGC0001000 or /data2/moriwaki/BGCcomplex/restfastas/BGC0001000_rest. Skipping.
+Directory aay42394.1_aay42399.1 not found in /data2/moriwaki/BGCcomplex/predicted/BGC0001000 or /data2/moriwaki/BGCcomplex/restfastas/BGC0001000_rest. Skipping.
+Directory aay42394.1_aay42400.1 not found in /data2/moriwaki/BGCcomplex/predicted/BGC0001000 or /data2/moriwaki/BGCcomplex/restfastas/BGC0001000_rest. Skipping.
+Directory aay42395.1_aay42396.1 not found in /data2/moriwaki/BGCcomplex/predicted/BGC0001000 or /data2/moriwaki/BGCcomplex/restfastas/BGC0001000_rest. Skipping.
+Directory aay42396.1_aay42396.1 not found in /data2/moriwaki/BGCcomplex/predicted/BGC0001000 or /data2/moriwaki/BGCcomplex/restfastas/BGC0001000_rest. Skipping.
+Directory aay42396.1_aay42399.1 not found in /data2/moriwaki/BGCcomplex/predicted/BGC0001000 or /data2/moriwaki/BGCcomplex/restfastas/BGC0001000_rest. Skipping.
+Directory aay42396.1_aay42400.1 not found in /data2/moriwaki/BGCcomplex/predicted/BGC0001000 or /data2/moriwaki/BGCcomplex/restfastas/BGC0001000_rest. Skipping.
+File /data2/moriwaki/BGCcomplex/newfastas/newBGC0001009.fasta does not exist. Skipping.
+File /data2/moriwaki/BGCcomplex/newfastas/newBGC0001023.fasta does not exist. Skipping.
+Directory epe34338.1_epe34344.1 not found in /data2/moriwaki/BGCcomplex/predicted/BGC0001035 or /data2/moriwaki/BGCcomplex/restfastas/BGC0001035_rest. Skipping.
+Directory epe34338.1_epe34345.1 not found in /data2/moriwaki/BGCcomplex/predicted/BGC0001035 or /data2/moriwaki/BGCcomplex/restfastas/BGC0001035_rest. Skipping.
+Directory epe34338.1_epe34347.1 not found in /data2/moriwaki/BGCcomplex/predicted/BGC0001035 or /data2/moriwaki/BGCcomplex/restfastas/BGC0001035_rest. Skipping.
+Directory epe34338.1_epe34348.1 not found in /data2/moriwaki/BGCcomplex/predicted/BGC0001035 or /data2/moriwaki/BGCcomplex/restfastas/BGC0001035_rest. Skipping.
+Directory epe34338.1_epe34350.1 not found in /data2/moriwaki/BGCcomplex/predicted/BGC0001035 or /data2/moriwaki/BGCcomplex/restfastas/BGC0001035_rest. Skipping.
+Directory epe34338.1_epe34351.1 not found in /data2/moriwaki/BGCcomplex/predicted/BGC0001035 or /data2/moriwaki/BGCcomplex/restfastas/BGC0001035_rest. Skipping.
+Directory epe34338.1_epe34352.1 not found in /data2/moriwaki/BGCcomplex/predicted/BGC0001035 or /data2/moriwaki/BGCcomplex/restfastas/BGC0001035_rest. Skipping.
+Directory epe34338.1_epe34353.1 not found in /data2/moriwaki/BGCcomplex/predicted/BGC0001035 or /data2/moriwaki/BGCcomplex/restfastas/BGC0001035_rest. Skipping.
+Directory epe34338.1_epe34354.1 not found in /data2/moriwaki/BGCcomplex/predicted/BGC0001035 or /data2/moriwaki/BGCcomplex/restfastas/BGC0001035_rest. Skipping.
+Directory epe34338.1_epe34355.1 not found in /data2/moriwaki/BGCcomplex/predicted/BGC0001035 or /data2/moriwaki/BGCcomplex/restfastas/BGC0001035_rest. Skipping.
+Directory epe34338.1_epe34356.1 not found in /data2/moriwaki/BGCcomplex/predicted/BGC0001035 or /data2/moriwaki/BGCcomplex/restfastas/BGC0001035_rest. Skipping.
+Directory epe34346.1_epe34347.1 not found in /data2/moriwaki/BGCcomplex/predicted/BGC0001035 or /data2/moriwaki/BGCcomplex/restfastas/BGC0001035_rest. Skipping.
+Directory epe34346.1_epe34348.1 not found in /data2/moriwaki/BGCcomplex/predicted/BGC0001035 or /data2/moriwaki/BGCcomplex/restfastas/BGC0001035_rest. Skipping.
+Directory epe34346.1_epe34350.1 not found in /data2/moriwaki/BGCcomplex/predicted/BGC0001035 or /data2/moriwaki/BGCcomplex/restfastas/BGC0001035_rest. Skipping.
+Directory epe34346.1_epe34351.1 not found in /data2/moriwaki/BGCcomplex/predicted/BGC0001035 or /data2/moriwaki/BGCcomplex/restfastas/BGC0001035_rest. Skipping.
+Directory epe34346.1_epe34352.1 not found in /data2/moriwaki/BGCcomplex/predicted/BGC0001035 or /data2/moriwaki/BGCcomplex/restfastas/BGC0001035_rest. Skipping.
+Directory epe34346.1_epe34353.1 not found in /data2/moriwaki/BGCcomplex/predicted/BGC0001035 or /data2/moriwaki/BGCcomplex/restfastas/BGC0001035_rest. Skipping.
+Directory epe34346.1_epe34354.1 not found in /data2/moriwaki/BGCcomplex/predicted/BGC0001035 or /data2/moriwaki/BGCcomplex/restfastas/BGC0001035_rest. Skipping.
+Directory epe34346.1_epe34355.1 not found in /data2/moriwaki/BGCcomplex/predicted/BGC0001035 or /data2/moriwaki/BGCcomplex/restfastas/BGC0001035_rest. Skipping.
+Directory epe34346.1_epe34356.1 not found in /data2/moriwaki/BGCcomplex/predicted/BGC0001035 or /data2/moriwaki/BGCcomplex/restfastas/BGC0001035_rest. Skipping.
+Directory epe34349.1_epe34350.1 not found in /data2/moriwaki/BGCcomplex/predicted/BGC0001035 or /data2/moriwaki/BGCcomplex/restfastas/BGC0001035_rest. Skipping.
+Directory epe34349.1_epe34351.1 not found in /data2/moriwaki/BGCcomplex/predicted/BGC0001035 or /data2/moriwaki/BGCcomplex/restfastas/BGC0001035_rest. Skipping.
+Directory epe34349.1_epe34352.1 not found in /data2/moriwaki/BGCcomplex/predicted/BGC0001035 or /data2/moriwaki/BGCcomplex/restfastas/BGC0001035_rest. Skipping.
+Directory epe34349.1_epe34353.1 not found in /data2/moriwaki/BGCcomplex/predicted/BGC0001035 or /data2/moriwaki/BGCcomplex/restfastas/BGC0001035_rest. Skipping.
+Directory epe34349.1_epe34354.1 not found in /data2/moriwaki/BGCcomplex/predicted/BGC0001035 or /data2/moriwaki/BGCcomplex/restfastas/BGC0001035_rest. Skipping.
+Directory epe34349.1_epe34355.1 not found in /data2/moriwaki/BGCcomplex/predicted/BGC0001035 or /data2/moriwaki/BGCcomplex/restfastas/BGC0001035_rest. Skipping.
+Directory epe34349.1_epe34356.1 not found in /data2/moriwaki/BGCcomplex/predicted/BGC0001035 or /data2/moriwaki/BGCcomplex/restfastas/BGC0001035_rest. Skipping.
+File /data2/moriwaki/BGCcomplex/newfastas/newBGC0001068.fasta does not exist. Skipping.
+File /data2/moriwaki/BGCcomplex/newfastas/newBGC0001081.fasta does not exist. Skipping.
+File /data2/moriwaki/BGCcomplex/newfastas/newBGC0001085.fasta does not exist. Skipping.
+File /data2/moriwaki/BGCcomplex/newfastas/newBGC0001086.fasta does not exist. Skipping.
+File /data2/moriwaki/BGCcomplex/newfastas/newBGC0001087.fasta does not exist. Skipping.
+File /data2/moriwaki/BGCcomplex/newfastas/newBGC0001092.fasta does not exist. Skipping.
+File /data2/moriwaki/BGCcomplex/newfastas/newBGC0001096.fasta does not exist. Skipping.
+File /data2/moriwaki/BGCcomplex/newfastas/newBGC0001097.fasta does not exist. Skipping.
+File /data2/moriwaki/BGCcomplex/newfastas/newBGC0001104.fasta does not exist. Skipping.
+File /data2/moriwaki/BGCcomplex/newfastas/newBGC0001107.fasta does not exist. Skipping.
+File /data2/moriwaki/BGCcomplex/newfastas/newBGC0001120.fasta does not exist. Skipping.
+File /data2/moriwaki/BGCcomplex/newfastas/newBGC0001121.fasta does not exist. Skipping.
+File /data2/moriwaki/BGCcomplex/newfastas/newBGC0001128.fasta does not exist. Skipping.
+File /data2/moriwaki/BGCcomplex/newfastas/newBGC0001129.fasta does not exist. Skipping.
+File /data2/moriwaki/BGCcomplex/newfastas/newBGC0001132.fasta does not exist. Skipping.
+File /data2/moriwaki/BGCcomplex/newfastas/newBGC0001133.fasta does not exist. Skipping.
+File /data2/moriwaki/BGCcomplex/newfastas/newBGC0001135.fasta does not exist. Skipping.
+File /data2/moriwaki/BGCcomplex/newfastas/newBGC0001139.fasta does not exist. Skipping.
+File /data2/moriwaki/BGCcomplex/newfastas/newBGC0001158.fasta does not exist. Skipping.
+File /data2/moriwaki/BGCcomplex/newfastas/newBGC0001160.fasta does not exist. Skipping.
+File /data2/moriwaki/BGCcomplex/newfastas/newBGC0001164.fasta does not exist. Skipping.
+File /data2/moriwaki/BGCcomplex/newfastas/newBGC0001166.fasta does not exist. Skipping.
+File /data2/moriwaki/BGCcomplex/newfastas/newBGC0001175.fasta does not exist. Skipping.
+File /data2/moriwaki/BGCcomplex/newfastas/newBGC0001180.fasta does not exist. Skipping.
+File /data2/moriwaki/BGCcomplex/newfastas/newBGC0001182.fasta does not exist. Skipping.
+File /data2/moriwaki/BGCcomplex/newfastas/newBGC0001191.fasta does not exist. Skipping.
+File /data2/moriwaki/BGCcomplex/newfastas/newBGC0001196.fasta does not exist. Skipping.
+File /data2/moriwaki/BGCcomplex/newfastas/newBGC0001208.fasta does not exist. Skipping.
+File /data2/moriwaki/BGCcomplex/newfastas/newBGC0001232.fasta does not exist. Skipping.
+File /data2/moriwaki/BGCcomplex/newfastas/newBGC0001234.fasta does not exist. Skipping.
+File /data2/moriwaki/BGCcomplex/newfastas/newBGC0001236.fasta does not exist. Skipping.
+File /data2/moriwaki/BGCcomplex/newfastas/newBGC0001240.fasta does not exist. Skipping.
+File /data2/moriwaki/BGCcomplex/newfastas/newBGC0001243.fasta does not exist. Skipping.
+File /data2/moriwaki/BGCcomplex/newfastas/newBGC0001247.fasta does not exist. Skipping.
+File /data2/moriwaki/BGCcomplex/newfastas/newBGC0001250.fasta does not exist. Skipping.
+File /data2/moriwaki/BGCcomplex/newfastas/newBGC0001251.fasta does not exist. Skipping.
+File /data2/moriwaki/BGCcomplex/newfastas/newBGC0001252.fasta does not exist. Skipping.
+File /data2/moriwaki/BGCcomplex/newfastas/newBGC0001253.fasta does not exist. Skipping.
+File /data2/moriwaki/BGCcomplex/newfastas/newBGC0001254.fasta does not exist. Skipping.
+File /data2/moriwaki/BGCcomplex/newfastas/newBGC0001256.fasta does not exist. Skipping.
+File /data2/moriwaki/BGCcomplex/newfastas/newBGC0001257.fasta does not exist. Skipping.
+File /data2/moriwaki/BGCcomplex/newfastas/newBGC0001258.fasta does not exist. Skipping.
+File /data2/moriwaki/BGCcomplex/newfastas/newBGC0001259.fasta does not exist. Skipping.
+File /data2/moriwaki/BGCcomplex/newfastas/newBGC0001261.fasta does not exist. Skipping.
+File /data2/moriwaki/BGCcomplex/newfastas/newBGC0001263.fasta does not exist. Skipping.
+File /data2/moriwaki/BGCcomplex/newfastas/newBGC0001265.fasta does not exist. Skipping.
+File /data2/moriwaki/BGCcomplex/newfastas/newBGC0001268.fasta does not exist. Skipping.
+File /data2/moriwaki/BGCcomplex/newfastas/newBGC0001269.fasta does not exist. Skipping.
+File /data2/moriwaki/BGCcomplex/newfastas/newBGC0001270.fasta does not exist. Skipping.
+File /data2/moriwaki/BGCcomplex/newfastas/newBGC0001271.fasta does not exist. Skipping.
+File /data2/moriwaki/BGCcomplex/newfastas/newBGC0001272.fasta does not exist. Skipping.
+File /data2/moriwaki/BGCcomplex/newfastas/newBGC0001274.fasta does not exist. Skipping.
+File /data2/moriwaki/BGCcomplex/newfastas/newBGC0001279.fasta does not exist. Skipping.
+File /data2/moriwaki/BGCcomplex/newfastas/newBGC0001280.fasta does not exist. Skipping.
+File /data2/moriwaki/BGCcomplex/newfastas/newBGC0001282.fasta does not exist. Skipping.
+File /data2/moriwaki/BGCcomplex/newfastas/newBGC0001308.fasta does not exist. Skipping.
+File /data2/moriwaki/BGCcomplex/newfastas/newBGC0001309.fasta does not exist. Skipping.
+File /data2/moriwaki/BGCcomplex/newfastas/newBGC0001319.fasta does not exist. Skipping.
+File /data2/moriwaki/BGCcomplex/newfastas/newBGC0001320.fasta does not exist. Skipping.
+File /data2/moriwaki/BGCcomplex/newfastas/newBGC0001323.fasta does not exist. Skipping.
+File /data2/moriwaki/BGCcomplex/newfastas/newBGC0001326.fasta does not exist. Skipping.
+File /data2/moriwaki/BGCcomplex/newfastas/newBGC0001347.fasta does not exist. Skipping.
+File /data2/moriwaki/BGCcomplex/newfastas/newBGC0001350.fasta does not exist. Skipping.
+File /data2/moriwaki/BGCcomplex/newfastas/newBGC0001352.fasta does not exist. Skipping.
+File /data2/moriwaki/BGCcomplex/newfastas/newBGC0001353.fasta does not exist. Skipping.
+File /data2/moriwaki/BGCcomplex/newfastas/newBGC0001354.fasta does not exist. Skipping.
+File /data2/moriwaki/BGCcomplex/newfastas/newBGC0001355.fasta does not exist. Skipping.
+File /data2/moriwaki/BGCcomplex/newfastas/newBGC0001359.fasta does not exist. Skipping.
+File /data2/moriwaki/BGCcomplex/newfastas/newBGC0001362.fasta does not exist. Skipping.
+File /data2/moriwaki/BGCcomplex/newfastas/newBGC0001378.fasta does not exist. Skipping.
+File /data2/moriwaki/BGCcomplex/newfastas/newBGC0001382.fasta does not exist. Skipping.
+File /data2/moriwaki/BGCcomplex/newfastas/newBGC0001385.fasta does not exist. Skipping.
+File /data2/moriwaki/BGCcomplex/newfastas/newBGC0001401.fasta does not exist. Skipping.
+File /data2/moriwaki/BGCcomplex/newfastas/newBGC0001402.fasta does not exist. Skipping.
+File /data2/moriwaki/BGCcomplex/newfastas/newBGC0001436.fasta does not exist. Skipping.
+File /data2/moriwaki/BGCcomplex/newfastas/newBGC0001450.fasta does not exist. Skipping.
+File /data2/moriwaki/BGCcomplex/newfastas/newBGC0001466.fasta does not exist. Skipping.
+File /data2/moriwaki/BGCcomplex/newfastas/newBGC0001476.fasta does not exist. Skipping.
+File /data2/moriwaki/BGCcomplex/newfastas/newBGC0001479.fasta does not exist. Skipping.
+File /data2/moriwaki/BGCcomplex/newfastas/newBGC0001482.fasta does not exist. Skipping.
+File /data2/moriwaki/BGCcomplex/newfastas/newBGC0001487.fasta does not exist. Skipping.
+File /data2/moriwaki/BGCcomplex/newfastas/newBGC0001494.fasta does not exist. Skipping.
+File /data2/moriwaki/BGCcomplex/newfastas/newBGC0001497.fasta does not exist. Skipping.
+File /data2/moriwaki/BGCcomplex/newfastas/newBGC0001527.fasta does not exist. Skipping.
+File /data2/moriwaki/BGCcomplex/newfastas/newBGC0001530.fasta does not exist. Skipping.
+Directory alv82340.1_alv82346.1 not found in /data2/moriwaki/BGCcomplex/predicted/BGC0001533 or /data2/moriwaki/BGCcomplex/restfastas/BGC0001533_rest. Skipping.
+Directory alv82340.1_alv82341.1 not found in /data2/moriwaki/BGCcomplex/predicted/BGC0001533 or /data2/moriwaki/BGCcomplex/restfastas/BGC0001533_rest. Skipping.
+Directory alv82340.1_alv82335.1 not found in /data2/moriwaki/BGCcomplex/predicted/BGC0001533 or /data2/moriwaki/BGCcomplex/restfastas/BGC0001533_rest. Skipping.
+Directory alv82324.1_alv82346.1 not found in /data2/moriwaki/BGCcomplex/predicted/BGC0001533 or /data2/moriwaki/BGCcomplex/restfastas/BGC0001533_rest. Skipping.
+Directory alv82324.1_alv82341.1 not found in /data2/moriwaki/BGCcomplex/predicted/BGC0001533 or /data2/moriwaki/BGCcomplex/restfastas/BGC0001533_rest. Skipping.
+Directory alv82324.1_alv82335.1 not found in /data2/moriwaki/BGCcomplex/predicted/BGC0001533 or /data2/moriwaki/BGCcomplex/restfastas/BGC0001533_rest. Skipping.
+Directory alv82339.1_alv82346.1 not found in /data2/moriwaki/BGCcomplex/predicted/BGC0001533 or /data2/moriwaki/BGCcomplex/restfastas/BGC0001533_rest. Skipping.
+Directory alv82339.1_alv82341.1 not found in /data2/moriwaki/BGCcomplex/predicted/BGC0001533 or /data2/moriwaki/BGCcomplex/restfastas/BGC0001533_rest. Skipping.
+Directory alv82339.1_alv82335.1 not found in /data2/moriwaki/BGCcomplex/predicted/BGC0001533 or /data2/moriwaki/BGCcomplex/restfastas/BGC0001533_rest. Skipping.
+Directory alv82316.1_alv82346.1 not found in /data2/moriwaki/BGCcomplex/predicted/BGC0001533 or /data2/moriwaki/BGCcomplex/restfastas/BGC0001533_rest. Skipping.
+Directory alv82316.1_alv82341.1 not found in /data2/moriwaki/BGCcomplex/predicted/BGC0001533 or /data2/moriwaki/BGCcomplex/restfastas/BGC0001533_rest. Skipping.
+Directory alv82316.1_alv82335.1 not found in /data2/moriwaki/BGCcomplex/predicted/BGC0001533 or /data2/moriwaki/BGCcomplex/restfastas/BGC0001533_rest. Skipping.
+Directory alv82327.1_alv82346.1 not found in /data2/moriwaki/BGCcomplex/predicted/BGC0001533 or /data2/moriwaki/BGCcomplex/restfastas/BGC0001533_rest. Skipping.
+Directory alv82327.1_alv82341.1 not found in /data2/moriwaki/BGCcomplex/predicted/BGC0001533 or /data2/moriwaki/BGCcomplex/restfastas/BGC0001533_rest. Skipping.
+Directory alv82327.1_alv82335.1 not found in /data2/moriwaki/BGCcomplex/predicted/BGC0001533 or /data2/moriwaki/BGCcomplex/restfastas/BGC0001533_rest. Skipping.
+Directory alv82332.1_alv82346.1 not found in /data2/moriwaki/BGCcomplex/predicted/BGC0001533 or /data2/moriwaki/BGCcomplex/restfastas/BGC0001533_rest. Skipping.
+Directory alv82332.1_alv82341.1 not found in /data2/moriwaki/BGCcomplex/predicted/BGC0001533 or /data2/moriwaki/BGCcomplex/restfastas/BGC0001533_rest. Skipping.
+Directory alv82332.1_alv82335.1 not found in /data2/moriwaki/BGCcomplex/predicted/BGC0001533 or /data2/moriwaki/BGCcomplex/restfastas/BGC0001533_rest. Skipping.
+Directory alv82329.1_alv82346.1 not found in /data2/moriwaki/BGCcomplex/predicted/BGC0001533 or /data2/moriwaki/BGCcomplex/restfastas/BGC0001533_rest. Skipping.
+Directory alv82329.1_alv82341.1 not found in /data2/moriwaki/BGCcomplex/predicted/BGC0001533 or /data2/moriwaki/BGCcomplex/restfastas/BGC0001533_rest. Skipping.
+Directory alv82329.1_alv82335.1 not found in /data2/moriwaki/BGCcomplex/predicted/BGC0001533 or /data2/moriwaki/BGCcomplex/restfastas/BGC0001533_rest. Skipping.
+Directory alv82314.1_alv82326.1 not found in /data2/moriwaki/BGCcomplex/predicted/BGC0001533 or /data2/moriwaki/BGCcomplex/restfastas/BGC0001533_rest. Skipping.
+Directory alv82314.1_alv82328.1 not found in /data2/moriwaki/BGCcomplex/predicted/BGC0001533 or /data2/moriwaki/BGCcomplex/restfastas/BGC0001533_rest. Skipping.
+Directory alv82314.1_alv82333.1 not found in /data2/moriwaki/BGCcomplex/predicted/BGC0001533 or /data2/moriwaki/BGCcomplex/restfastas/BGC0001533_rest. Skipping.
+Directory alv82314.1_alv82334.1 not found in /data2/moriwaki/BGCcomplex/predicted/BGC0001533 or /data2/moriwaki/BGCcomplex/restfastas/BGC0001533_rest. Skipping.
+Directory alv82314.1_alv82343.1 not found in /data2/moriwaki/BGCcomplex/predicted/BGC0001533 or /data2/moriwaki/BGCcomplex/restfastas/BGC0001533_rest. Skipping.
+Directory alv82314.1_alv82346.1 not found in /data2/moriwaki/BGCcomplex/predicted/BGC0001533 or /data2/moriwaki/BGCcomplex/restfastas/BGC0001533_rest. Skipping.
+Directory alv82314.1_alv82341.1 not found in /data2/moriwaki/BGCcomplex/predicted/BGC0001533 or /data2/moriwaki/BGCcomplex/restfastas/BGC0001533_rest. Skipping.
+Directory alv82314.1_alv82335.1 not found in /data2/moriwaki/BGCcomplex/predicted/BGC0001533 or /data2/moriwaki/BGCcomplex/restfastas/BGC0001533_rest. Skipping.
+Directory alv82314.1_alv82330.1 not found in /data2/moriwaki/BGCcomplex/predicted/BGC0001533 or /data2/moriwaki/BGCcomplex/restfastas/BGC0001533_rest. Skipping.
+Directory alv82314.1_alv82337.1 not found in /data2/moriwaki/BGCcomplex/predicted/BGC0001533 or /data2/moriwaki/BGCcomplex/restfastas/BGC0001533_rest. Skipping.
+Directory alv82314.1_alv82315.1 not found in /data2/moriwaki/BGCcomplex/predicted/BGC0001533 or /data2/moriwaki/BGCcomplex/restfastas/BGC0001533_rest. Skipping.
+Directory alv82314.1_alv82347.1 not found in /data2/moriwaki/BGCcomplex/predicted/BGC0001533 or /data2/moriwaki/BGCcomplex/restfastas/BGC0001533_rest. Skipping.
+Directory alv82314.1_alv82331.1 not found in /data2/moriwaki/BGCcomplex/predicted/BGC0001533 or /data2/moriwaki/BGCcomplex/restfastas/BGC0001533_rest. Skipping.
+Directory alv82314.1_alv82344.1 not found in /data2/moriwaki/BGCcomplex/predicted/BGC0001533 or /data2/moriwaki/BGCcomplex/restfastas/BGC0001533_rest. Skipping.
+Directory alv82314.1_alv82338.1 not found in /data2/moriwaki/BGCcomplex/predicted/BGC0001533 or /data2/moriwaki/BGCcomplex/restfastas/BGC0001533_rest. Skipping.
+Directory alv82314.1_alv82342.1 not found in /data2/moriwaki/BGCcomplex/predicted/BGC0001533 or /data2/moriwaki/BGCcomplex/restfastas/BGC0001533_rest. Skipping.
+Directory alv82314.1_alv82317.1 not found in /data2/moriwaki/BGCcomplex/predicted/BGC0001533 or /data2/moriwaki/BGCcomplex/restfastas/BGC0001533_rest. Skipping.
+Directory alv82314.1_alv82325.1 not found in /data2/moriwaki/BGCcomplex/predicted/BGC0001533 or /data2/moriwaki/BGCcomplex/restfastas/BGC0001533_rest. Skipping.
+Directory alv82314.1_alv82336.1 not found in /data2/moriwaki/BGCcomplex/predicted/BGC0001533 or /data2/moriwaki/BGCcomplex/restfastas/BGC0001533_rest. Skipping.
+Directory alv82314.1_alv82321.1 not found in /data2/moriwaki/BGCcomplex/predicted/BGC0001533 or /data2/moriwaki/BGCcomplex/restfastas/BGC0001533_rest. Skipping.
+Directory alv82322.1_alv82326.1 not found in /data2/moriwaki/BGCcomplex/predicted/BGC0001533 or /data2/moriwaki/BGCcomplex/restfastas/BGC0001533_rest. Skipping.
+Directory alv82322.1_alv82328.1 not found in /data2/moriwaki/BGCcomplex/predicted/BGC0001533 or /data2/moriwaki/BGCcomplex/restfastas/BGC0001533_rest. Skipping.
+Directory alv82322.1_alv82333.1 not found in /data2/moriwaki/BGCcomplex/predicted/BGC0001533 or /data2/moriwaki/BGCcomplex/restfastas/BGC0001533_rest. Skipping.
+Directory alv82322.1_alv82334.1 not found in /data2/moriwaki/BGCcomplex/predicted/BGC0001533 or /data2/moriwaki/BGCcomplex/restfastas/BGC0001533_rest. Skipping.
+Directory alv82322.1_alv82343.1 not found in /data2/moriwaki/BGCcomplex/predicted/BGC0001533 or /data2/moriwaki/BGCcomplex/restfastas/BGC0001533_rest. Skipping.
+Directory alv82322.1_alv82346.1 not found in /data2/moriwaki/BGCcomplex/predicted/BGC0001533 or /data2/moriwaki/BGCcomplex/restfastas/BGC0001533_rest. Skipping.
+Directory alv82322.1_alv82341.1 not found in /data2/moriwaki/BGCcomplex/predicted/BGC0001533 or /data2/moriwaki/BGCcomplex/restfastas/BGC0001533_rest. Skipping.
+Directory alv82322.1_alv82335.1 not found in /data2/moriwaki/BGCcomplex/predicted/BGC0001533 or /data2/moriwaki/BGCcomplex/restfastas/BGC0001533_rest. Skipping.
+Directory alv82322.1_alv82330.1 not found in /data2/moriwaki/BGCcomplex/predicted/BGC0001533 or /data2/moriwaki/BGCcomplex/restfastas/BGC0001533_rest. Skipping.
+Directory alv82322.1_alv82337.1 not found in /data2/moriwaki/BGCcomplex/predicted/BGC0001533 or /data2/moriwaki/BGCcomplex/restfastas/BGC0001533_rest. Skipping.
+Directory alv82322.1_alv82315.1 not found in /data2/moriwaki/BGCcomplex/predicted/BGC0001533 or /data2/moriwaki/BGCcomplex/restfastas/BGC0001533_rest. Skipping.
+Directory alv82322.1_alv82347.1 not found in /data2/moriwaki/BGCcomplex/predicted/BGC0001533 or /data2/moriwaki/BGCcomplex/restfastas/BGC0001533_rest. Skipping.
+Directory alv82322.1_alv82331.1 not found in /data2/moriwaki/BGCcomplex/predicted/BGC0001533 or /data2/moriwaki/BGCcomplex/restfastas/BGC0001533_rest. Skipping.
+Directory alv82322.1_alv82344.1 not found in /data2/moriwaki/BGCcomplex/predicted/BGC0001533 or /data2/moriwaki/BGCcomplex/restfastas/BGC0001533_rest. Skipping.
+Directory alv82322.1_alv82338.1 not found in /data2/moriwaki/BGCcomplex/predicted/BGC0001533 or /data2/moriwaki/BGCcomplex/restfastas/BGC0001533_rest. Skipping.
+Directory alv82322.1_alv82342.1 not found in /data2/moriwaki/BGCcomplex/predicted/BGC0001533 or /data2/moriwaki/BGCcomplex/restfastas/BGC0001533_rest. Skipping.
+Directory alv82322.1_alv82317.1 not found in /data2/moriwaki/BGCcomplex/predicted/BGC0001533 or /data2/moriwaki/BGCcomplex/restfastas/BGC0001533_rest. Skipping.
+Directory alv82322.1_alv82325.1 not found in /data2/moriwaki/BGCcomplex/predicted/BGC0001533 or /data2/moriwaki/BGCcomplex/restfastas/BGC0001533_rest. Skipping.
+Directory alv82322.1_alv82336.1 not found in /data2/moriwaki/BGCcomplex/predicted/BGC0001533 or /data2/moriwaki/BGCcomplex/restfastas/BGC0001533_rest. Skipping.
+Directory alv82322.1_alv82321.1 not found in /data2/moriwaki/BGCcomplex/predicted/BGC0001533 or /data2/moriwaki/BGCcomplex/restfastas/BGC0001533_rest. Skipping.
+Directory alv82326.1_alv82346.1 not found in /data2/moriwaki/BGCcomplex/predicted/BGC0001533 or /data2/moriwaki/BGCcomplex/restfastas/BGC0001533_rest. Skipping.
+Directory alv82326.1_alv82341.1 not found in /data2/moriwaki/BGCcomplex/predicted/BGC0001533 or /data2/moriwaki/BGCcomplex/restfastas/BGC0001533_rest. Skipping.
+Directory alv82326.1_alv82335.1 not found in /data2/moriwaki/BGCcomplex/predicted/BGC0001533 or /data2/moriwaki/BGCcomplex/restfastas/BGC0001533_rest. Skipping.
+Directory alv82328.1_alv82346.1 not found in /data2/moriwaki/BGCcomplex/predicted/BGC0001533 or /data2/moriwaki/BGCcomplex/restfastas/BGC0001533_rest. Skipping.
+Directory alv82328.1_alv82341.1 not found in /data2/moriwaki/BGCcomplex/predicted/BGC0001533 or /data2/moriwaki/BGCcomplex/restfastas/BGC0001533_rest. Skipping.
+Directory alv82328.1_alv82335.1 not found in /data2/moriwaki/BGCcomplex/predicted/BGC0001533 or /data2/moriwaki/BGCcomplex/restfastas/BGC0001533_rest. Skipping.
+Directory alv82333.1_alv82346.1 not found in /data2/moriwaki/BGCcomplex/predicted/BGC0001533 or /data2/moriwaki/BGCcomplex/restfastas/BGC0001533_rest. Skipping.
+Directory alv82333.1_alv82341.1 not found in /data2/moriwaki/BGCcomplex/predicted/BGC0001533 or /data2/moriwaki/BGCcomplex/restfastas/BGC0001533_rest. Skipping.
+Directory alv82333.1_alv82335.1 not found in /data2/moriwaki/BGCcomplex/predicted/BGC0001533 or /data2/moriwaki/BGCcomplex/restfastas/BGC0001533_rest. Skipping.
+Directory alv82334.1_alv82346.1 not found in /data2/moriwaki/BGCcomplex/predicted/BGC0001533 or /data2/moriwaki/BGCcomplex/restfastas/BGC0001533_rest. Skipping.
+Directory alv82334.1_alv82341.1 not found in /data2/moriwaki/BGCcomplex/predicted/BGC0001533 or /data2/moriwaki/BGCcomplex/restfastas/BGC0001533_rest. Skipping.
+Directory alv82334.1_alv82335.1 not found in /data2/moriwaki/BGCcomplex/predicted/BGC0001533 or /data2/moriwaki/BGCcomplex/restfastas/BGC0001533_rest. Skipping.
+Directory alv82343.1_alv82346.1 not found in /data2/moriwaki/BGCcomplex/predicted/BGC0001533 or /data2/moriwaki/BGCcomplex/restfastas/BGC0001533_rest. Skipping.
+Directory alv82343.1_alv82341.1 not found in /data2/moriwaki/BGCcomplex/predicted/BGC0001533 or /data2/moriwaki/BGCcomplex/restfastas/BGC0001533_rest. Skipping.
+Directory alv82343.1_alv82335.1 not found in /data2/moriwaki/BGCcomplex/predicted/BGC0001533 or /data2/moriwaki/BGCcomplex/restfastas/BGC0001533_rest. Skipping.
+Directory alv82318.1_alv82346.1 not found in /data2/moriwaki/BGCcomplex/predicted/BGC0001533 or /data2/moriwaki/BGCcomplex/restfastas/BGC0001533_rest. Skipping.
+Directory alv82318.1_alv82341.1 not found in /data2/moriwaki/BGCcomplex/predicted/BGC0001533 or /data2/moriwaki/BGCcomplex/restfastas/BGC0001533_rest. Skipping.
+Directory alv82318.1_alv82335.1 not found in /data2/moriwaki/BGCcomplex/predicted/BGC0001533 or /data2/moriwaki/BGCcomplex/restfastas/BGC0001533_rest. Skipping.
+Directory alv82318.1_alv82330.1 not found in /data2/moriwaki/BGCcomplex/predicted/BGC0001533 or /data2/moriwaki/BGCcomplex/restfastas/BGC0001533_rest. Skipping.
+Directory alv82318.1_alv82337.1 not found in /data2/moriwaki/BGCcomplex/predicted/BGC0001533 or /data2/moriwaki/BGCcomplex/restfastas/BGC0001533_rest. Skipping.
+Directory alv82318.1_alv82315.1 not found in /data2/moriwaki/BGCcomplex/predicted/BGC0001533 or /data2/moriwaki/BGCcomplex/restfastas/BGC0001533_rest. Skipping.
+Directory alv82318.1_alv82347.1 not found in /data2/moriwaki/BGCcomplex/predicted/BGC0001533 or /data2/moriwaki/BGCcomplex/restfastas/BGC0001533_rest. Skipping.
+Directory alv82318.1_alv82331.1 not found in /data2/moriwaki/BGCcomplex/predicted/BGC0001533 or /data2/moriwaki/BGCcomplex/restfastas/BGC0001533_rest. Skipping.
+Directory alv82318.1_alv82344.1 not found in /data2/moriwaki/BGCcomplex/predicted/BGC0001533 or /data2/moriwaki/BGCcomplex/restfastas/BGC0001533_rest. Skipping.
+Directory alv82318.1_alv82338.1 not found in /data2/moriwaki/BGCcomplex/predicted/BGC0001533 or /data2/moriwaki/BGCcomplex/restfastas/BGC0001533_rest. Skipping.
+Directory alv82318.1_alv82342.1 not found in /data2/moriwaki/BGCcomplex/predicted/BGC0001533 or /data2/moriwaki/BGCcomplex/restfastas/BGC0001533_rest. Skipping.
+Directory alv82318.1_alv82317.1 not found in /data2/moriwaki/BGCcomplex/predicted/BGC0001533 or /data2/moriwaki/BGCcomplex/restfastas/BGC0001533_rest. Skipping.
+Directory alv82318.1_alv82325.1 not found in /data2/moriwaki/BGCcomplex/predicted/BGC0001533 or /data2/moriwaki/BGCcomplex/restfastas/BGC0001533_rest. Skipping.
+Directory alv82318.1_alv82336.1 not found in /data2/moriwaki/BGCcomplex/predicted/BGC0001533 or /data2/moriwaki/BGCcomplex/restfastas/BGC0001533_rest. Skipping.
+Directory alv82318.1_alv82321.1 not found in /data2/moriwaki/BGCcomplex/predicted/BGC0001533 or /data2/moriwaki/BGCcomplex/restfastas/BGC0001533_rest. Skipping.
+Directory alv82346.1_alv82346.1 not found in /data2/moriwaki/BGCcomplex/predicted/BGC0001533 or /data2/moriwaki/BGCcomplex/restfastas/BGC0001533_rest. Skipping.
+Directory alv82346.1_alv82341.1 not found in /data2/moriwaki/BGCcomplex/predicted/BGC0001533 or /data2/moriwaki/BGCcomplex/restfastas/BGC0001533_rest. Skipping.
+Directory alv82346.1_alv82335.1 not found in /data2/moriwaki/BGCcomplex/predicted/BGC0001533 or /data2/moriwaki/BGCcomplex/restfastas/BGC0001533_rest. Skipping.
+Directory alv82346.1_alv82330.1 not found in /data2/moriwaki/BGCcomplex/predicted/BGC0001533 or /data2/moriwaki/BGCcomplex/restfastas/BGC0001533_rest. Skipping.
+Directory alv82346.1_alv82319.1 not found in /data2/moriwaki/BGCcomplex/predicted/BGC0001533 or /data2/moriwaki/BGCcomplex/restfastas/BGC0001533_rest. Skipping.
+Directory alv82346.1_alv82323.1 not found in /data2/moriwaki/BGCcomplex/predicted/BGC0001533 or /data2/moriwaki/BGCcomplex/restfastas/BGC0001533_rest. Skipping.
+Directory alv82346.1_alv82337.1 not found in /data2/moriwaki/BGCcomplex/predicted/BGC0001533 or /data2/moriwaki/BGCcomplex/restfastas/BGC0001533_rest. Skipping.
+Directory alv82346.1_alv82315.1 not found in /data2/moriwaki/BGCcomplex/predicted/BGC0001533 or /data2/moriwaki/BGCcomplex/restfastas/BGC0001533_rest. Skipping.
+Directory alv82346.1_alv82347.1 not found in /data2/moriwaki/BGCcomplex/predicted/BGC0001533 or /data2/moriwaki/BGCcomplex/restfastas/BGC0001533_rest. Skipping.
+Directory alv82346.1_alv82331.1 not found in /data2/moriwaki/BGCcomplex/predicted/BGC0001533 or /data2/moriwaki/BGCcomplex/restfastas/BGC0001533_rest. Skipping.
+Directory alv82346.1_alv82344.1 not found in /data2/moriwaki/BGCcomplex/predicted/BGC0001533 or /data2/moriwaki/BGCcomplex/restfastas/BGC0001533_rest. Skipping.
+Directory alv82346.1_alv82338.1 not found in /data2/moriwaki/BGCcomplex/predicted/BGC0001533 or /data2/moriwaki/BGCcomplex/restfastas/BGC0001533_rest. Skipping.
+Directory alv82346.1_alv82342.1 not found in /data2/moriwaki/BGCcomplex/predicted/BGC0001533 or /data2/moriwaki/BGCcomplex/restfastas/BGC0001533_rest. Skipping.
+Directory alv82346.1_alv82317.1 not found in /data2/moriwaki/BGCcomplex/predicted/BGC0001533 or /data2/moriwaki/BGCcomplex/restfastas/BGC0001533_rest. Skipping.
+Directory alv82346.1_alv82325.1 not found in /data2/moriwaki/BGCcomplex/predicted/BGC0001533 or /data2/moriwaki/BGCcomplex/restfastas/BGC0001533_rest. Skipping.
+Directory alv82346.1_alv82336.1 not found in /data2/moriwaki/BGCcomplex/predicted/BGC0001533 or /data2/moriwaki/BGCcomplex/restfastas/BGC0001533_rest. Skipping.
+Directory alv82346.1_alv82321.1 not found in /data2/moriwaki/BGCcomplex/predicted/BGC0001533 or /data2/moriwaki/BGCcomplex/restfastas/BGC0001533_rest. Skipping.
+Directory alv82341.1_alv82341.1 not found in /data2/moriwaki/BGCcomplex/predicted/BGC0001533 or /data2/moriwaki/BGCcomplex/restfastas/BGC0001533_rest. Skipping.
+Directory alv82341.1_alv82335.1 not found in /data2/moriwaki/BGCcomplex/predicted/BGC0001533 or /data2/moriwaki/BGCcomplex/restfastas/BGC0001533_rest. Skipping.
+Directory alv82341.1_alv82330.1 not found in /data2/moriwaki/BGCcomplex/predicted/BGC0001533 or /data2/moriwaki/BGCcomplex/restfastas/BGC0001533_rest. Skipping.
+Directory alv82341.1_alv82319.1 not found in /data2/moriwaki/BGCcomplex/predicted/BGC0001533 or /data2/moriwaki/BGCcomplex/restfastas/BGC0001533_rest. Skipping.
+Directory alv82341.1_alv82323.1 not found in /data2/moriwaki/BGCcomplex/predicted/BGC0001533 or /data2/moriwaki/BGCcomplex/restfastas/BGC0001533_rest. Skipping.
+Directory alv82341.1_alv82337.1 not found in /data2/moriwaki/BGCcomplex/predicted/BGC0001533 or /data2/moriwaki/BGCcomplex/restfastas/BGC0001533_rest. Skipping.
+Directory alv82341.1_alv82315.1 not found in /data2/moriwaki/BGCcomplex/predicted/BGC0001533 or /data2/moriwaki/BGCcomplex/restfastas/BGC0001533_rest. Skipping.
+Directory alv82341.1_alv82347.1 not found in /data2/moriwaki/BGCcomplex/predicted/BGC0001533 or /data2/moriwaki/BGCcomplex/restfastas/BGC0001533_rest. Skipping.
+Directory alv82341.1_alv82331.1 not found in /data2/moriwaki/BGCcomplex/predicted/BGC0001533 or /data2/moriwaki/BGCcomplex/restfastas/BGC0001533_rest. Skipping.
+Directory alv82341.1_alv82344.1 not found in /data2/moriwaki/BGCcomplex/predicted/BGC0001533 or /data2/moriwaki/BGCcomplex/restfastas/BGC0001533_rest. Skipping.
+Directory alv82341.1_alv82338.1 not found in /data2/moriwaki/BGCcomplex/predicted/BGC0001533 or /data2/moriwaki/BGCcomplex/restfastas/BGC0001533_rest. Skipping.
+Directory alv82341.1_alv82342.1 not found in /data2/moriwaki/BGCcomplex/predicted/BGC0001533 or /data2/moriwaki/BGCcomplex/restfastas/BGC0001533_rest. Skipping.
+Directory alv82341.1_alv82317.1 not found in /data2/moriwaki/BGCcomplex/predicted/BGC0001533 or /data2/moriwaki/BGCcomplex/restfastas/BGC0001533_rest. Skipping.
+Directory alv82341.1_alv82325.1 not found in /data2/moriwaki/BGCcomplex/predicted/BGC0001533 or /data2/moriwaki/BGCcomplex/restfastas/BGC0001533_rest. Skipping.
+Directory alv82341.1_alv82336.1 not found in /data2/moriwaki/BGCcomplex/predicted/BGC0001533 or /data2/moriwaki/BGCcomplex/restfastas/BGC0001533_rest. Skipping.
+Directory alv82341.1_alv82321.1 not found in /data2/moriwaki/BGCcomplex/predicted/BGC0001533 or /data2/moriwaki/BGCcomplex/restfastas/BGC0001533_rest. Skipping.
+Directory alv82335.1_alv82335.1 not found in /data2/moriwaki/BGCcomplex/predicted/BGC0001533 or /data2/moriwaki/BGCcomplex/restfastas/BGC0001533_rest. Skipping.
+Directory alv82335.1_alv82330.1 not found in /data2/moriwaki/BGCcomplex/predicted/BGC0001533 or /data2/moriwaki/BGCcomplex/restfastas/BGC0001533_rest. Skipping.
+Directory alv82335.1_alv82319.1 not found in /data2/moriwaki/BGCcomplex/predicted/BGC0001533 or /data2/moriwaki/BGCcomplex/restfastas/BGC0001533_rest. Skipping.
+Directory alv82335.1_alv82323.1 not found in /data2/moriwaki/BGCcomplex/predicted/BGC0001533 or /data2/moriwaki/BGCcomplex/restfastas/BGC0001533_rest. Skipping.
+Directory alv82335.1_alv82337.1 not found in /data2/moriwaki/BGCcomplex/predicted/BGC0001533 or /data2/moriwaki/BGCcomplex/restfastas/BGC0001533_rest. Skipping.
+Directory alv82335.1_alv82315.1 not found in /data2/moriwaki/BGCcomplex/predicted/BGC0001533 or /data2/moriwaki/BGCcomplex/restfastas/BGC0001533_rest. Skipping.
+Directory alv82335.1_alv82347.1 not found in /data2/moriwaki/BGCcomplex/predicted/BGC0001533 or /data2/moriwaki/BGCcomplex/restfastas/BGC0001533_rest. Skipping.
+Directory alv82335.1_alv82331.1 not found in /data2/moriwaki/BGCcomplex/predicted/BGC0001533 or /data2/moriwaki/BGCcomplex/restfastas/BGC0001533_rest. Skipping.
+Directory alv82335.1_alv82344.1 not found in /data2/moriwaki/BGCcomplex/predicted/BGC0001533 or /data2/moriwaki/BGCcomplex/restfastas/BGC0001533_rest. Skipping.
+Directory alv82335.1_alv82338.1 not found in /data2/moriwaki/BGCcomplex/predicted/BGC0001533 or /data2/moriwaki/BGCcomplex/restfastas/BGC0001533_rest. Skipping.
+Directory alv82335.1_alv82342.1 not found in /data2/moriwaki/BGCcomplex/predicted/BGC0001533 or /data2/moriwaki/BGCcomplex/restfastas/BGC0001533_rest. Skipping.
+Directory alv82335.1_alv82317.1 not found in /data2/moriwaki/BGCcomplex/predicted/BGC0001533 or /data2/moriwaki/BGCcomplex/restfastas/BGC0001533_rest. Skipping.
+Directory alv82335.1_alv82325.1 not found in /data2/moriwaki/BGCcomplex/predicted/BGC0001533 or /data2/moriwaki/BGCcomplex/restfastas/BGC0001533_rest. Skipping.
+Directory alv82335.1_alv82336.1 not found in /data2/moriwaki/BGCcomplex/predicted/BGC0001533 or /data2/moriwaki/BGCcomplex/restfastas/BGC0001533_rest. Skipping.
+Directory alv82335.1_alv82321.1 not found in /data2/moriwaki/BGCcomplex/predicted/BGC0001533 or /data2/moriwaki/BGCcomplex/restfastas/BGC0001533_rest. Skipping.
+Directory alv82319.1_alv82337.1 not found in /data2/moriwaki/BGCcomplex/predicted/BGC0001533 or /data2/moriwaki/BGCcomplex/restfastas/BGC0001533_rest. Skipping.
+Directory alv82319.1_alv82315.1 not found in /data2/moriwaki/BGCcomplex/predicted/BGC0001533 or /data2/moriwaki/BGCcomplex/restfastas/BGC0001533_rest. Skipping.
+Directory alv82319.1_alv82347.1 not found in /data2/moriwaki/BGCcomplex/predicted/BGC0001533 or /data2/moriwaki/BGCcomplex/restfastas/BGC0001533_rest. Skipping.
+Directory alv82319.1_alv82331.1 not found in /data2/moriwaki/BGCcomplex/predicted/BGC0001533 or /data2/moriwaki/BGCcomplex/restfastas/BGC0001533_rest. Skipping.
+Directory alv82319.1_alv82344.1 not found in /data2/moriwaki/BGCcomplex/predicted/BGC0001533 or /data2/moriwaki/BGCcomplex/restfastas/BGC0001533_rest. Skipping.
+Directory alv82319.1_alv82338.1 not found in /data2/moriwaki/BGCcomplex/predicted/BGC0001533 or /data2/moriwaki/BGCcomplex/restfastas/BGC0001533_rest. Skipping.
+Directory alv82319.1_alv82342.1 not found in /data2/moriwaki/BGCcomplex/predicted/BGC0001533 or /data2/moriwaki/BGCcomplex/restfastas/BGC0001533_rest. Skipping.
+Directory alv82319.1_alv82317.1 not found in /data2/moriwaki/BGCcomplex/predicted/BGC0001533 or /data2/moriwaki/BGCcomplex/restfastas/BGC0001533_rest. Skipping.
+Directory alv82319.1_alv82325.1 not found in /data2/moriwaki/BGCcomplex/predicted/BGC0001533 or /data2/moriwaki/BGCcomplex/restfastas/BGC0001533_rest. Skipping.
+Directory alv82319.1_alv82336.1 not found in /data2/moriwaki/BGCcomplex/predicted/BGC0001533 or /data2/moriwaki/BGCcomplex/restfastas/BGC0001533_rest. Skipping.
+Directory alv82319.1_alv82321.1 not found in /data2/moriwaki/BGCcomplex/predicted/BGC0001533 or /data2/moriwaki/BGCcomplex/restfastas/BGC0001533_rest. Skipping.
+Directory alv82323.1_alv82337.1 not found in /data2/moriwaki/BGCcomplex/predicted/BGC0001533 or /data2/moriwaki/BGCcomplex/restfastas/BGC0001533_rest. Skipping.
+Directory alv82323.1_alv82315.1 not found in /data2/moriwaki/BGCcomplex/predicted/BGC0001533 or /data2/moriwaki/BGCcomplex/restfastas/BGC0001533_rest. Skipping.
+Directory alv82323.1_alv82347.1 not found in /data2/moriwaki/BGCcomplex/predicted/BGC0001533 or /data2/moriwaki/BGCcomplex/restfastas/BGC0001533_rest. Skipping.
+Directory alv82323.1_alv82331.1 not found in /data2/moriwaki/BGCcomplex/predicted/BGC0001533 or /data2/moriwaki/BGCcomplex/restfastas/BGC0001533_rest. Skipping.
+Directory alv82323.1_alv82344.1 not found in /data2/moriwaki/BGCcomplex/predicted/BGC0001533 or /data2/moriwaki/BGCcomplex/restfastas/BGC0001533_rest. Skipping.
+Directory alv82323.1_alv82338.1 not found in /data2/moriwaki/BGCcomplex/predicted/BGC0001533 or /data2/moriwaki/BGCcomplex/restfastas/BGC0001533_rest. Skipping.
+Directory alv82323.1_alv82342.1 not found in /data2/moriwaki/BGCcomplex/predicted/BGC0001533 or /data2/moriwaki/BGCcomplex/restfastas/BGC0001533_rest. Skipping.
+Directory alv82323.1_alv82317.1 not found in /data2/moriwaki/BGCcomplex/predicted/BGC0001533 or /data2/moriwaki/BGCcomplex/restfastas/BGC0001533_rest. Skipping.
+Directory alv82323.1_alv82325.1 not found in /data2/moriwaki/BGCcomplex/predicted/BGC0001533 or /data2/moriwaki/BGCcomplex/restfastas/BGC0001533_rest. Skipping.
+Directory alv82323.1_alv82336.1 not found in /data2/moriwaki/BGCcomplex/predicted/BGC0001533 or /data2/moriwaki/BGCcomplex/restfastas/BGC0001533_rest. Skipping.
+Directory alv82323.1_alv82321.1 not found in /data2/moriwaki/BGCcomplex/predicted/BGC0001533 or /data2/moriwaki/BGCcomplex/restfastas/BGC0001533_rest. Skipping.
+File /data2/moriwaki/BGCcomplex/newfastas/newBGC0001538.fasta does not exist. Skipping.
+File /data2/moriwaki/BGCcomplex/newfastas/newBGC0001546.fasta does not exist. Skipping.
+File /data2/moriwaki/BGCcomplex/newfastas/newBGC0001557.fasta does not exist. Skipping.
+File /data2/moriwaki/BGCcomplex/newfastas/newBGC0001559.fasta does not exist. Skipping.
+File /data2/moriwaki/BGCcomplex/newfastas/newBGC0001577.fasta does not exist. Skipping.
+File /data2/moriwaki/BGCcomplex/newfastas/newBGC0001581.fasta does not exist. Skipping.
+File /data2/moriwaki/BGCcomplex/newfastas/newBGC0001583.fasta does not exist. Skipping.
+File /data2/moriwaki/BGCcomplex/newfastas/newBGC0001598.fasta does not exist. Skipping.
+File /data2/moriwaki/BGCcomplex/newfastas/newBGC0001599.fasta does not exist. Skipping.
+File /data2/moriwaki/BGCcomplex/newfastas/newBGC0001613.fasta does not exist. Skipping.
+File /data2/moriwaki/BGCcomplex/newfastas/newBGC0001614.fasta does not exist. Skipping.
+File /data2/moriwaki/BGCcomplex/newfastas/newBGC0001629.fasta does not exist. Skipping.
+File /data2/moriwaki/BGCcomplex/newfastas/newBGC0001641.fasta does not exist. Skipping.
+File /data2/moriwaki/BGCcomplex/newfastas/newBGC0001643.fasta does not exist. Skipping.
+File /data2/moriwaki/BGCcomplex/newfastas/newBGC0001646.fasta does not exist. Skipping.
+File /data2/moriwaki/BGCcomplex/newfastas/newBGC0001664.fasta does not exist. Skipping.
+File /data2/moriwaki/BGCcomplex/newfastas/newBGC0001669.fasta does not exist. Skipping.
+File /data2/moriwaki/BGCcomplex/newfastas/newBGC0001673.fasta does not exist. Skipping.
+File /data2/moriwaki/BGCcomplex/newfastas/newBGC0001676.fasta does not exist. Skipping.
+File /data2/moriwaki/BGCcomplex/newfastas/newBGC0001678.fasta does not exist. Skipping.
+File /data2/moriwaki/BGCcomplex/newfastas/newBGC0001686.fasta does not exist. Skipping.
+File /data2/moriwaki/BGCcomplex/newfastas/newBGC0001688.fasta does not exist. Skipping.
+File /data2/moriwaki/BGCcomplex/newfastas/newBGC0001689.fasta does not exist. Skipping.
+File /data2/moriwaki/BGCcomplex/newfastas/newBGC0001691.fasta does not exist. Skipping.
+File /data2/moriwaki/BGCcomplex/newfastas/newBGC0001697.fasta does not exist. Skipping.
+File /data2/moriwaki/BGCcomplex/newfastas/newBGC0001698.fasta does not exist. Skipping.
+File /data2/moriwaki/BGCcomplex/newfastas/newBGC0001710.fasta does not exist. Skipping.
+File /data2/moriwaki/BGCcomplex/newfastas/newBGC0001714.fasta does not exist. Skipping.
+File /data2/moriwaki/BGCcomplex/newfastas/newBGC0001730.fasta does not exist. Skipping.
+File /data2/moriwaki/BGCcomplex/newfastas/newBGC0001734.fasta does not exist. Skipping.
+File /data2/moriwaki/BGCcomplex/newfastas/newBGC0001744.fasta does not exist. Skipping.
+File /data2/moriwaki/BGCcomplex/newfastas/newBGC0001745.fasta does not exist. Skipping.
+File /data2/moriwaki/BGCcomplex/newfastas/newBGC0001754.fasta does not exist. Skipping.
+File /data2/moriwaki/BGCcomplex/newfastas/newBGC0001758.fasta does not exist. Skipping.
+File /data2/moriwaki/BGCcomplex/newfastas/newBGC0001766.fasta does not exist. Skipping.
+File /data2/moriwaki/BGCcomplex/newfastas/newBGC0001767.fasta does not exist. Skipping.
+File /data2/moriwaki/BGCcomplex/newfastas/newBGC0001777.fasta does not exist. Skipping.
+File /data2/moriwaki/BGCcomplex/newfastas/newBGC0001798.fasta does not exist. Skipping.
+File /data2/moriwaki/BGCcomplex/newfastas/newBGC0001803.fasta does not exist. Skipping.
+File /data2/moriwaki/BGCcomplex/newfastas/newBGC0001804.fasta does not exist. Skipping.
+File /data2/moriwaki/BGCcomplex/newfastas/newBGC0001805.fasta does not exist. Skipping.
+File /data2/moriwaki/BGCcomplex/newfastas/newBGC0001815.fasta does not exist. Skipping.
+File /data2/moriwaki/BGCcomplex/newfastas/newBGC0001821.fasta does not exist. Skipping.
+File /data2/moriwaki/BGCcomplex/newfastas/newBGC0001825.fasta does not exist. Skipping.
+File /data2/moriwaki/BGCcomplex/newfastas/newBGC0001829.fasta does not exist. Skipping.
+File /data2/moriwaki/BGCcomplex/newfastas/newBGC0001832.fasta does not exist. Skipping.
+File /data2/moriwaki/BGCcomplex/newfastas/newBGC0001833.fasta does not exist. Skipping.
+File /data2/moriwaki/BGCcomplex/newfastas/newBGC0001837.fasta does not exist. Skipping.
+File /data2/moriwaki/BGCcomplex/newfastas/newBGC0001855.fasta does not exist. Skipping.
+File /data2/moriwaki/BGCcomplex/newfastas/newBGC0001871.fasta does not exist. Skipping.
+File /data2/moriwaki/BGCcomplex/newfastas/newBGC0001883.fasta does not exist. Skipping.
+File /data2/moriwaki/BGCcomplex/newfastas/newBGC0001892.fasta does not exist. Skipping.
+File /data2/moriwaki/BGCcomplex/newfastas/newBGC0001893.fasta does not exist. Skipping.
+File /data2/moriwaki/BGCcomplex/newfastas/newBGC0001898.fasta does not exist. Skipping.
+File /data2/moriwaki/BGCcomplex/newfastas/newBGC0001900.fasta does not exist. Skipping.
+File /data2/moriwaki/BGCcomplex/newfastas/newBGC0001901.fasta does not exist. Skipping.
+File /data2/moriwaki/BGCcomplex/newfastas/newBGC0001908.fasta does not exist. Skipping.
+File /data2/moriwaki/BGCcomplex/newfastas/newBGC0001912.fasta does not exist. Skipping.
+File /data2/moriwaki/BGCcomplex/newfastas/newBGC0001914.fasta does not exist. Skipping.
+File /data2/moriwaki/BGCcomplex/newfastas/newBGC0001915.fasta does not exist. Skipping.
+File /data2/moriwaki/BGCcomplex/newfastas/newBGC0001916.fasta does not exist. Skipping.
+File /data2/moriwaki/BGCcomplex/newfastas/newBGC0001921.fasta does not exist. Skipping.
+File /data2/moriwaki/BGCcomplex/newfastas/newBGC0001930.fasta does not exist. Skipping.
+File /data2/moriwaki/BGCcomplex/newfastas/newBGC0001932.fasta does not exist. Skipping.
+File /data2/moriwaki/BGCcomplex/newfastas/newBGC0001933.fasta does not exist. Skipping.
+File /data2/moriwaki/BGCcomplex/newfastas/newBGC0001934.fasta does not exist. Skipping.
+File /data2/moriwaki/BGCcomplex/newfastas/newBGC0001935.fasta does not exist. Skipping.
+File /data2/moriwaki/BGCcomplex/newfastas/newBGC0001936.fasta does not exist. Skipping.
+File /data2/moriwaki/BGCcomplex/newfastas/newBGC0001938.fasta does not exist. Skipping.
+File /data2/moriwaki/BGCcomplex/newfastas/newBGC0001939.fasta does not exist. Skipping.
+File /data2/moriwaki/BGCcomplex/newfastas/newBGC0001943.fasta does not exist. Skipping.
+File /data2/moriwaki/BGCcomplex/newfastas/newBGC0001946.fasta does not exist. Skipping.
+File /data2/moriwaki/BGCcomplex/newfastas/newBGC0001949.fasta does not exist. Skipping.
+File /data2/moriwaki/BGCcomplex/newfastas/newBGC0001958.fasta does not exist. Skipping.
+File /data2/moriwaki/BGCcomplex/newfastas/newBGC0001961.fasta does not exist. Skipping.
+Directory azh23794.1_azh23790.1 not found in /data2/moriwaki/BGCcomplex/predicted/BGC0001970 or /data2/moriwaki/BGCcomplex/restfastas/BGC0001970_rest. Skipping.
+Directory azh23794.1_azh23791.1 not found in /data2/moriwaki/BGCcomplex/predicted/BGC0001970 or /data2/moriwaki/BGCcomplex/restfastas/BGC0001970_rest. Skipping.
+Directory azh23794.1_azh23792.1 not found in /data2/moriwaki/BGCcomplex/predicted/BGC0001970 or /data2/moriwaki/BGCcomplex/restfastas/BGC0001970_rest. Skipping.
+Directory azh23804.1_azh23790.1 not found in /data2/moriwaki/BGCcomplex/predicted/BGC0001970 or /data2/moriwaki/BGCcomplex/restfastas/BGC0001970_rest. Skipping.
+Directory azh23804.1_azh23791.1 not found in /data2/moriwaki/BGCcomplex/predicted/BGC0001970 or /data2/moriwaki/BGCcomplex/restfastas/BGC0001970_rest. Skipping.
+Directory azh23804.1_azh23792.1 not found in /data2/moriwaki/BGCcomplex/predicted/BGC0001970 or /data2/moriwaki/BGCcomplex/restfastas/BGC0001970_rest. Skipping.
+Directory azh23807.1_azh23790.1 not found in /data2/moriwaki/BGCcomplex/predicted/BGC0001970 or /data2/moriwaki/BGCcomplex/restfastas/BGC0001970_rest. Skipping.
+Directory azh23807.1_azh23791.1 not found in /data2/moriwaki/BGCcomplex/predicted/BGC0001970 or /data2/moriwaki/BGCcomplex/restfastas/BGC0001970_rest. Skipping.
+Directory azh23807.1_azh23792.1 not found in /data2/moriwaki/BGCcomplex/predicted/BGC0001970 or /data2/moriwaki/BGCcomplex/restfastas/BGC0001970_rest. Skipping.
+Directory azh23805.1_azh23790.1 not found in /data2/moriwaki/BGCcomplex/predicted/BGC0001970 or /data2/moriwaki/BGCcomplex/restfastas/BGC0001970_rest. Skipping.
+Directory azh23805.1_azh23791.1 not found in /data2/moriwaki/BGCcomplex/predicted/BGC0001970 or /data2/moriwaki/BGCcomplex/restfastas/BGC0001970_rest. Skipping.
+Directory azh23805.1_azh23792.1 not found in /data2/moriwaki/BGCcomplex/predicted/BGC0001970 or /data2/moriwaki/BGCcomplex/restfastas/BGC0001970_rest. Skipping.
+Directory azh23809.1_azh23790.1 not found in /data2/moriwaki/BGCcomplex/predicted/BGC0001970 or /data2/moriwaki/BGCcomplex/restfastas/BGC0001970_rest. Skipping.
+Directory azh23809.1_azh23791.1 not found in /data2/moriwaki/BGCcomplex/predicted/BGC0001970 or /data2/moriwaki/BGCcomplex/restfastas/BGC0001970_rest. Skipping.
+Directory azh23809.1_azh23792.1 not found in /data2/moriwaki/BGCcomplex/predicted/BGC0001970 or /data2/moriwaki/BGCcomplex/restfastas/BGC0001970_rest. Skipping.
+Directory azh23808.1_azh23815.1 not found in /data2/moriwaki/BGCcomplex/predicted/BGC0001970 or /data2/moriwaki/BGCcomplex/restfastas/BGC0001970_rest. Skipping.
+Directory azh23808.1_azh23813.1 not found in /data2/moriwaki/BGCcomplex/predicted/BGC0001970 or /data2/moriwaki/BGCcomplex/restfastas/BGC0001970_rest. Skipping.
+Directory azh23808.1_azh23790.1 not found in /data2/moriwaki/BGCcomplex/predicted/BGC0001970 or /data2/moriwaki/BGCcomplex/restfastas/BGC0001970_rest. Skipping.
+Directory azh23808.1_azh23791.1 not found in /data2/moriwaki/BGCcomplex/predicted/BGC0001970 or /data2/moriwaki/BGCcomplex/restfastas/BGC0001970_rest. Skipping.
+Directory azh23808.1_azh23792.1 not found in /data2/moriwaki/BGCcomplex/predicted/BGC0001970 or /data2/moriwaki/BGCcomplex/restfastas/BGC0001970_rest. Skipping.
+Directory azh23808.1_azh23801.1 not found in /data2/moriwaki/BGCcomplex/predicted/BGC0001970 or /data2/moriwaki/BGCcomplex/restfastas/BGC0001970_rest. Skipping.
+Directory azh23808.1_azh23810.1 not found in /data2/moriwaki/BGCcomplex/predicted/BGC0001970 or /data2/moriwaki/BGCcomplex/restfastas/BGC0001970_rest. Skipping.
+Directory azh23808.1_azh23798.1 not found in /data2/moriwaki/BGCcomplex/predicted/BGC0001970 or /data2/moriwaki/BGCcomplex/restfastas/BGC0001970_rest. Skipping.
+Directory azh23808.1_azh23797.1 not found in /data2/moriwaki/BGCcomplex/predicted/BGC0001970 or /data2/moriwaki/BGCcomplex/restfastas/BGC0001970_rest. Skipping.
+Directory azh23808.1_azh23803.1 not found in /data2/moriwaki/BGCcomplex/predicted/BGC0001970 or /data2/moriwaki/BGCcomplex/restfastas/BGC0001970_rest. Skipping.
+Directory azh23808.1_azh23811.1 not found in /data2/moriwaki/BGCcomplex/predicted/BGC0001970 or /data2/moriwaki/BGCcomplex/restfastas/BGC0001970_rest. Skipping.
+Directory azh23808.1_azh23812.1 not found in /data2/moriwaki/BGCcomplex/predicted/BGC0001970 or /data2/moriwaki/BGCcomplex/restfastas/BGC0001970_rest. Skipping.
+Directory azh23808.1_azh23814.1 not found in /data2/moriwaki/BGCcomplex/predicted/BGC0001970 or /data2/moriwaki/BGCcomplex/restfastas/BGC0001970_rest. Skipping.
+Directory azh23808.1_azh23800.1 not found in /data2/moriwaki/BGCcomplex/predicted/BGC0001970 or /data2/moriwaki/BGCcomplex/restfastas/BGC0001970_rest. Skipping.
+Directory azh23808.1_azh23795.1 not found in /data2/moriwaki/BGCcomplex/predicted/BGC0001970 or /data2/moriwaki/BGCcomplex/restfastas/BGC0001970_rest. Skipping.
+Directory azh23815.1_azh23790.1 not found in /data2/moriwaki/BGCcomplex/predicted/BGC0001970 or /data2/moriwaki/BGCcomplex/restfastas/BGC0001970_rest. Skipping.
+Directory azh23815.1_azh23791.1 not found in /data2/moriwaki/BGCcomplex/predicted/BGC0001970 or /data2/moriwaki/BGCcomplex/restfastas/BGC0001970_rest. Skipping.
+Directory azh23815.1_azh23792.1 not found in /data2/moriwaki/BGCcomplex/predicted/BGC0001970 or /data2/moriwaki/BGCcomplex/restfastas/BGC0001970_rest. Skipping.
+Directory azh23813.1_azh23790.1 not found in /data2/moriwaki/BGCcomplex/predicted/BGC0001970 or /data2/moriwaki/BGCcomplex/restfastas/BGC0001970_rest. Skipping.
+Directory azh23813.1_azh23791.1 not found in /data2/moriwaki/BGCcomplex/predicted/BGC0001970 or /data2/moriwaki/BGCcomplex/restfastas/BGC0001970_rest. Skipping.
+Directory azh23813.1_azh23792.1 not found in /data2/moriwaki/BGCcomplex/predicted/BGC0001970 or /data2/moriwaki/BGCcomplex/restfastas/BGC0001970_rest. Skipping.
+Directory azh23790.1_azh23790.1 not found in /data2/moriwaki/BGCcomplex/predicted/BGC0001970 or /data2/moriwaki/BGCcomplex/restfastas/BGC0001970_rest. Skipping.
+Directory azh23790.1_azh23791.1 not found in /data2/moriwaki/BGCcomplex/predicted/BGC0001970 or /data2/moriwaki/BGCcomplex/restfastas/BGC0001970_rest. Skipping.
+Directory azh23790.1_azh23792.1 not found in /data2/moriwaki/BGCcomplex/predicted/BGC0001970 or /data2/moriwaki/BGCcomplex/restfastas/BGC0001970_rest. Skipping.
+Directory azh23790.1_azh23793.1 not found in /data2/moriwaki/BGCcomplex/predicted/BGC0001970 or /data2/moriwaki/BGCcomplex/restfastas/BGC0001970_rest. Skipping.
+Directory azh23790.1_azh23816.1 not found in /data2/moriwaki/BGCcomplex/predicted/BGC0001970 or /data2/moriwaki/BGCcomplex/restfastas/BGC0001970_rest. Skipping.
+Directory azh23790.1_azh23802.1 not found in /data2/moriwaki/BGCcomplex/predicted/BGC0001970 or /data2/moriwaki/BGCcomplex/restfastas/BGC0001970_rest. Skipping.
+Directory azh23790.1_azh23801.1 not found in /data2/moriwaki/BGCcomplex/predicted/BGC0001970 or /data2/moriwaki/BGCcomplex/restfastas/BGC0001970_rest. Skipping.
+Directory azh23790.1_azh23796.1 not found in /data2/moriwaki/BGCcomplex/predicted/BGC0001970 or /data2/moriwaki/BGCcomplex/restfastas/BGC0001970_rest. Skipping.
+Directory azh23790.1_azh23806.1 not found in /data2/moriwaki/BGCcomplex/predicted/BGC0001970 or /data2/moriwaki/BGCcomplex/restfastas/BGC0001970_rest. Skipping.
+Directory azh23790.1_azh23810.1 not found in /data2/moriwaki/BGCcomplex/predicted/BGC0001970 or /data2/moriwaki/BGCcomplex/restfastas/BGC0001970_rest. Skipping.
+Directory azh23790.1_azh23798.1 not found in /data2/moriwaki/BGCcomplex/predicted/BGC0001970 or /data2/moriwaki/BGCcomplex/restfastas/BGC0001970_rest. Skipping.
+Directory azh23790.1_azh23797.1 not found in /data2/moriwaki/BGCcomplex/predicted/BGC0001970 or /data2/moriwaki/BGCcomplex/restfastas/BGC0001970_rest. Skipping.
+Directory azh23790.1_azh23799.1 not found in /data2/moriwaki/BGCcomplex/predicted/BGC0001970 or /data2/moriwaki/BGCcomplex/restfastas/BGC0001970_rest. Skipping.
+Directory azh23790.1_azh23803.1 not found in /data2/moriwaki/BGCcomplex/predicted/BGC0001970 or /data2/moriwaki/BGCcomplex/restfastas/BGC0001970_rest. Skipping.
+Directory azh23790.1_azh23811.1 not found in /data2/moriwaki/BGCcomplex/predicted/BGC0001970 or /data2/moriwaki/BGCcomplex/restfastas/BGC0001970_rest. Skipping.
+Directory azh23790.1_azh23812.1 not found in /data2/moriwaki/BGCcomplex/predicted/BGC0001970 or /data2/moriwaki/BGCcomplex/restfastas/BGC0001970_rest. Skipping.
+Directory azh23790.1_azh23814.1 not found in /data2/moriwaki/BGCcomplex/predicted/BGC0001970 or /data2/moriwaki/BGCcomplex/restfastas/BGC0001970_rest. Skipping.
+Directory azh23790.1_azh23800.1 not found in /data2/moriwaki/BGCcomplex/predicted/BGC0001970 or /data2/moriwaki/BGCcomplex/restfastas/BGC0001970_rest. Skipping.
+Directory azh23790.1_azh23795.1 not found in /data2/moriwaki/BGCcomplex/predicted/BGC0001970 or /data2/moriwaki/BGCcomplex/restfastas/BGC0001970_rest. Skipping.
+Directory azh23791.1_azh23791.1 not found in /data2/moriwaki/BGCcomplex/predicted/BGC0001970 or /data2/moriwaki/BGCcomplex/restfastas/BGC0001970_rest. Skipping.
+Directory azh23791.1_azh23792.1 not found in /data2/moriwaki/BGCcomplex/predicted/BGC0001970 or /data2/moriwaki/BGCcomplex/restfastas/BGC0001970_rest. Skipping.
+Directory azh23791.1_azh23793.1 not found in /data2/moriwaki/BGCcomplex/predicted/BGC0001970 or /data2/moriwaki/BGCcomplex/restfastas/BGC0001970_rest. Skipping.
+Directory azh23791.1_azh23816.1 not found in /data2/moriwaki/BGCcomplex/predicted/BGC0001970 or /data2/moriwaki/BGCcomplex/restfastas/BGC0001970_rest. Skipping.
+Directory azh23791.1_azh23802.1 not found in /data2/moriwaki/BGCcomplex/predicted/BGC0001970 or /data2/moriwaki/BGCcomplex/restfastas/BGC0001970_rest. Skipping.
+Directory azh23791.1_azh23801.1 not found in /data2/moriwaki/BGCcomplex/predicted/BGC0001970 or /data2/moriwaki/BGCcomplex/restfastas/BGC0001970_rest. Skipping.
+Directory azh23791.1_azh23796.1 not found in /data2/moriwaki/BGCcomplex/predicted/BGC0001970 or /data2/moriwaki/BGCcomplex/restfastas/BGC0001970_rest. Skipping.
+Directory azh23791.1_azh23806.1 not found in /data2/moriwaki/BGCcomplex/predicted/BGC0001970 or /data2/moriwaki/BGCcomplex/restfastas/BGC0001970_rest. Skipping.
+Directory azh23791.1_azh23810.1 not found in /data2/moriwaki/BGCcomplex/predicted/BGC0001970 or /data2/moriwaki/BGCcomplex/restfastas/BGC0001970_rest. Skipping.
+Directory azh23791.1_azh23798.1 not found in /data2/moriwaki/BGCcomplex/predicted/BGC0001970 or /data2/moriwaki/BGCcomplex/restfastas/BGC0001970_rest. Skipping.
+Directory azh23791.1_azh23797.1 not found in /data2/moriwaki/BGCcomplex/predicted/BGC0001970 or /data2/moriwaki/BGCcomplex/restfastas/BGC0001970_rest. Skipping.
+Directory azh23791.1_azh23799.1 not found in /data2/moriwaki/BGCcomplex/predicted/BGC0001970 or /data2/moriwaki/BGCcomplex/restfastas/BGC0001970_rest. Skipping.
+Directory azh23791.1_azh23803.1 not found in /data2/moriwaki/BGCcomplex/predicted/BGC0001970 or /data2/moriwaki/BGCcomplex/restfastas/BGC0001970_rest. Skipping.
+Directory azh23791.1_azh23811.1 not found in /data2/moriwaki/BGCcomplex/predicted/BGC0001970 or /data2/moriwaki/BGCcomplex/restfastas/BGC0001970_rest. Skipping.
+Directory azh23791.1_azh23812.1 not found in /data2/moriwaki/BGCcomplex/predicted/BGC0001970 or /data2/moriwaki/BGCcomplex/restfastas/BGC0001970_rest. Skipping.
+Directory azh23791.1_azh23814.1 not found in /data2/moriwaki/BGCcomplex/predicted/BGC0001970 or /data2/moriwaki/BGCcomplex/restfastas/BGC0001970_rest. Skipping.
+Directory azh23791.1_azh23800.1 not found in /data2/moriwaki/BGCcomplex/predicted/BGC0001970 or /data2/moriwaki/BGCcomplex/restfastas/BGC0001970_rest. Skipping.
+Directory azh23791.1_azh23795.1 not found in /data2/moriwaki/BGCcomplex/predicted/BGC0001970 or /data2/moriwaki/BGCcomplex/restfastas/BGC0001970_rest. Skipping.
+Directory azh23792.1_azh23792.1 not found in /data2/moriwaki/BGCcomplex/predicted/BGC0001970 or /data2/moriwaki/BGCcomplex/restfastas/BGC0001970_rest. Skipping.
+Directory azh23792.1_azh23793.1 not found in /data2/moriwaki/BGCcomplex/predicted/BGC0001970 or /data2/moriwaki/BGCcomplex/restfastas/BGC0001970_rest. Skipping.
+Directory azh23792.1_azh23816.1 not found in /data2/moriwaki/BGCcomplex/predicted/BGC0001970 or /data2/moriwaki/BGCcomplex/restfastas/BGC0001970_rest. Skipping.
+Directory azh23792.1_azh23802.1 not found in /data2/moriwaki/BGCcomplex/predicted/BGC0001970 or /data2/moriwaki/BGCcomplex/restfastas/BGC0001970_rest. Skipping.
+Directory azh23792.1_azh23801.1 not found in /data2/moriwaki/BGCcomplex/predicted/BGC0001970 or /data2/moriwaki/BGCcomplex/restfastas/BGC0001970_rest. Skipping.
+Directory azh23792.1_azh23796.1 not found in /data2/moriwaki/BGCcomplex/predicted/BGC0001970 or /data2/moriwaki/BGCcomplex/restfastas/BGC0001970_rest. Skipping.
+Directory azh23792.1_azh23806.1 not found in /data2/moriwaki/BGCcomplex/predicted/BGC0001970 or /data2/moriwaki/BGCcomplex/restfastas/BGC0001970_rest. Skipping.
+Directory azh23792.1_azh23810.1 not found in /data2/moriwaki/BGCcomplex/predicted/BGC0001970 or /data2/moriwaki/BGCcomplex/restfastas/BGC0001970_rest. Skipping.
+Directory azh23792.1_azh23798.1 not found in /data2/moriwaki/BGCcomplex/predicted/BGC0001970 or /data2/moriwaki/BGCcomplex/restfastas/BGC0001970_rest. Skipping.
+Directory azh23792.1_azh23797.1 not found in /data2/moriwaki/BGCcomplex/predicted/BGC0001970 or /data2/moriwaki/BGCcomplex/restfastas/BGC0001970_rest. Skipping.
+Directory azh23792.1_azh23799.1 not found in /data2/moriwaki/BGCcomplex/predicted/BGC0001970 or /data2/moriwaki/BGCcomplex/restfastas/BGC0001970_rest. Skipping.
+Directory azh23792.1_azh23803.1 not found in /data2/moriwaki/BGCcomplex/predicted/BGC0001970 or /data2/moriwaki/BGCcomplex/restfastas/BGC0001970_rest. Skipping.
+Directory azh23792.1_azh23811.1 not found in /data2/moriwaki/BGCcomplex/predicted/BGC0001970 or /data2/moriwaki/BGCcomplex/restfastas/BGC0001970_rest. Skipping.
+Directory azh23792.1_azh23812.1 not found in /data2/moriwaki/BGCcomplex/predicted/BGC0001970 or /data2/moriwaki/BGCcomplex/restfastas/BGC0001970_rest. Skipping.
+Directory azh23792.1_azh23814.1 not found in /data2/moriwaki/BGCcomplex/predicted/BGC0001970 or /data2/moriwaki/BGCcomplex/restfastas/BGC0001970_rest. Skipping.
+Directory azh23792.1_azh23800.1 not found in /data2/moriwaki/BGCcomplex/predicted/BGC0001970 or /data2/moriwaki/BGCcomplex/restfastas/BGC0001970_rest. Skipping.
+Directory azh23792.1_azh23795.1 not found in /data2/moriwaki/BGCcomplex/predicted/BGC0001970 or /data2/moriwaki/BGCcomplex/restfastas/BGC0001970_rest. Skipping.
+Directory azh23793.1_azh23801.1 not found in /data2/moriwaki/BGCcomplex/predicted/BGC0001970 or /data2/moriwaki/BGCcomplex/restfastas/BGC0001970_rest. Skipping.
+Directory azh23793.1_azh23810.1 not found in /data2/moriwaki/BGCcomplex/predicted/BGC0001970 or /data2/moriwaki/BGCcomplex/restfastas/BGC0001970_rest. Skipping.
+Directory azh23793.1_azh23798.1 not found in /data2/moriwaki/BGCcomplex/predicted/BGC0001970 or /data2/moriwaki/BGCcomplex/restfastas/BGC0001970_rest. Skipping.
+Directory azh23793.1_azh23797.1 not found in /data2/moriwaki/BGCcomplex/predicted/BGC0001970 or /data2/moriwaki/BGCcomplex/restfastas/BGC0001970_rest. Skipping.
+Directory azh23793.1_azh23803.1 not found in /data2/moriwaki/BGCcomplex/predicted/BGC0001970 or /data2/moriwaki/BGCcomplex/restfastas/BGC0001970_rest. Skipping.
+Directory azh23793.1_azh23811.1 not found in /data2/moriwaki/BGCcomplex/predicted/BGC0001970 or /data2/moriwaki/BGCcomplex/restfastas/BGC0001970_rest. Skipping.
+Directory azh23793.1_azh23812.1 not found in /data2/moriwaki/BGCcomplex/predicted/BGC0001970 or /data2/moriwaki/BGCcomplex/restfastas/BGC0001970_rest. Skipping.
+Directory azh23793.1_azh23800.1 not found in /data2/moriwaki/BGCcomplex/predicted/BGC0001970 or /data2/moriwaki/BGCcomplex/restfastas/BGC0001970_rest. Skipping.
+Directory azh23793.1_azh23795.1 not found in /data2/moriwaki/BGCcomplex/predicted/BGC0001970 or /data2/moriwaki/BGCcomplex/restfastas/BGC0001970_rest. Skipping.
+Directory azh23816.1_azh23801.1 not found in /data2/moriwaki/BGCcomplex/predicted/BGC0001970 or /data2/moriwaki/BGCcomplex/restfastas/BGC0001970_rest. Skipping.
+Directory azh23816.1_azh23810.1 not found in /data2/moriwaki/BGCcomplex/predicted/BGC0001970 or /data2/moriwaki/BGCcomplex/restfastas/BGC0001970_rest. Skipping.
+Directory azh23816.1_azh23798.1 not found in /data2/moriwaki/BGCcomplex/predicted/BGC0001970 or /data2/moriwaki/BGCcomplex/restfastas/BGC0001970_rest. Skipping.
+Directory azh23816.1_azh23797.1 not found in /data2/moriwaki/BGCcomplex/predicted/BGC0001970 or /data2/moriwaki/BGCcomplex/restfastas/BGC0001970_rest. Skipping.
+Directory azh23816.1_azh23803.1 not found in /data2/moriwaki/BGCcomplex/predicted/BGC0001970 or /data2/moriwaki/BGCcomplex/restfastas/BGC0001970_rest. Skipping.
+Directory azh23816.1_azh23811.1 not found in /data2/moriwaki/BGCcomplex/predicted/BGC0001970 or /data2/moriwaki/BGCcomplex/restfastas/BGC0001970_rest. Skipping.
+Directory azh23816.1_azh23812.1 not found in /data2/moriwaki/BGCcomplex/predicted/BGC0001970 or /data2/moriwaki/BGCcomplex/restfastas/BGC0001970_rest. Skipping.
+Directory azh23816.1_azh23814.1 not found in /data2/moriwaki/BGCcomplex/predicted/BGC0001970 or /data2/moriwaki/BGCcomplex/restfastas/BGC0001970_rest. Skipping.
+Directory azh23816.1_azh23800.1 not found in /data2/moriwaki/BGCcomplex/predicted/BGC0001970 or /data2/moriwaki/BGCcomplex/restfastas/BGC0001970_rest. Skipping.
+Directory azh23816.1_azh23795.1 not found in /data2/moriwaki/BGCcomplex/predicted/BGC0001970 or /data2/moriwaki/BGCcomplex/restfastas/BGC0001970_rest. Skipping.
+Directory azh23802.1_azh23801.1 not found in /data2/moriwaki/BGCcomplex/predicted/BGC0001970 or /data2/moriwaki/BGCcomplex/restfastas/BGC0001970_rest. Skipping.
+Directory azh23802.1_azh23810.1 not found in /data2/moriwaki/BGCcomplex/predicted/BGC0001970 or /data2/moriwaki/BGCcomplex/restfastas/BGC0001970_rest. Skipping.
+Directory azh23802.1_azh23798.1 not found in /data2/moriwaki/BGCcomplex/predicted/BGC0001970 or /data2/moriwaki/BGCcomplex/restfastas/BGC0001970_rest. Skipping.
+Directory azh23802.1_azh23797.1 not found in /data2/moriwaki/BGCcomplex/predicted/BGC0001970 or /data2/moriwaki/BGCcomplex/restfastas/BGC0001970_rest. Skipping.
+Directory azh23802.1_azh23803.1 not found in /data2/moriwaki/BGCcomplex/predicted/BGC0001970 or /data2/moriwaki/BGCcomplex/restfastas/BGC0001970_rest. Skipping.
+Directory azh23802.1_azh23811.1 not found in /data2/moriwaki/BGCcomplex/predicted/BGC0001970 or /data2/moriwaki/BGCcomplex/restfastas/BGC0001970_rest. Skipping.
+Directory azh23802.1_azh23812.1 not found in /data2/moriwaki/BGCcomplex/predicted/BGC0001970 or /data2/moriwaki/BGCcomplex/restfastas/BGC0001970_rest. Skipping.
+Directory azh23802.1_azh23814.1 not found in /data2/moriwaki/BGCcomplex/predicted/BGC0001970 or /data2/moriwaki/BGCcomplex/restfastas/BGC0001970_rest. Skipping.
+Directory azh23802.1_azh23800.1 not found in /data2/moriwaki/BGCcomplex/predicted/BGC0001970 or /data2/moriwaki/BGCcomplex/restfastas/BGC0001970_rest. Skipping.
+Directory azh23802.1_azh23795.1 not found in /data2/moriwaki/BGCcomplex/predicted/BGC0001970 or /data2/moriwaki/BGCcomplex/restfastas/BGC0001970_rest. Skipping.
+Directory azh23796.1_azh23810.1 not found in /data2/moriwaki/BGCcomplex/predicted/BGC0001970 or /data2/moriwaki/BGCcomplex/restfastas/BGC0001970_rest. Skipping.
+Directory azh23796.1_azh23798.1 not found in /data2/moriwaki/BGCcomplex/predicted/BGC0001970 or /data2/moriwaki/BGCcomplex/restfastas/BGC0001970_rest. Skipping.
+Directory azh23796.1_azh23797.1 not found in /data2/moriwaki/BGCcomplex/predicted/BGC0001970 or /data2/moriwaki/BGCcomplex/restfastas/BGC0001970_rest. Skipping.
+Directory azh23796.1_azh23803.1 not found in /data2/moriwaki/BGCcomplex/predicted/BGC0001970 or /data2/moriwaki/BGCcomplex/restfastas/BGC0001970_rest. Skipping.
+Directory azh23796.1_azh23811.1 not found in /data2/moriwaki/BGCcomplex/predicted/BGC0001970 or /data2/moriwaki/BGCcomplex/restfastas/BGC0001970_rest. Skipping.
+Directory azh23796.1_azh23812.1 not found in /data2/moriwaki/BGCcomplex/predicted/BGC0001970 or /data2/moriwaki/BGCcomplex/restfastas/BGC0001970_rest. Skipping.
+Directory azh23796.1_azh23814.1 not found in /data2/moriwaki/BGCcomplex/predicted/BGC0001970 or /data2/moriwaki/BGCcomplex/restfastas/BGC0001970_rest. Skipping.
+Directory azh23796.1_azh23800.1 not found in /data2/moriwaki/BGCcomplex/predicted/BGC0001970 or /data2/moriwaki/BGCcomplex/restfastas/BGC0001970_rest. Skipping.
+Directory azh23796.1_azh23795.1 not found in /data2/moriwaki/BGCcomplex/predicted/BGC0001970 or /data2/moriwaki/BGCcomplex/restfastas/BGC0001970_rest. Skipping.
+Directory azh23806.1_azh23810.1 not found in /data2/moriwaki/BGCcomplex/predicted/BGC0001970 or /data2/moriwaki/BGCcomplex/restfastas/BGC0001970_rest. Skipping.
+Directory azh23806.1_azh23798.1 not found in /data2/moriwaki/BGCcomplex/predicted/BGC0001970 or /data2/moriwaki/BGCcomplex/restfastas/BGC0001970_rest. Skipping.
+Directory azh23806.1_azh23797.1 not found in /data2/moriwaki/BGCcomplex/predicted/BGC0001970 or /data2/moriwaki/BGCcomplex/restfastas/BGC0001970_rest. Skipping.
+Directory azh23806.1_azh23803.1 not found in /data2/moriwaki/BGCcomplex/predicted/BGC0001970 or /data2/moriwaki/BGCcomplex/restfastas/BGC0001970_rest. Skipping.
+Directory azh23806.1_azh23811.1 not found in /data2/moriwaki/BGCcomplex/predicted/BGC0001970 or /data2/moriwaki/BGCcomplex/restfastas/BGC0001970_rest. Skipping.
+Directory azh23806.1_azh23812.1 not found in /data2/moriwaki/BGCcomplex/predicted/BGC0001970 or /data2/moriwaki/BGCcomplex/restfastas/BGC0001970_rest. Skipping.
+Directory azh23806.1_azh23814.1 not found in /data2/moriwaki/BGCcomplex/predicted/BGC0001970 or /data2/moriwaki/BGCcomplex/restfastas/BGC0001970_rest. Skipping.
+Directory azh23806.1_azh23800.1 not found in /data2/moriwaki/BGCcomplex/predicted/BGC0001970 or /data2/moriwaki/BGCcomplex/restfastas/BGC0001970_rest. Skipping.
+Directory azh23806.1_azh23795.1 not found in /data2/moriwaki/BGCcomplex/predicted/BGC0001970 or /data2/moriwaki/BGCcomplex/restfastas/BGC0001970_rest. Skipping.
+Directory azh23799.1_azh23803.1 not found in /data2/moriwaki/BGCcomplex/predicted/BGC0001970 or /data2/moriwaki/BGCcomplex/restfastas/BGC0001970_rest. Skipping.
+Directory azh23799.1_azh23811.1 not found in /data2/moriwaki/BGCcomplex/predicted/BGC0001970 or /data2/moriwaki/BGCcomplex/restfastas/BGC0001970_rest. Skipping.
+Directory azh23799.1_azh23812.1 not found in /data2/moriwaki/BGCcomplex/predicted/BGC0001970 or /data2/moriwaki/BGCcomplex/restfastas/BGC0001970_rest. Skipping.
+Directory azh23799.1_azh23814.1 not found in /data2/moriwaki/BGCcomplex/predicted/BGC0001970 or /data2/moriwaki/BGCcomplex/restfastas/BGC0001970_rest. Skipping.
+Directory azh23799.1_azh23800.1 not found in /data2/moriwaki/BGCcomplex/predicted/BGC0001970 or /data2/moriwaki/BGCcomplex/restfastas/BGC0001970_rest. Skipping.
+Directory azh23799.1_azh23795.1 not found in /data2/moriwaki/BGCcomplex/predicted/BGC0001970 or /data2/moriwaki/BGCcomplex/restfastas/BGC0001970_rest. Skipping.
+File /data2/moriwaki/BGCcomplex/newfastas/newBGC0001973.fasta does not exist. Skipping.
+File /data2/moriwaki/BGCcomplex/newfastas/newBGC0001977.fasta does not exist. Skipping.
+File /data2/moriwaki/BGCcomplex/newfastas/newBGC0001978.fasta does not exist. Skipping.
+File /data2/moriwaki/BGCcomplex/newfastas/newBGC0001981.fasta does not exist. Skipping.
+File /data2/moriwaki/BGCcomplex/newfastas/newBGC0001982.fasta does not exist. Skipping.
+File /data2/moriwaki/BGCcomplex/newfastas/newBGC0001990.fasta does not exist. Skipping.
+File /data2/moriwaki/BGCcomplex/newfastas/newBGC0001993.fasta does not exist. Skipping.
+File /data2/moriwaki/BGCcomplex/newfastas/newBGC0002003.fasta does not exist. Skipping.
+File /data2/moriwaki/BGCcomplex/newfastas/newBGC0002016.fasta does not exist. Skipping.
+File /data2/moriwaki/BGCcomplex/newfastas/newBGC0002023.fasta does not exist. Skipping.
+File /data2/moriwaki/BGCcomplex/newfastas/newBGC0002027.fasta does not exist. Skipping.
+File /data2/moriwaki/BGCcomplex/newfastas/newBGC0002029.fasta does not exist. Skipping.
+File /data2/moriwaki/BGCcomplex/newfastas/newBGC0002030.fasta does not exist. Skipping.
+File /data2/moriwaki/BGCcomplex/newfastas/newBGC0002041.fasta does not exist. Skipping.
+File /data2/moriwaki/BGCcomplex/newfastas/newBGC0002057.fasta does not exist. Skipping.
+File /data2/moriwaki/BGCcomplex/newfastas/newBGC0002061.fasta does not exist. Skipping.
+File /data2/moriwaki/BGCcomplex/newfastas/newBGC0002065.fasta does not exist. Skipping.
+File /data2/moriwaki/BGCcomplex/newfastas/newBGC0002069.fasta does not exist. Skipping.
+File /data2/moriwaki/BGCcomplex/newfastas/newBGC0002071.fasta does not exist. Skipping.
+File /data2/moriwaki/BGCcomplex/newfastas/newBGC0002076.fasta does not exist. Skipping.
+File /data2/moriwaki/BGCcomplex/newfastas/newBGC0002077.fasta does not exist. Skipping.
+File /data2/moriwaki/BGCcomplex/newfastas/newBGC0002094.fasta does not exist. Skipping.
+File /data2/moriwaki/BGCcomplex/newfastas/newBGC0002105.fasta does not exist. Skipping.
+File /data2/moriwaki/BGCcomplex/newfastas/newBGC0002112.fasta does not exist. Skipping.
+File /data2/moriwaki/BGCcomplex/newfastas/newBGC0002113.fasta does not exist. Skipping.
+File /data2/moriwaki/BGCcomplex/newfastas/newBGC0002116.fasta does not exist. Skipping.
+File /data2/moriwaki/BGCcomplex/newfastas/newBGC0002121.fasta does not exist. Skipping.
+File /data2/moriwaki/BGCcomplex/newfastas/newBGC0002135.fasta does not exist. Skipping.
+File /data2/moriwaki/BGCcomplex/newfastas/newBGC0002145.fasta does not exist. Skipping.
+File /data2/moriwaki/BGCcomplex/newfastas/newBGC0002154.fasta does not exist. Skipping.
+File /data2/moriwaki/BGCcomplex/newfastas/newBGC0002156.fasta does not exist. Skipping.
+File /data2/moriwaki/BGCcomplex/newfastas/newBGC0002159.fasta does not exist. Skipping.
+File /data2/moriwaki/BGCcomplex/newfastas/newBGC0002160.fasta does not exist. Skipping.
+File /data2/moriwaki/BGCcomplex/newfastas/newBGC0002164.fasta does not exist. Skipping.
+File /data2/moriwaki/BGCcomplex/newfastas/newBGC0002166.fasta does not exist. Skipping.
+File /data2/moriwaki/BGCcomplex/newfastas/newBGC0002175.fasta does not exist. Skipping.
+File /data2/moriwaki/BGCcomplex/newfastas/newBGC0002178.fasta does not exist. Skipping.
+File /data2/moriwaki/BGCcomplex/newfastas/newBGC0002179.fasta does not exist. Skipping.
+File /data2/moriwaki/BGCcomplex/newfastas/newBGC0002182.fasta does not exist. Skipping.
+File /data2/moriwaki/BGCcomplex/newfastas/newBGC0002183.fasta does not exist. Skipping.
+File /data2/moriwaki/BGCcomplex/newfastas/newBGC0002184.fasta does not exist. Skipping.
+File /data2/moriwaki/BGCcomplex/newfastas/newBGC0002189.fasta does not exist. Skipping.
+File /data2/moriwaki/BGCcomplex/newfastas/newBGC0002191.fasta does not exist. Skipping.
+File /data2/moriwaki/BGCcomplex/newfastas/newBGC0002192.fasta does not exist. Skipping.
+File /data2/moriwaki/BGCcomplex/newfastas/newBGC0002200.fasta does not exist. Skipping.
+File /data2/moriwaki/BGCcomplex/newfastas/newBGC0002201.fasta does not exist. Skipping.
+File /data2/moriwaki/BGCcomplex/newfastas/newBGC0002202.fasta does not exist. Skipping.
+File /data2/moriwaki/BGCcomplex/newfastas/newBGC0002217.fasta does not exist. Skipping.
+File /data2/moriwaki/BGCcomplex/newfastas/newBGC0002223.fasta does not exist. Skipping.
+File /data2/moriwaki/BGCcomplex/newfastas/newBGC0002224.fasta does not exist. Skipping.
+File /data2/moriwaki/BGCcomplex/newfastas/newBGC0002231.fasta does not exist. Skipping.
+File /data2/moriwaki/BGCcomplex/newfastas/newBGC0002241.fasta does not exist. Skipping.
+File /data2/moriwaki/BGCcomplex/newfastas/newBGC0002243.fasta does not exist. Skipping.
+File /data2/moriwaki/BGCcomplex/newfastas/newBGC0002247.fasta does not exist. Skipping.
+File /data2/moriwaki/BGCcomplex/newfastas/newBGC0002251.fasta does not exist. Skipping.
+File /data2/moriwaki/BGCcomplex/newfastas/newBGC0002252.fasta does not exist. Skipping.
+File /data2/moriwaki/BGCcomplex/newfastas/newBGC0002263.fasta does not exist. Skipping.
+File /data2/moriwaki/BGCcomplex/newfastas/newBGC0002265.fasta does not exist. Skipping.
+File /data2/moriwaki/BGCcomplex/newfastas/newBGC0002269.fasta does not exist. Skipping.
+File /data2/moriwaki/BGCcomplex/newfastas/newBGC0002279.fasta does not exist. Skipping.
+File /data2/moriwaki/BGCcomplex/newfastas/newBGC0002280.fasta does not exist. Skipping.
+File /data2/moriwaki/BGCcomplex/newfastas/newBGC0002281.fasta does not exist. Skipping.
+File /data2/moriwaki/BGCcomplex/newfastas/newBGC0002286.fasta does not exist. Skipping.
+File /data2/moriwaki/BGCcomplex/newfastas/newBGC0002292.fasta does not exist. Skipping.
+File /data2/moriwaki/BGCcomplex/newfastas/newBGC0002299.fasta does not exist. Skipping.
+File /data2/moriwaki/BGCcomplex/newfastas/newBGC0002310.fasta does not exist. Skipping.
+File /data2/moriwaki/BGCcomplex/newfastas/newBGC0002325.fasta does not exist. Skipping.
+File /data2/moriwaki/BGCcomplex/newfastas/newBGC0002335.fasta does not exist. Skipping.
+File /data2/moriwaki/BGCcomplex/newfastas/newBGC0002353.fasta does not exist. Skipping.
+File /data2/moriwaki/BGCcomplex/newfastas/newBGC0002368.fasta does not exist. Skipping.
+File /data2/moriwaki/BGCcomplex/newfastas/newBGC0002371.fasta does not exist. Skipping.
+File /data2/moriwaki/BGCcomplex/newfastas/newBGC0002375.fasta does not exist. Skipping.
+File /data2/moriwaki/BGCcomplex/newfastas/newBGC0002380.fasta does not exist. Skipping.
+File /data2/moriwaki/BGCcomplex/newfastas/newBGC0002388.fasta does not exist. Skipping.
+File /data2/moriwaki/BGCcomplex/newfastas/newBGC0002389.fasta does not exist. Skipping.
+File /data2/moriwaki/BGCcomplex/newfastas/newBGC0002396.fasta does not exist. Skipping.
+File /data2/moriwaki/BGCcomplex/newfastas/newBGC0002399.fasta does not exist. Skipping.
+File /data2/moriwaki/BGCcomplex/newfastas/newBGC0002428.fasta does not exist. Skipping.
+File /data2/moriwaki/BGCcomplex/newfastas/newBGC0002437.fasta does not exist. Skipping.
+File /data2/moriwaki/BGCcomplex/newfastas/newBGC0002444.fasta does not exist. Skipping.
+File /data2/moriwaki/BGCcomplex/newfastas/newBGC0002457.fasta does not exist. Skipping.
+File /data2/moriwaki/BGCcomplex/newfastas/newBGC0002459.fasta does not exist. Skipping.
+File /data2/moriwaki/BGCcomplex/newfastas/newBGC0002463.fasta does not exist. Skipping.
+File /data2/moriwaki/BGCcomplex/newfastas/newBGC0002481.fasta does not exist. Skipping.
+File /data2/moriwaki/BGCcomplex/newfastas/newBGC0002486.fasta does not exist. Skipping.
+File /data2/moriwaki/BGCcomplex/newfastas/newBGC0002511.fasta does not exist. Skipping.
+File /data2/moriwaki/BGCcomplex/newfastas/newBGC0002513.fasta does not exist. Skipping.
+File /data2/moriwaki/BGCcomplex/newfastas/newBGC0002516.fasta does not exist. Skipping.
+File /data2/moriwaki/BGCcomplex/newfastas/newBGC0002519.fasta does not exist. Skipping.
+File /data2/moriwaki/BGCcomplex/newfastas/newBGC0002534.fasta does not exist. Skipping.
+File /data2/moriwaki/BGCcomplex/newfastas/newBGC0002549.fasta does not exist. Skipping.
+File /data2/moriwaki/BGCcomplex/newfastas/newBGC0002562.fasta does not exist. Skipping.
+File /data2/moriwaki/BGCcomplex/newfastas/newBGC0002566.fasta does not exist. Skipping.
+File /data2/moriwaki/BGCcomplex/newfastas/newBGC0002574.fasta does not exist. Skipping.
+File /data2/moriwaki/BGCcomplex/newfastas/newBGC0002585.fasta does not exist. Skipping.
+File /data2/moriwaki/BGCcomplex/newfastas/newBGC0002589.fasta does not exist. Skipping.
+File /data2/moriwaki/BGCcomplex/newfastas/newBGC0002590.fasta does not exist. Skipping.
+File /data2/moriwaki/BGCcomplex/newfastas/newBGC0002593.fasta does not exist. Skipping.
+File /data2/moriwaki/BGCcomplex/newfastas/newBGC0002595.fasta does not exist. Skipping.
+File /data2/moriwaki/BGCcomplex/newfastas/newBGC0002599.fasta does not exist. Skipping.
+File /data2/moriwaki/BGCcomplex/newfastas/newBGC0002600.fasta does not exist. Skipping.
+File /data2/moriwaki/BGCcomplex/newfastas/newBGC0002601.fasta does not exist. Skipping.
+File /data2/moriwaki/BGCcomplex/newfastas/newBGC0002618.fasta does not exist. Skipping.
+File /data2/moriwaki/BGCcomplex/newfastas/newBGC0002624.fasta does not exist. Skipping.
+File /data2/moriwaki/BGCcomplex/newfastas/newBGC0002627.fasta does not exist. Skipping.
+File /data2/moriwaki/BGCcomplex/newfastas/newBGC0002628.fasta does not exist. Skipping.
+File /data2/moriwaki/BGCcomplex/newfastas/newBGC0002630.fasta does not exist. Skipping.
+File /data2/moriwaki/BGCcomplex/newfastas/newBGC0002632.fasta does not exist. Skipping.
+File /data2/moriwaki/BGCcomplex/newfastas/newBGC0002636.fasta does not exist. Skipping.
+File /data2/moriwaki/BGCcomplex/newfastas/newBGC0002647.fasta does not exist. Skipping.
+File /data2/moriwaki/BGCcomplex/newfastas/newBGC0002650.fasta does not exist. Skipping.
+File /data2/moriwaki/BGCcomplex/newfastas/newBGC0002655.fasta does not exist. Skipping.
+File /data2/moriwaki/BGCcomplex/newfastas/newBGC0002658.fasta does not exist. Skipping.
+File /data2/moriwaki/BGCcomplex/newfastas/newBGC0002662.fasta does not exist. Skipping.
+File /data2/moriwaki/BGCcomplex/newfastas/newBGC0002664.fasta does not exist. Skipping.
+File /data2/moriwaki/BGCcomplex/newfastas/newBGC0002684.fasta does not exist. Skipping.
+File /data2/moriwaki/BGCcomplex/newfastas/newBGC0002705.fasta does not exist. Skipping.
+File /data2/moriwaki/BGCcomplex/newfastas/newBGC0002714.fasta does not exist. Skipping.
+File /data2/moriwaki/BGCcomplex/newfastas/newBGC0002717.fasta does not exist. Skipping.
+File /data2/moriwaki/BGCcomplex/newfastas/newBGC0002720.fasta does not exist. Skipping.
+File /data2/moriwaki/BGCcomplex/newfastas/newBGC0002727.fasta does not exist. Skipping.
+File /data2/moriwaki/BGCcomplex/newfastas/newBGC0002728.fasta does not exist. Skipping.
+File /data2/moriwaki/BGCcomplex/newfastas/newBGC0002730.fasta does not exist. Skipping.
+File /data2/moriwaki/BGCcomplex/newfastas/newBGC0002737.fasta does not exist. Skipping.
+File /data2/moriwaki/BGCcomplex/newfastas/newBGC0002738.fasta does not exist. Skipping.
+File /data2/moriwaki/BGCcomplex/newfastas/newBGC0002739.fasta does not exist. Skipping.
+File /data2/moriwaki/BGCcomplex/newfastas/newBGC0002740.fasta does not exist. Skipping.
+File /data2/moriwaki/BGCcomplex/newfastas/newBGC0002741.fasta does not exist. Skipping.
+File /data2/moriwaki/BGCcomplex/newfastas/newBGC0002742.fasta does not exist. Skipping.
+File /data2/moriwaki/BGCcomplex/newfastas/newBGC0002743.fasta does not exist. Skipping.
+File /data2/moriwaki/BGCcomplex/newfastas/newBGC0002744.fasta does not exist. Skipping.
+File /data2/moriwaki/BGCcomplex/newfastas/newBGC0002748.fasta does not exist. Skipping.
+File /data2/moriwaki/BGCcomplex/newfastas/newBGC0002753.fasta does not exist. Skipping.
+File /data2/moriwaki/BGCcomplex/newfastas/newBGC0002756.fasta does not exist. Skipping.
+File /data2/moriwaki/BGCcomplex/newfastas/newBGC0002757.fasta does not exist. Skipping.
+File /data2/moriwaki/BGCcomplex/newfastas/newBGC0002761.fasta does not exist. Skipping.
+File /data2/moriwaki/BGCcomplex/newfastas/newBGC0002762.fasta does not exist. Skipping.
+File /data2/moriwaki/BGCcomplex/newfastas/newBGC0002763.fasta does not exist. Skipping.
+File /data2/moriwaki/BGCcomplex/newfastas/newBGC0002764.fasta does not exist. Skipping.
+File /data2/moriwaki/BGCcomplex/newfastas/newBGC0002766.fasta does not exist. Skipping.
+File /data2/moriwaki/BGCcomplex/newfastas/newBGC0002767.fasta does not exist. Skipping.
+File /data2/moriwaki/BGCcomplex/newfastas/newBGC0002769.fasta does not exist. Skipping.
+File /data2/moriwaki/BGCcomplex/newfastas/newBGC0002770.fasta does not exist. Skipping.
+File /data2/moriwaki/BGCcomplex/newfastas/newBGC0002771.fasta does not exist. Skipping.
+File /data2/moriwaki/BGCcomplex/newfastas/newBGC0002772.fasta does not exist. Skipping.
+File /data2/moriwaki/BGCcomplex/newfastas/newBGC0002773.fasta does not exist. Skipping.
+File /data2/moriwaki/BGCcomplex/newfastas/newBGC0002774.fasta does not exist. Skipping.
+File /data2/moriwaki/BGCcomplex/newfastas/newBGC0002776.fasta does not exist. Skipping.
+File /data2/moriwaki/BGCcomplex/newfastas/newBGC0002777.fasta does not exist. Skipping.
+File /data2/moriwaki/BGCcomplex/newfastas/newBGC0002778.fasta does not exist. Skipping.
+File /data2/moriwaki/BGCcomplex/newfastas/newBGC0002780.fasta does not exist. Skipping.
+File /data2/moriwaki/BGCcomplex/newfastas/newBGC0002781.fasta does not exist. Skipping.
+File /data2/moriwaki/BGCcomplex/newfastas/newBGC0002782.fasta does not exist. Skipping.
+File /data2/moriwaki/BGCcomplex/newfastas/newBGC0002783.fasta does not exist. Skipping.
+File /data2/moriwaki/BGCcomplex/newfastas/newBGC0002784.fasta does not exist. Skipping.
+File /data2/moriwaki/BGCcomplex/newfastas/newBGC0002785.fasta does not exist. Skipping.
+File /data2/moriwaki/BGCcomplex/newfastas/newBGC0002787.fasta does not exist. Skipping.
+File /data2/moriwaki/BGCcomplex/newfastas/newBGC0002790.fasta does not exist. Skipping.
+File /data2/moriwaki/BGCcomplex/newfastas/newBGC0002791.fasta does not exist. Skipping.
+File /data2/moriwaki/BGCcomplex/newfastas/newBGC0002792.fasta does not exist. Skipping.
+File /data2/moriwaki/BGCcomplex/newfastas/newBGC0002793.fasta does not exist. Skipping.
+File /data2/moriwaki/BGCcomplex/newfastas/newBGC0002794.fasta does not exist. Skipping.
+File /data2/moriwaki/BGCcomplex/newfastas/newBGC0002795.fasta does not exist. Skipping.
+File /data2/moriwaki/BGCcomplex/newfastas/newBGC0002796.fasta does not exist. Skipping.
+File /data2/moriwaki/BGCcomplex/newfastas/newBGC0002797.fasta does not exist. Skipping.
+File /data2/moriwaki/BGCcomplex/newfastas/newBGC0002798.fasta does not exist. Skipping.
+File /data2/moriwaki/BGCcomplex/newfastas/newBGC0002799.fasta does not exist. Skipping.
+File /data2/moriwaki/BGCcomplex/newfastas/newBGC0002800.fasta does not exist. Skipping.
+File /data2/moriwaki/BGCcomplex/newfastas/newBGC0002801.fasta does not exist. Skipping.
+File /data2/moriwaki/BGCcomplex/newfastas/newBGC0002802.fasta does not exist. Skipping.
+File /data2/moriwaki/BGCcomplex/newfastas/newBGC0002803.fasta does not exist. Skipping.
+File /data2/moriwaki/BGCcomplex/newfastas/newBGC0002807.fasta does not exist. Skipping.
+File /data2/moriwaki/BGCcomplex/newfastas/newBGC0002809.fasta does not exist. Skipping.
+File /data2/moriwaki/BGCcomplex/newfastas/newBGC0002811.fasta does not exist. Skipping.
+File /data2/moriwaki/BGCcomplex/newfastas/newBGC0002817.fasta does not exist. Skipping.
+File /data2/moriwaki/BGCcomplex/newfastas/newBGC0002818.fasta does not exist. Skipping.
+File /data2/moriwaki/BGCcomplex/newfastas/newBGC0002819.fasta does not exist. Skipping.
+File /data2/moriwaki/BGCcomplex/newfastas/newBGC0002820.fasta does not exist. Skipping.
+File /data2/moriwaki/BGCcomplex/newfastas/newBGC0002821.fasta does not exist. Skipping.
+File /data2/moriwaki/BGCcomplex/newfastas/newBGC0002822.fasta does not exist. Skipping.
+File /data2/moriwaki/BGCcomplex/newfastas/newBGC0002823.fasta does not exist. Skipping.
+File /data2/moriwaki/BGCcomplex/newfastas/newBGC0002824.fasta does not exist. Skipping.

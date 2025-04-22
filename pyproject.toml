@@ -3,7 +3,7 @@ name = "complexbuilder"
 version = "0.0.1"
 description = "module to build and predict protein multimer with ColabFold"
 readme = "README.md"
-requires-python = ">=3.11"
+requires-python = ">=3.12"
 dependencies = [
     "biopython>=1.84",
     "matplotlib",
@@ -13,11 +13,11 @@ dependencies = [
     "scipy",
     "scikit-image",
     "loguru",
-    "alphafold3-tools",
+    "alphafold3-tools==0.0.7",
 ]
 
 [tool.uv]
-dev-dependencies = ["mypy", "notebook", "pytest", "pytest-cov", "ruff", "pyyaml"]
+dev-dependencies = ["mypy", "notebook", "pytest", "ruff", "pyyaml"]
 
 [tool.uv.sources]
 alphafold3-tools = { git = "https://github.com/cddlab/alphafold3_tools.git" }
@@ -26,7 +26,7 @@ alphafold3-tools = { git = "https://github.com/cddlab/alphafold3_tools.git" }
 indent-width = 4
 line-length = 88 # Same as Black.
 exclude = [".ruff_cache", ".ruff.toml", ".ruff.lock"]
-target-version = "py311"
+target-version = "py312"
 
 [tool.ruff.lint]
 select = [
@@ -55,7 +55,7 @@ known-third-party = ["fastapi", "pydantic", "starlette"]
 filterwarnings = [
     "ignore:.*Jupyter is migrating.*:DeprecationWarning",
 ]
-addopts = "-v --color=yes --cov=complexbuilder --cov-report=term-missing"
+addopts = "-v --color=yes"
 
 [tool.hatch.metadata]
 allow-direct-references = true
