@@ -5,27 +5,22 @@ import sys
 from pathlib import Path
 
 import matplotlib.pyplot as plt
-from matplotlib import rcParams
+from matplotlib import font_manager, rcParams
 
-rcParams["font.family"] = "sans-serif"
-rcParams["font.sans-serif"] = [
-    "Hiragino Maru Gothic Pro",
-    "Yu Gothic",
-    "Meiryo",
-    "Takao",
-    "IPAexGothic",
-    "IPAPGothic",
-    "VL PGothic",
-    "Noto Sans CJK JP",
-]
+# Font directory
+font_dir = "/home/moriwaki/fonts"
+for font_path in font_manager.findSystemFonts(fontpaths=[font_dir]):
+    font_manager.fontManager.addfont(font_path)
+rcParams["font.family"] = "Arial"
+# %%
 
 # BGCディレクトリがある親ディレクトリ
-parent_dir = Path("/Users/YoshitakaM/Desktop/BGC_heteromer")
+parent_dir = Path("/data2/moriwaki/BGCcomplex/merged")
 # 各BGCディレクトリ内のaf3/complexmetrics.jsonのパスを収集
 metrics_paths = []
 for entry in parent_dir.iterdir():
     if entry.is_dir() and entry.name.startswith("BGC000"):
-        json_path = entry / "af3" / "complexmetrics.json"
+        json_path = entry / "complexmetrics.json"
         if json_path.exists():
             metrics_paths.append(json_path)
 
@@ -68,12 +63,15 @@ ax.set_xlim(0, 1)
 ax.xaxis.set_tick_params(labelsize=8)
 ax.yaxis.set_tick_params(labelsize=8)
 ax.set_xticks([0, 0.2, 0.4, 0.6, 0.8, 1])
-ax.set_ylim(0, 1)
+ax.set_ylim(0.6, 1)
 ax.set_ylabel("ipTM")
-ax.set_xticks([0, 0.2, 0.4, 0.6, 0.8, 1])
-ax.scatter(x_vals, y_vals, s=5, c="blue", alpha=0.5)
+ax.set_yticks([0, 0.2, 0.4, 0.6, 0.8, 1])
+ax.scatter(x_vals, y_vals, s=0.5, c="blue", alpha=0.2)
 
 plt.tight_layout()
-plt.show()
+plt.savefig("test.eps", format="eps", bbox_inches="tight")
+# 487828 points
+
+# %%
 
 # %%
