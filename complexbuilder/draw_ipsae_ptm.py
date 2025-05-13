@@ -5,6 +5,7 @@ import sys
 from pathlib import Path
 
 import matplotlib.pyplot as plt
+import numpy as np
 from matplotlib import font_manager, rcParams
 
 # Font directory
@@ -66,12 +67,42 @@ ax.set_xticks([0, 0.2, 0.4, 0.6, 0.8, 1])
 ax.set_ylim(0.6, 1)
 ax.set_ylabel("ipTM")
 ax.set_yticks([0, 0.2, 0.4, 0.6, 0.8, 1])
-ax.scatter(x_vals, y_vals, s=0.5, c="blue", alpha=0.2)
+ax.scatter(x_vals, y_vals, s=0.5, c="cyan", alpha=0.6, edgecolors="none")
 
+inds = np.argsort(x_vals)
+x_arr = np.array(x_vals)[inds]
+y_arr = np.array(y_vals)[inds]
+
+# グリッドの定義（例: 0〜1の範囲で200点）
+grid = np.linspace(0, 1, 200)
+bandwidth = 0.02
+
+smooth_y = []
+lower_ci = []
+upper_ci = []
+# 各グリッド点での加重平均と95%信頼区間を計算
+for xi in grid:
+    weights = np.exp(-0.5 * ((x_arr - xi) / bandwidth) ** 2)
+    sum_weights = weights.sum()
+    if sum_weights == 0:
+        mean_y = np.nan
+        ci = 0
+    else:
+        # 加重平均
+        mean_y = np.sum(weights * y_arr) / sum_weights
+        # 加重分散
+        var = np.sum(weights * (y_arr - mean_y) ** 2) / sum_weights
+        # 有効サンプルサイズ: (Σw)^2 / Σ(w^2)
+        eff_n = sum_weights**2 / np.sum(weights**2)
+        se = np.sqrt(var / eff_n)  # 標準誤差
+        ci = 1.96 * se  # 95%信頼区間
+    smooth_y.append(mean_y)
+    lower_ci.append(mean_y - ci)
+    upper_ci.append(mean_y + ci)
+ax.plot(grid, smooth_y, color="blue", lw=1.5, label="Gaussian Smoothed")
+ax.fill_between(grid, lower_ci, upper_ci, color="red", alpha=0.3, label="95% CI")
+ax.legend()
 plt.tight_layout()
-plt.savefig("test.eps", format="eps", bbox_inches="tight")
+plt.savefig("ipSAE_vs_ipTM.png", dpi=300)
 # 487828 points
-
-# %%
-
 # %%
