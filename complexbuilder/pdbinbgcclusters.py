@@ -53,7 +53,7 @@ def get_max_chain_count(chain_field: str) -> int:
 
 def is_valid_mibig_accession(accession: str, bgcnumber: int = 2826) -> bool:
     """
-    Check if the given mibig_accession value is in the range BGC0001 to BGC2826.
+    Check if the given mibig_accession value is in the range BGC0000001 to BGC0002826.
 
     Args:
         accession (str): The accession id string in the format "BGC000XXXX".
@@ -71,15 +71,16 @@ def is_valid_mibig_accession(accession: str, bgcnumber: int = 2826) -> bool:
     return 1 <= num <= bgcnumber
 
 
-def get_oligomeric_state(pdb_id_field: str) -> str:
+def get_oligomeric_state(pdb_id_field: str):
     """
     Get the oligomeric state from "rcsb_{pdb_Id}.json" file.
     In the json file, the oligomeric state is embedded in the ["rcsb_struct_symmetry"][0]["oligomeric_state"]
     field.
     Args:
-        pdb_id_field (str): The PDB ID string. E.g. "{5DYV,7PXO}" or "{8QFU}"
+        pdb_id_field (str): The PDB ID string. e.g. "{5DYV,7PXO}" or "{8QFU}"
     Returns:
         str: The oligomeric state as a string. If the oligomeric state is not found or invalid, return "Unknown".
+        e.g. "2
     """
     # Extract the PDB ID from the field
     pdb_ids = parse_multi_value(pdb_id_field)

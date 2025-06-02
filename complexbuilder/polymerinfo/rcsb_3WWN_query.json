@@ -1,0 +1,430 @@
+{
+  "data": {
+    "entries": [
+      {
+        "rcsb_id": "3WWN",
+        "pubmed": {
+          "rcsb_pubmed_doi": "10.1074/jbc.M114.595983"
+        },
+        "assemblies": [
+          {
+            "rcsb_assembly_container_identifiers": {
+              "assembly_id": "1",
+              "interface_ids": [
+                "1",
+                "2",
+                "3"
+              ]
+            },
+            "pdbx_struct_assembly": {
+              "oligomeric_details": "tetrameric",
+              "rcsb_candidate_assembly": "Y",
+              "oligomeric_count": 4,
+              "rcsb_details": "author_and_software_defined_assembly",
+              "method_details": "PISA",
+              "id": "1",
+              "details": "author_and_software_defined_assembly"
+            },
+            "rcsb_assembly_info": {
+              "polymer_monomer_count": 646,
+              "polymer_entity_count_protein": 2,
+              "nonpolymer_atom_count": 12,
+              "num_interfaces": 3,
+              "branched_atom_count": 0,
+              "entry_id": "3WWN",
+              "num_homomeric_interface_entities": 1,
+              "total_number_interface_residues": 198,
+              "solvent_entity_count": 1,
+              "atom_count": 5338,
+              "na_polymer_entity_types": "Other",
+              "num_protein_interface_entities": 3,
+              "polymer_entity_count_DNA": 0,
+              "selected_polymer_entity_types": "Protein (only)",
+              "total_assembly_buried_surface_area": 3552.665881533612,
+              "num_heteromeric_interface_entities": 2,
+              "polymer_entity_instance_count_RNA": 0,
+              "polymer_entity_instance_count": 4,
+              "num_interface_entities": 3,
+              "polymer_entity_instance_count_protein": 4,
+              "num_na_interface_entities": 0,
+              "num_prot_na_interface_entities": 0,
+              "num_heterologous_interface_entities": 2,
+              "polymer_entity_instance_count_nucleic_acid": 0,
+              "polymer_composition": "heteromeric protein",
+              "deuterated_water_count": 0,
+              "polymer_entity_count_RNA": 0,
+              "polymer_entity_instance_count_DNA": 0,
+              "assembly_id": "1",
+              "nonpolymer_entity_count": 2,
+              "polymer_entity_count_nucleic_acid_hybrid": 0,
+              "num_isologous_interface_entities": 1,
+              "polymer_entity_instance_count_nucleic_acid_hybrid": 0,
+              "nonpolymer_entity_instance_count": 4,
+              "branched_entity_count": 0,
+              "solvent_entity_instance_count": 4,
+              "polymer_entity_count": 2,
+              "polymer_atom_count": 4816,
+              "modeled_polymer_monomer_count": 634,
+              "solvent_atom_count": 510,
+              "unmodeled_polymer_monomer_count": 12,
+              "hydrogen_atom_count": 0,
+              "polymer_entity_count_nucleic_acid": 0,
+              "branched_entity_instance_count": 0
+            },
+            "rcsb_struct_symmetry": [
+              {
+                "oligomeric_state": "Hetero 4-mer",
+                "rotation_axes": [
+                  {
+                    "order": 2,
+                    "end": [
+                      -65.6091,
+                      4.199899999999996,
+                      -8.26025414808259e-16
+                    ],
+                    "start": [
+                      -23.481899999999982,
+                      46.3271,
+                      3.475103941302932e-16
+                    ]
+                  }
+                ],
+                "clusters": [
+                  {
+                    "avg_rmsd": 2.0532509595471507e-14,
+                    "members": [
+                      {
+                        "pdbx_struct_oper_list_ids": [
+                          "1"
+                        ],
+                        "asym_id": "A"
+                      },
+                      {
+                        "pdbx_struct_oper_list_ids": [
+                          "2"
+                        ],
+                        "asym_id": "A"
+                      }
+                    ]
+                  },
+                  {
+                    "avg_rmsd": 3.615159158676291e-14,
+                    "members": [
+                      {
+                        "pdbx_struct_oper_list_ids": [
+                          "1"
+                        ],
+                        "asym_id": "B"
+                      },
+                      {
+                        "pdbx_struct_oper_list_ids": [
+                          "2"
+                        ],
+                        "asym_id": "B"
+                      }
+                    ]
+                  }
+                ],
+                "kind": "Global Symmetry",
+                "type": "Cyclic",
+                "symbol": "C2",
+                "stoichiometry": [
+                  "A2",
+                  "B2"
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "rcsb_id": "7M7J",
+        "pubmed": {
+          "rcsb_pubmed_doi": "10.1126/science.abi8358"
+        },
+        "assemblies": [
+          {
+            "rcsb_assembly_container_identifiers": {
+              "assembly_id": "1",
+              "interface_ids": [
+                "1",
+                "2",
+                "3",
+                "4",
+                "5",
+                "6",
+                "7",
+                "8",
+                "9",
+                "10",
+                "11"
+              ]
+            },
+            "pdbx_struct_assembly": {
+              "oligomeric_details": "hexameric",
+              "rcsb_candidate_assembly": "Y",
+              "oligomeric_count": 6,
+              "rcsb_details": "author_defined_assembly",
+              "method_details": null,
+              "id": "1",
+              "details": "author_defined_assembly"
+            },
+            "rcsb_assembly_info": {
+              "polymer_monomer_count": 4156,
+              "polymer_entity_count_protein": 3,
+              "nonpolymer_atom_count": 0,
+              "num_interfaces": 11,
+              "branched_atom_count": 0,
+              "entry_id": "7M7J",
+              "num_homomeric_interface_entities": 1,
+              "total_number_interface_residues": 687,
+              "solvent_entity_count": 0,
+              "atom_count": 23224,
+              "na_polymer_entity_types": "Other",
+              "num_protein_interface_entities": 6,
+              "polymer_entity_count_DNA": 0,
+              "selected_polymer_entity_types": "Protein (only)",
+              "total_assembly_buried_surface_area": 11432.604758932297,
+              "num_heteromeric_interface_entities": 5,
+              "polymer_entity_instance_count_RNA": 0,
+              "polymer_entity_instance_count": 6,
+              "num_interface_entities": 6,
+              "polymer_entity_instance_count_protein": 6,
+              "num_na_interface_entities": 0,
+              "num_prot_na_interface_entities": 0,
+              "num_heterologous_interface_entities": 5,
+              "polymer_entity_instance_count_nucleic_acid": 0,
+              "polymer_composition": "heteromeric protein",
+              "deuterated_water_count": 0,
+              "polymer_entity_count_RNA": 0,
+              "polymer_entity_instance_count_DNA": 0,
+              "assembly_id": "1",
+              "nonpolymer_entity_count": 0,
+              "polymer_entity_count_nucleic_acid_hybrid": 0,
+              "num_isologous_interface_entities": 1,
+              "polymer_entity_instance_count_nucleic_acid_hybrid": 0,
+              "nonpolymer_entity_instance_count": 0,
+              "branched_entity_count": 0,
+              "solvent_entity_instance_count": 0,
+              "polymer_entity_count": 3,
+              "polymer_atom_count": 23224,
+              "modeled_polymer_monomer_count": 3124,
+              "solvent_atom_count": 0,
+              "unmodeled_polymer_monomer_count": 1032,
+              "hydrogen_atom_count": 0,
+              "polymer_entity_count_nucleic_acid": 0,
+              "branched_entity_instance_count": 0
+            },
+            "rcsb_struct_symmetry": [
+              {
+                "oligomeric_state": "Hetero 6-mer",
+                "rotation_axes": null,
+                "clusters": [
+                  {
+                    "avg_rmsd": null,
+                    "members": [
+                      {
+                        "pdbx_struct_oper_list_ids": [
+                          "1"
+                        ],
+                        "asym_id": "B"
+                      }
+                    ]
+                  },
+                  {
+                    "avg_rmsd": null,
+                    "members": [
+                      {
+                        "pdbx_struct_oper_list_ids": [
+                          "1"
+                        ],
+                        "asym_id": "A"
+                      }
+                    ]
+                  },
+                  {
+                    "avg_rmsd": 0.1411488718996327,
+                    "members": [
+                      {
+                        "pdbx_struct_oper_list_ids": [
+                          "1"
+                        ],
+                        "asym_id": "C"
+                      },
+                      {
+                        "pdbx_struct_oper_list_ids": [
+                          "1"
+                        ],
+                        "asym_id": "E"
+                      }
+                    ]
+                  },
+                  {
+                    "avg_rmsd": 0.2108397549244685,
+                    "members": [
+                      {
+                        "pdbx_struct_oper_list_ids": [
+                          "1"
+                        ],
+                        "asym_id": "D"
+                      },
+                      {
+                        "pdbx_struct_oper_list_ids": [
+                          "1"
+                        ],
+                        "asym_id": "F"
+                      }
+                    ]
+                  }
+                ],
+                "kind": "Global Symmetry",
+                "type": "Asymmetric",
+                "symbol": "C1",
+                "stoichiometry": [
+                  "A2",
+                  "B2",
+                  "C1",
+                  "D1"
+                ]
+              },
+              {
+                "oligomeric_state": "Hetero 6-mer",
+                "rotation_axes": [
+                  {
+                    "order": 2,
+                    "end": [
+                      153.30970698040062,
+                      166.1864950974702,
+                      123.7189193112915
+                    ],
+                    "start": [
+                      181.67854857272084,
+                      173.00282649731045,
+                      238.3674523739111
+                    ]
+                  }
+                ],
+                "clusters": [
+                  {
+                    "avg_rmsd": 0.9306158459857576,
+                    "members": [
+                      {
+                        "pdbx_struct_oper_list_ids": [
+                          "1"
+                        ],
+                        "asym_id": "A"
+                      },
+                      {
+                        "pdbx_struct_oper_list_ids": [
+                          "1"
+                        ],
+                        "asym_id": "B"
+                      }
+                    ]
+                  },
+                  {
+                    "avg_rmsd": 2.90337444773064,
+                    "members": [
+                      {
+                        "pdbx_struct_oper_list_ids": [
+                          "1"
+                        ],
+                        "asym_id": "C"
+                      },
+                      {
+                        "pdbx_struct_oper_list_ids": [
+                          "1"
+                        ],
+                        "asym_id": "F"
+                      },
+                      {
+                        "pdbx_struct_oper_list_ids": [
+                          "1"
+                        ],
+                        "asym_id": "E"
+                      },
+                      {
+                        "pdbx_struct_oper_list_ids": [
+                          "1"
+                        ],
+                        "asym_id": "D"
+                      }
+                    ]
+                  }
+                ],
+                "kind": "Pseudo Symmetry",
+                "type": "Cyclic",
+                "symbol": "C2",
+                "stoichiometry": [
+                  "A4",
+                  "B2"
+                ]
+              },
+              {
+                "oligomeric_state": "Hetero 4-mer",
+                "rotation_axes": [
+                  {
+                    "order": 2,
+                    "end": [
+                      167.20445823401445,
+                      169.45841078487985,
+                      179.35989608748832
+                    ],
+                    "start": [
+                      180.3390024819347,
+                      172.70022215134463,
+                      233.28521453637285
+                    ]
+                  }
+                ],
+                "clusters": [
+                  {
+                    "avg_rmsd": 0.1411488718996327,
+                    "members": [
+                      {
+                        "pdbx_struct_oper_list_ids": [
+                          "1"
+                        ],
+                        "asym_id": "C"
+                      },
+                      {
+                        "pdbx_struct_oper_list_ids": [
+                          "1"
+                        ],
+                        "asym_id": "E"
+                      }
+                    ]
+                  },
+                  {
+                    "avg_rmsd": 0.2108397549244685,
+                    "members": [
+                      {
+                        "pdbx_struct_oper_list_ids": [
+                          "1"
+                        ],
+                        "asym_id": "D"
+                      },
+                      {
+                        "pdbx_struct_oper_list_ids": [
+                          "1"
+                        ],
+                        "asym_id": "F"
+                      }
+                    ]
+                  }
+                ],
+                "kind": "Local Symmetry",
+                "type": "Cyclic",
+                "symbol": "C2",
+                "stoichiometry": [
+                  "A2",
+                  "B2"
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  }
+}

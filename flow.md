@@ -24,4 +24,8 @@ NRPS_PKSについて、
       7. Other       e.g. BGC0000283, BGC0000314
     `--only-complete` will pair protein from the BGCs marked as "complete"
     in the MIBiG JSON file. (default: False)
-    ["cluster"]["loci"]["completeness"] == "complete"
+
+## やるべきこと
+
+計算し終わった複合体の結果は、Protein Data Bankに登録されているタンパク質の複合体情報とどれほど一致しているか？
+-
