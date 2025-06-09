@@ -1,4 +1,6 @@
 # %%
+import json
+import os
 import re
 from pathlib import Path
 
@@ -6,6 +8,10 @@ from Bio import SeqIO
 from Bio.Seq import Seq
 from Bio.SeqRecord import SeqRecord
 from loguru import logger
+
+from complexbuilder.common.log import log_setup
+
+log_setup(level="DEBUG")
 
 
 def classify_proteins(
@@ -160,5 +166,112 @@ def classify_proteins2(
     logger.info(f"Number of proteins: {len(proteins)}")
     return proteins
 
+
+def _check_homo_hetero(dirname: str) -> str:
+    parts = dirname.split("_")
+    half = len(parts) // 2
+    left = parts[:half]
+    right = parts[half:]
+
+    if len(parts) % 2 == 1:
+        return "otherwise"
+    if left == right:
+        return "homo"
+    else:
+        return "hetero"
+
+
+def make_hitcomplexlist(
+    dir: str | Path,
+    ipsae_threshold: float,
+    iptm_threshold: float,
+    metrics_json: str = "complexmetrics.json",
+):
+    """
+    Create a dictionary of hit complexes based on ipSAE and ipTM thresholds.
+
+    This function scans the specified directory for subdirectories whose names
+    start with "BGC000". For each such subdirectory, it looks for a JSON file
+    (by default "complexmetrics.json"). If the JSON file exists, the function
+    loads the metrics from the "ipSAE" and "ipTM" sections. Each section is expected
+    to be a list of single-key dictionaries, mapping a complex identifier to a numeric score.
+
+    A complex is considered a "hit" if its ipSAE and ipTM scores meet or exceed the
+    provided thresholds, and it appears in both sections. Additionally, the assembly
+    type is determined by the _check_homo_hetero function and is stored as
+    "complex_homo_hetero" with values "homo", "hetero", or "otherwise".
+
+    Args:
+        dir (str | Path): The path to the directory containing BGC subdirectories.
+        ipsae_threshold (float): The minimum ipSAE score required for a complex to be considered a hit.
+        iptm_threshold (float): The minimum ipTM score required for a complex to be considered a hit.
+        metrics_json (str, optional): The filename of the metrics JSON file in each subdirectory.
+            Defaults to "complexmetrics.json".
+
+    Returns:
+        dict: A dictionary where each key is a BGC directory name (e.g., "BGC0000001") and each value
+              is another dictionary mapping complex identifiers to a dictionary with the following keys:
+                  - "ipSAE": The ipSAE score.
+                  - "ipTM": The ipTM score.
+                  - "complex_homo_hetero": A string indicating the assembly type ("homo", "hetero",
+                    or "otherwise").
+
+    Notes:
+        If a subdirectory does not contain the specified metrics JSON file, it is skipped with a warning.
+    """
+    dirname = Path(dir)
+    bgcdirs = [
+        p.name for p in dirname.iterdir() if p.is_dir() and p.name.startswith("BGC000")
+    ]
+    # sort by the number in the directory name
+    bgcdirs.sort(key=lambda x: int(x.split("BGC")[1]))
+    logger.debug(f"Subdirectories in {dirname}: {bgcdirs}")
+
+    # sort by the number in the directory name
+    bgcdirs.sort(key=lambda x: int(x.split("BGC")[1]))
+
+    results = {}
+    for bgcdir in bgcdirs:
+        bgcpath = dirname / bgcdir
+        logger.debug(f"Processing {bgcpath}")
+        if not os.path.exists(f"{bgcpath}/{metrics_json}"):
+            logger.warning(
+                f"complexmetrics.json not found in {bgcpath}/{metrics_json} . Skipping."
+            )
+            continue
+        with open(f"{bgcpath}/{metrics_json}") as f:
+            complexmetrics = json.load(f)
+
+        ipSAE = {
+            list(item.keys())[0]: list(item.values())[0]
+            for item in complexmetrics.get("ipSAE", [])
+        }
+        ipTM = {
+            list(item.keys())[0]: list(item.values())[0]
+            for item in complexmetrics.get("ipTM", [])
+        }
+
+        hitcomplexes = {}
+        for key in ipSAE:
+            if (
+                key in ipTM
+                and ipSAE[key] >= ipsae_threshold
+                and ipTM[key] >= iptm_threshold
+            ):
+                hitcomplexes[key] = {
+                    "ipSAE": ipSAE[key],
+                    "ipTM": ipTM[key],
+                    "complex_homo_hetero": _check_homo_hetero(key),
+                }
+        results[bgcdir] = hitcomplexes
+    return results
+
+
+# %%
+
+dirname = Path("/Users/YoshitakaM/Desktop/BGCcomplex")
+ipsae_threshold = 0.6
+iptm_threshold = 0.8
+print(make_hitcomplexlist(dirname, ipsae_threshold, iptm_threshold))
 
 # %%
