@@ -12,5 +12,6 @@ wheels/
 .vscode
 .coverage
 .DS_Store
+uv.lock
 # data dir
 data/
