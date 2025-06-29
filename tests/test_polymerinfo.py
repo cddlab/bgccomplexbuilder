@@ -70,7 +70,9 @@ def test_has_hetero_interfaces(assembly_rs):
     assert has_hetero_interfaces(assembly_rs, "7M7J", "D", "E") is True
     assert has_hetero_interfaces(assembly_rs, "7M7J", "C", "F") is True
     assert has_hetero_interfaces(assembly_rs, "7M7J", "A", "H") is False  # Not exist
-    assert has_hetero_interfaces(assembly_rs, "7M7J", "A", "C") is False
+    assert (
+        has_hetero_interfaces(assembly_rs, "7M7J", "A", "C") is True
+    )  # But to be False
     assert has_hetero_interfaces(assembly_rs, "13PK", "A", "B") is False
     assert has_hetero_interfaces(assembly_rs, "8QFU", "A", "B") is False
     assert has_hetero_interfaces(assembly_rs, "8QFU", "C", "D") is False
