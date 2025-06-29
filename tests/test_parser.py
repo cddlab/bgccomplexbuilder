@@ -1,16 +1,29 @@
 import json
 
-from complexbuilder.common.parser import _check_homo_hetero, make_hitcomplexlist
+from complexbuilder.common.parser import (
+    _check_homo_hetero,
+    make_hitcomplexlist,
+    split_proteinids,
+)
 
 
 def test_check_homo_hetero():
-    assert _check_homo_hetero("AAAAAA_AAAAAA") == "homo"
-    assert _check_homo_hetero("BBBBBB_BBBBBB") == "homo"
-    assert _check_homo_hetero("CCCCCC_CCCCCC") == "homo"
     assert _check_homo_hetero("adakdk.aa_adakdk.aa") == "homo"
     assert _check_homo_hetero("alsk.01_alsk.01") == "homo"
     assert _check_homo_hetero("akskk_002.01_akskk_002.01") == "homo"
     assert _check_homo_hetero("allsk_01.002_allsk_01.003") == "hetero"
+    assert _check_homo_hetero("trx17522.1_trx20192.1") == "hetero"
+
+
+def test_split_proteinids():
+    assert split_proteinids("adakdk.aa_adakdk.aa") == ("adakdk.aa", "adakdk.aa")
+    assert split_proteinids("alsk.01_alsk.01") == ("alsk.01", "alsk.01")
+    assert split_proteinids("trx17522.1_trx20192.1") == ("trx17522.1", "trx20192.1")
+    # include "xx_04290"
+    assert split_proteinids("trx17522.1_fnf07_04290") == (
+        "trx17522.1",
+        "fnf07_04290",
+    )
 
 
 def test_make_hitcomplexlist(tmp_path):

@@ -167,14 +167,57 @@ def classify_proteins2(
     return proteins
 
 
-def _check_homo_hetero(dirname: str) -> str:
-    parts = dirname.split("_")
-    half = len(parts) // 2
-    left = parts[:half]
-    right = parts[half:]
+def split_proteinids(text: str) -> tuple[str, str]:
+    """
+    Split protein complexes by an underscore that is followed by a lowercase letter.
 
-    if len(parts) % 2 == 1:
-        return "otherwise"
+    The function looks for underscores ("_") in the input string where the character
+    immediately following the underscore is a letter in [a-z]. It then splits the string
+    at that underscore into exactly two parts. If no such underscore is found, or if more
+    than one valid splitting underscore is found (thus producing more than two parts), an
+    error is raised.
+
+    Examples:
+        split_proteinids("adakdk.aa_adakdk.aa")
+            -> ("adakdk.aa", "adakdk.aa")
+        split_proteinids("alsk.01_alsk.01")
+            -> ("alsk.01", "alsk.01")
+        split_proteinids("trx17522.1_trx20192.1")
+            -> ("trx17522.1", "trx20192.1")
+        split_proteinids("trx17522.1_fnf07_04290")
+            -> ("trx17522.1", "fnf07_04290")
+
+    Note:
+        In the string "trx17522.1_fnf07_04290", the first underscore is valid since it is
+        followed by 'f' (a lowercase letter). The second underscore, being followed by '0',
+        does not match the rule and is ignored.
+
+    Args:
+        text (str): The protein complex string to split.
+
+    Returns:
+        tuple[str, str]: A tuple containing the two parts of the string split at the valid underscore.
+
+    Raises:
+        ValueError: If no valid splitting underscore is found or if more than one valid
+                    splitting underscore is detected.
+    """
+    # Find each underscore that is immediately followed by a lowercase letter.
+    valid_indices = [m.start() for m in re.finditer(r"_(?=[a-z])", text)]
+
+    if len(valid_indices) == 0:
+        raise ValueError(f"No valid splitting underscore found in: {text}")
+    if len(valid_indices) > 1:
+        raise ValueError(f"More than one valid splitting underscore found in: {text}")
+
+    split_index = valid_indices[0]
+    left = text[:split_index]
+    right = text[split_index + 1 :]
+    return (left, right)
+
+
+def _check_homo_hetero(dirname: str) -> str:
+    left, right = split_proteinids(dirname)
     if left == right:
         return "homo"
     else:
