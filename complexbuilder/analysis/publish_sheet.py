@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 # %%
+import json
 import os
 
 import pandas as pd
@@ -12,7 +13,16 @@ def make_dataframe(target_dir: str) -> pd.DataFrame:
     Returns:
         pd.DataFrame: A DataFrame containing the BGC information.
     """
-    cols = ["BGC", "proteins", "pdb id", "rmsd"]
+    cols = [
+        "BGC",
+        "proteins",
+        "pdb id",
+        "ipSAE",
+        "ipSAE_d0chn",
+        "ipSAE_d0dom",
+        "ipTM_af",
+        "ipTM_d0chn",
+    ]
     df = pd.DataFrame(columns=cols)
     # find all BGC directories starts with "BGC" in target_dir
     bgc_dirs = [
@@ -28,12 +38,19 @@ def make_dataframe(target_dir: str) -> pd.DataFrame:
         for filename in os.listdir(dir_path):
             if filename.endswith("_af3pae_best.png"):
                 filesuffix = filename.split("_af3pae_best.png")[0]
+                metrics_file = os.path.join(dir_path, f"{filesuffix}_ipsae.json")
+                with open(metrics_file, "r") as f:
+                    metrics = json.load(f)[0]
                 df.loc[len(df)] = [
                     bgcaccession_id,
                     filesuffix,
                     pdb_id,
-                    None,
-                ]  # Placeholder for RMSD value
+                    metrics["ipSAE"],
+                    metrics["ipSAE_d0chn"],
+                    metrics["ipSAE_d0dom"],
+                    metrics["ipTM_af"],
+                    metrics["ipTM_d0chn"],
+                ]
 
     df.sort_values(by="BGC", inplace=True)
     return df
