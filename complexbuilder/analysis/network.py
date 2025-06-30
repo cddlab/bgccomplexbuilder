@@ -3,13 +3,13 @@
 import json
 import os
 
-import matplotlib.cm as cm
 import matplotlib.pyplot as plt
 import networkx as nx
+from Bio import SeqIO
 from loguru import logger
 
 from complexbuilder.common.log import log_setup
-from complexbuilder.common.parser import split_proteinids
+from complexbuilder.common.parser import sanitised_name, split_proteinids
 
 log_setup(level="DEBUG")
 
@@ -35,59 +35,150 @@ def get_bgcgenes(dataInt: dict[str, dict], bgc_id: str) -> list[str]:
     bgcgenes = []
     for header in dataInt[bgc_id]:
         geneNames = split_proteinids(header)
-        logger.debug(f"geneNames from header '{header}': {geneNames}")
         for name in geneNames:
             if name not in bgcgenes:
                 bgcgenes.append(name)
     return bgcgenes
 
 
-mibigJsonPath = "/Users/YoshitakaM/Downloads/mibig_json_4.0"
+mibiggbkdir = "/Users/YoshitakaM/Downloads/mibig_gbk_4.0"
 hitcomplexesPath = "/Users/YoshitakaM/Desktop/hitcomplexes.json"
 
-# %%
-cmap = cm.get_cmap("coolwarm")
 
-noGeneInfoList = []
+# %%
+def extract_cds_info(mibiggbkdir: str, bgc_id: str):
+    """
+    Retrieve gene information for a given BGC ID.
+    This function reads a GenBank file and extracts information about
+    each CDS feature.
+
+    Args:
+        gbk_file (str):
+    """
+    cds_info_list = []
+    gbk_file = os.path.join(mibiggbkdir, f"{bgc_id}.gbk")
+    with open(gbk_file, "r") as handle:
+        for record in SeqIO.parse(handle, "genbank"):
+            for feature in record.features:
+                if feature.type == "CDS":
+                    qualifiers = feature.qualifiers
+                    # each CDS feature may have multiple qualifiers
+                    # protein_id, gene, locus_tag, product
+                    # are common qualifiers for CDS features
+                    # but may not be present in all records
+                    # so we use .get() to avoid KeyError
+                    protein_id = qualifiers.get("protein_id", [None])[0]
+                    gene = qualifiers.get("gene", [None])[0]
+                    locus_tag = qualifiers.get("locus_tag", [None])[0]
+                    product = qualifiers.get("product", [None])[0]
+                    cds_info = {
+                        "protein_id": protein_id,
+                        "gene": gene,
+                        "locus_tag": locus_tag,
+                        "product": product,
+                    }
+                    cds_info_list.append(cds_info)
+    return cds_info_list
+
+
+def make_node_desc_dict(
+    bgcgenes: list[str],
+    cds_info_list: list[dict[str, str]],
+) -> dict[str, str]:
+    """
+    Return a dictionary mapping each node in bgcgenes to a concatenated string of available labels.
+
+    For each node (e.g. a protein identifier, gene name, or locus_tag) in bgcgenes,
+    the function searches cds_info_list for a CDS feature where one of the keys
+    "protein_id", "gene", or "locus_tag" matches the node (after applying sanitised_name()).
+    When a match is found, the description is built by concatenating (with newline separators)
+    the values of protein_id, gene, locus_tag and product from that CDS feature.
+
+    Example:
+        bgcgenes = ["aek75497.1", "aek75507.1"]
+        cds_info_list = [
+            {
+                "protein_id": "AEK75497.1",
+                "gene": "gene1",
+                "locus_tag": "locus1",
+                "product": "product1",
+            },
+            {
+                "protein_id": "AEK75507.1",
+                "gene": None,
+                "locus_tag": None,
+                "product": "product2",
+            },
+            {
+                "protein_id": None,
+                "gene": "abyU",
+                "locus_tag": None,
+                "product": "product3",
+            },
+        ]
+
+        -> {
+             "aek75497.1": "AEK75497.1\ngene1\nlocus1\nproduct1",
+             "aek75507.1": "AEK75507.1\nproduct2",
+             "abyU": "abyU\nproduct3",
+           }
+
+    Args:
+        bgcgenes: List of gene identifiers (nodes) from the BGC.
+        cds_info_list: List of dictionaries, each containing keys "protein_id", "gene",
+                       "locus_tag" and "product" for a CDS feature.
+
+    Returns:
+        A dictionary mapping each node to its description string.
+    """
+    node_desc_dict = {}
+    for node in bgcgenes:
+        for cds_info in cds_info_list:
+            for label in ["protein_id", "gene", "locus_tag"]:
+                value = cds_info.get(label)
+                if value is None:
+                    continue
+                if sanitised_name(value) == sanitised_name(node):
+                    # マッチした場合、CDS情報全体の文字列を作成
+                    parts = []
+                    if cds_info.get("protein_id"):
+                        parts.append(cds_info["protein_id"])
+                    if cds_info.get("gene"):
+                        parts.append(cds_info["gene"])
+                    if cds_info.get("locus_tag"):
+                        parts.append(cds_info["locus_tag"])
+                    if cds_info.get("product"):
+                        parts.append(cds_info["product"])
+                    node_desc_dict[node] = "\n".join(parts)
+                    break
+            if node in node_desc_dict:
+                break
+    return node_desc_dict
+
 
 with open(hitcomplexesPath, "r") as f:
     dataInt = json.load(f)
 
 
-get_bgcgenes(dataInt, "BGC0000001")  # Example call to the function
 # %%
-
+cmap = plt.get_cmap("coolwarm")  # カラーマップの設定
 count = 0
 for bgc_id in dataInt:
     logger.debug(f"Processing {bgc_id}")
-    with open(os.path.join(mibigJsonPath, bgc_id + ".json"), "r") as f:
-        dataBGC = json.load(f)
     G = nx.Graph()
     bgcgenes = get_bgcgenes(dataInt, bgc_id)
-    for nodeC in bgcgenes:
-        nodeC_desc = "no info"
-        if "genes" not in dataBGC:
-            noGeneInfoList.append(bgc_id)
-            print(f"No gene info for {bgc_id}, skipping node {nodeC}")
-            continue
-        for geneInfo in dataBGC["genes"]:
-            for geneInfo2 in dataBGC["genes"][geneInfo]:
-                if geneInfo2["id"].lower() == nodeC:
-                    if "name" in geneInfo2 and geneInfo2["name"]:
-                        if nodeC_desc == "no info":
-                            nodeC_desc = ""
-                        nodeC_desc += geneInfo2["name"] + "\n"
-                    if "product" in geneInfo2 and geneInfo2["product"]:
-                        if nodeC_desc == "no info":
-                            nodeC_desc = ""
-                        nodeC_desc += geneInfo2["product"] + "\n"
-        G.add_node(nodeC, description=nodeC_desc)
+    cds_info_list = extract_cds_info(mibiggbkdir, bgc_id)
+    node_desc = make_node_desc_dict(bgcgenes, cds_info_list)
+    for gene in bgcgenes:
+        # add nodes with descriptions
+        G.add_node(
+            gene,
+            description=node_desc.get(gene, "No description available"),
+        )
     for j in dataInt[bgc_id]:
         geneName_list = split_proteinids(j)
         complesValue = [dataInt[bgc_id][j]["ipTM"]]
         G.add_edge(geneName_list[0], geneName_list[1], weight=complesValue[0])
-    # ノード位置
-    print("getting dataInt is finished")
     # 重み取得
     weights = [G[u][v]["weight"] for u, v in G.edges()]
     for u, v, data in G.edges(data=True):
@@ -102,13 +193,11 @@ for bgc_id in dataInt:
     nx.draw(
         G,
         pos,
-        # with_labels=True,
         width=widths,
-        # width=5,
         edge_color=edge_colors,
         edge_cmap=cmap,
         node_color="lightblue",
-        node_size=1000,
+        node_size=2000,
         font_weight="bold",
     )
 
@@ -117,15 +206,13 @@ for bgc_id in dataInt:
 
     nx.draw_networkx_edge_labels(G, pos, edge_labels=edge_labels)
     # labelの追加
-    custom_labels = {
-        node: f"{node}\n{G.nodes[node]['description']}" for node in G.nodes
-    }
+    custom_labels = {node: f"{G.nodes[node]['description']}" for node in G.nodes}
     nx.draw_networkx_labels(G, pos, labels=custom_labels, font_size=10)
     plt.axis("off")
     plt.tight_layout()
     os.makedirs("/Users/YoshitakaM/Desktop/svg2/", exist_ok=True)
-    plt.savefig("/Users/YoshitakaM/Desktop/svg2/" + bgc_id + ".svg")  # ← ここで保存
-    plt.close()  # 表示せず終了（表示したい場合は plt.show() を使ってもOK）
+    plt.savefig(os.path.join("/Users/YoshitakaM/Desktop/svg2/", f"{bgc_id}.svg"))
+    plt.close()
     plt.clf()
     count += 1
     print(f"Processed {count} / {len(dataInt)}: {bgc_id}")
@@ -133,4 +220,4 @@ for bgc_id in dataInt:
         print("30個以上のBGCを処理しました。")
         break
 
-# In[ ]:
+    # In[ ]:
