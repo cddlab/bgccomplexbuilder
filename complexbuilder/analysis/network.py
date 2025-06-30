@@ -41,10 +41,6 @@ def get_bgcgenes(dataInt: dict[str, dict], bgc_id: str) -> list[str]:
     return bgcgenes
 
 
-mibiggbkdir = "/Users/YoshitakaM/Downloads/mibig_gbk_4.0"
-hitcomplexesPath = "/Users/YoshitakaM/Desktop/hitcomplexes.json"
-
-
 # %%
 def extract_cds_info(mibiggbkdir: str, bgc_id: str):
     """
@@ -156,48 +152,92 @@ def make_node_desc_dict(
     return node_desc_dict
 
 
-with open(hitcomplexesPath, "r") as f:
-    dataInt = json.load(f)
+def fold_description(description: str, width: int = 20) -> str:
+    """
+    Wrap a text string so that each line does not exceed width characters.
+    The function attempts to break lines at spaces rather than cutting off
+    exactly at 'width'.
+
+    Args:
+        description (str): The description to fold.
+        width (int): The maximum line width.
+
+    Returns:
+        str: The folded description.
+    """
+    original_lines = description.splitlines()
+    wrapped_segments = []
+    for segment in original_lines:
+        # Wrap each segment separately.
+        words = segment.split()
+        lines = []
+        current_line = ""
+        for word in words:
+            if current_line:
+                if len(current_line) + 1 + len(word) > width:
+                    lines.append(current_line)
+                    current_line = word
+                else:
+                    current_line += " " + word
+            else:
+                current_line = word
+        if current_line:
+            lines.append(current_line)
+        # If the segment was empty, preserve the empty line.
+        wrapped_segments.append("\n".join(lines) if lines else "")
+    # Join the wrapped segments with newline characters.
+    return "\n".join(wrapped_segments)
 
 
 # %%
 cmap = plt.get_cmap("coolwarm")  # カラーマップの設定
 count = 0
+
+mibiggbkdir = "/Users/YoshitakaM/Downloads/mibig_gbk_4.0"
+hitcomplexesPath = "/Users/YoshitakaM/Desktop/hitcomplexes.json"
+with open(hitcomplexesPath, "r") as f:
+    dataInt = json.load(f)
 for bgc_id in dataInt:
     logger.debug(f"Processing {bgc_id}")
-    G = nx.Graph()
     bgcgenes = get_bgcgenes(dataInt, bgc_id)
     cds_info_list = extract_cds_info(mibiggbkdir, bgc_id)
     node_desc = make_node_desc_dict(bgcgenes, cds_info_list)
+    G = nx.Graph()
     for gene in bgcgenes:
         # add nodes with descriptions
         G.add_node(
             gene,
             description=node_desc.get(gene, "No description available"),
         )
-    for j in dataInt[bgc_id]:
-        geneName_list = split_proteinids(j)
-        complesValue = [dataInt[bgc_id][j]["ipTM"]]
-        G.add_edge(geneName_list[0], geneName_list[1], weight=complesValue[0])
+    for protein_dimer in dataInt[bgc_id]:
+        # protein dimer is like "aek75497.1_aek75507.1"
+        protein_a, protein_b = split_proteinids(protein_dimer)
+        iptm_score = dataInt[bgc_id][protein_dimer]["ipTM"]
+        G.add_edge(protein_a, protein_b, weight=iptm_score)
     # 重み取得
     weights = [G[u][v]["weight"] for u, v in G.edges()]
     for u, v, data in G.edges(data=True):
         w = data.get("weight")
         if not isinstance(w, (int, float)):
             print(f"problematic weight: edge=({u}, {v}), weight={w}, type={type(w)}")
-    pos = nx.shell_layout(G)
-    # 描画
+    pos = nx.circular_layout(G, scale=1)
+    # edge_color is set to a colormap based on weights
+    # weights are normalized to the range [0, 1] for colormap
     edge_colors = [cmap(w) for w in weights]
+    # widths
     widths = [w * 10 for w in weights]
-    plt.figure(figsize=(12, 8))
+    # node size is proportional to the length of the description
+    node_sizes = [len(G.nodes[node]["description"]) * 150 for node in G.nodes]
+    fig, ax = plt.subplots(1, 1, figsize=(20, 15), dpi=300)
     nx.draw(
         G,
         pos,
         width=widths,
         edge_color=edge_colors,
         edge_cmap=cmap,
+        alpha=0.8,
         node_color="lightblue",
-        node_size=2000,
+        node_size=node_sizes,
         font_weight="bold",
     )
 
@@ -205,13 +245,16 @@ for bgc_id in dataInt:
     edge_labels = nx.get_edge_attributes(G, "weight")
 
     nx.draw_networkx_edge_labels(G, pos, edge_labels=edge_labels)
-    # labelの追加
-    custom_labels = {node: f"{G.nodes[node]['description']}" for node in G.nodes}
-    nx.draw_networkx_labels(G, pos, labels=custom_labels, font_size=10)
-    plt.axis("off")
-    plt.tight_layout()
+    custom_labels = {
+        node: f"{fold_description(G.nodes[node]['description'], width=20)}"
+        for node in G.nodes
+    }
+    nx.draw_networkx_labels(
+        G, pos, labels=custom_labels, font_size=10, font_family="Arial"
+    )
+    ax.axis("off")
     os.makedirs("/Users/YoshitakaM/Desktop/svg2/", exist_ok=True)
-    plt.savefig(os.path.join("/Users/YoshitakaM/Desktop/svg2/", f"{bgc_id}.svg"))
+    fig.savefig(os.path.join("/Users/YoshitakaM/Desktop/svg2/", f"{bgc_id}.svg"))
     plt.close()
     plt.clf()
     count += 1
