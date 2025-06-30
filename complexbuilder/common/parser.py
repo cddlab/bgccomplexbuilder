@@ -2,6 +2,7 @@
 import json
 import os
 import re
+import string
 from pathlib import Path
 
 from Bio import SeqIO
@@ -12,6 +13,13 @@ from loguru import logger
 from complexbuilder.common.log import log_setup
 
 log_setup(level="DEBUG")
+
+
+def sanitised_name(name) -> str:
+    """Returns sanitised version of the name that can be used as a filename."""
+    lower_spaceless_name = name.lower().replace(" ", "_")
+    allowed_chars = set(string.ascii_lowercase + string.digits + "_-.")
+    return "".join(char for char in lower_spaceless_name if char in allowed_chars)
 
 
 def classify_proteins(
@@ -316,9 +324,9 @@ def make_hitcomplexlist(
 
 # %%
 
-dirname = Path("/Users/YoshitakaM/Desktop/BGCcomplex")
-ipsae_threshold = 0.6
-iptm_threshold = 0.8
-print(make_hitcomplexlist(dirname, ipsae_threshold, iptm_threshold))
+# dirname = Path("/Users/YoshitakaM/Desktop/BGCcomplex")
+# ipsae_threshold = 0.6
+# iptm_threshold = 0.8
+# print(make_hitcomplexlist(dirname, ipsae_threshold, iptm_threshold))
 
 # %%

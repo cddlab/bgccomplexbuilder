@@ -2,17 +2,11 @@
 # %%
 import os
 import shutil
-import string
 
 from Bio import SeqIO
 from loguru import logger
 
-
-def sanitised_name(name) -> str:
-    """Returns sanitised version of the name that can be used as a filename."""
-    lower_spaceless_name = name.lower().replace(" ", "_")
-    allowed_chars = set(string.ascii_lowercase + string.digits + "_-.")
-    return "".join(char for char in lower_spaceless_name if char in allowed_chars)
+from complexbuilder.common.parser import sanitised_name
 
 
 def make_list_of_directories(fastafile: str) -> list:
