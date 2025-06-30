@@ -16,13 +16,20 @@ def test_check_homo_hetero():
 
 
 def test_split_proteinids():
-    assert split_proteinids("adakdk.aa_adakdk.aa") == ("adakdk.aa", "adakdk.aa")
-    assert split_proteinids("alsk.01_alsk.01") == ("alsk.01", "alsk.01")
     assert split_proteinids("trx17522.1_trx20192.1") == ("trx17522.1", "trx20192.1")
     # include "xx_04290"
     assert split_proteinids("trx17522.1_fnf07_04290") == (
         "trx17522.1",
         "fnf07_04290",
+    )
+    # case of "_orf"
+    assert split_proteinids("ctg1_orf2_ctg1_orf2") == (
+        "ctg1_orf2",
+        "ctg1_orf2",
+    )
+    assert split_proteinids("wp_032798144.1_ssgg_rs34700") == (
+        "wp_032798144.1",
+        "ssgg_rs34700",
     )
 
 

@@ -176,7 +176,6 @@ def split_proteinids(text: str) -> tuple[str, str]:
     at that underscore into exactly two parts. If no such underscore is found, or if more
     than one valid splitting underscore is found (thus producing more than two parts), an
     error is raised.
-
     Examples:
         split_proteinids("adakdk.aa_adakdk.aa")
             -> ("adakdk.aa", "adakdk.aa")
@@ -186,31 +185,36 @@ def split_proteinids(text: str) -> tuple[str, str]:
             -> ("trx17522.1", "trx20192.1")
         split_proteinids("trx17522.1_fnf07_04290")
             -> ("trx17522.1", "fnf07_04290")
-
-    Note:
-        In the string "trx17522.1_fnf07_04290", the first underscore is valid since it is
-        followed by 'f' (a lowercase letter). The second underscore, being followed by '0',
-        does not match the rule and is ignored.
+        split_proteinids("ctg1_orf2_ctg1_orf2")
+            -> ("ctg1_orf2", "ctg1_orf2")
 
     Args:
         text (str): The protein complex string to split.
 
     Returns:
-        tuple[str, str]: A tuple containing the two parts of the string split at the valid underscore.
+        tuple[str, str]: A tuple with the two parts resulting from the split.
 
     Raises:
-        ValueError: If no valid splitting underscore is found or if more than one valid
-                    splitting underscore is detected.
+        ValueError: If no valid splitting underscore is found or if an even number of them is detected.
     """
-    # Find each underscore that is immediately followed by a lowercase letter.
-    valid_indices = [m.start() for m in re.finditer(r"_(?=[a-z])", text)]
-
-    if len(valid_indices) == 0:
+    # Find indices of underscores immediately followed by a lowercase letter.
+    # But not followed by "rs" (e.g., "ssgg_rs34700").
+    valid_indices = [m.start() for m in re.finditer(r"_(?!rs)(?=[a-z])", text)]
+    if not valid_indices:
         raise ValueError(f"No valid splitting underscore found in: {text}")
-    if len(valid_indices) > 1:
-        raise ValueError(f"More than one valid splitting underscore found in: {text}")
 
-    split_index = valid_indices[0]
+    if len(valid_indices) == 1:
+        split_index = valid_indices[0]
+    else:
+        # If more than one valid underscore is found, require an odd number.
+        if len(valid_indices) % 2 == 0:
+            raise ValueError(
+                f"Even number of valid splitting underscores found in: {text}"
+            )
+        # Pick the middle valid underscore.
+        mid = len(valid_indices) // 2
+        split_index = valid_indices[mid]
+
     left = text[:split_index]
     right = text[split_index + 1 :]
     return (left, right)
