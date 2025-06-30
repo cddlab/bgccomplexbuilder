@@ -58,7 +58,7 @@ known-third-party = ["fastapi", "pydantic", "starlette"]
 filterwarnings = [
     "ignore:.*Jupyter is migrating.*:DeprecationWarning",
 ]
-addopts = "-v --color=yes"
+addopts = "-vv --color=yes"
 
 [tool.hatch.metadata]
 allow-direct-references = true
