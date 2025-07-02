@@ -195,10 +195,10 @@ count = 0
 
 mibiggbkdir = "/Users/YoshitakaM/Downloads/mibig_gbk_4.0"
 hitcomplexesPath = "/Users/YoshitakaM/Desktop/hitcomplexes.json"
+outputdir = "/Users/YoshitakaM/Desktop/svg2/"
 with open(hitcomplexesPath, "r") as f:
     dataInt = json.load(f)
 for bgc_id in dataInt:
-    logger.debug(f"Processing {bgc_id}")
     bgcgenes = get_bgcgenes(dataInt, bgc_id)
     cds_info_list = extract_cds_info(mibiggbkdir, bgc_id)
     node_desc = make_node_desc_dict(bgcgenes, cds_info_list)
@@ -220,7 +220,16 @@ for bgc_id in dataInt:
         w = data.get("weight")
         if not isinstance(w, (int, float)):
             print(f"problematic weight: edge=({u}, {v}), weight={w}, type={type(w)}")
-    pos = nx.circular_layout(G, scale=1)
+
+    ### ネットワーク描画 ###
+    num_nodes = len(G.nodes)
+    # proportional size based on number of nodes
+    base_width, base_height = 12, 12
+    scale_factor_w, scale_factor_h = 0.3, 0.3
+    fig_width = base_width + scale_factor_w * num_nodes
+    fig_height = base_height + scale_factor_h * num_nodes
+    fig, ax = plt.subplots(1, 1, figsize=(fig_width, fig_height), dpi=300)
+    pos = nx.shell_layout(G, scale=1)
     # edge_color is set to a colormap based on weights
     # weights are normalized to the range [0, 1] for colormap
     edge_colors = [cmap(w) for w in weights]
@@ -228,10 +237,10 @@ for bgc_id in dataInt:
     widths = [w * 10 for w in weights]
     # node size is proportional to the length of the description
     node_sizes = [len(G.nodes[node]["description"]) * 150 for node in G.nodes]
-    fig, ax = plt.subplots(1, 1, figsize=(20, 15), dpi=300)
     nx.draw(
         G,
         pos,
+        ax=ax,
         width=widths,
         edge_color=edge_colors,
         edge_cmap=cmap,
@@ -241,20 +250,20 @@ for bgc_id in dataInt:
         font_weight="bold",
     )
 
-    # エッジラベル（重み表示）
     edge_labels = nx.get_edge_attributes(G, "weight")
-
-    nx.draw_networkx_edge_labels(G, pos, edge_labels=edge_labels)
-    custom_labels = {
-        node: f"{fold_description(G.nodes[node]['description'], width=20)}"
+    node_labels = {
+        node: fold_description(G.nodes[node]["description"], width=20)
         for node in G.nodes
     }
+
+    # ラベルの描画
+    nx.draw_networkx_edge_labels(G, pos, edge_labels=edge_labels, ax=ax)
     nx.draw_networkx_labels(
-        G, pos, labels=custom_labels, font_size=10, font_family="Arial"
+        G, pos, labels=node_labels, font_size=10, font_family="Arial", ax=ax
     )
     ax.axis("off")
-    os.makedirs("/Users/YoshitakaM/Desktop/svg2/", exist_ok=True)
-    fig.savefig(os.path.join("/Users/YoshitakaM/Desktop/svg2/", f"{bgc_id}.svg"))
+    os.makedirs(outputdir, exist_ok=True)
+    fig.savefig(os.path.join(outputdir, f"{bgc_id}.svg"))
     plt.close()
     plt.clf()
     count += 1
@@ -263,4 +272,4 @@ for bgc_id in dataInt:
         print("30個以上のBGCを処理しました。")
         break
 
-    # In[ ]:
+# %%
