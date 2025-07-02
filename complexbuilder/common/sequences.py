@@ -46,7 +46,7 @@ def concatenate_two_sequences(seq1: SeqRecord, seq2: SeqRecord) -> SeqRecord:
     """
     if not isinstance(seq1, SeqRecord) or not isinstance(seq2, SeqRecord):
         raise ValueError("Both inputs must be SeqRecord objects")
-    concat_sequence = seq1.seq + ":" + seq2.seq
+    concat_sequence = f"{seq1.seq}:{seq2.seq}"
     return SeqRecord(
         Seq(concat_sequence),
         id=f"{seq1.id}_{seq2.id}",
