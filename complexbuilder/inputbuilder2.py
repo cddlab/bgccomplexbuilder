@@ -6,7 +6,7 @@ import os
 from loguru import logger
 
 from complexbuilder.common.log import log_setup
-from complexbuilder.common.parser import classify_proteins2
+from complexbuilder.common.parser import classify_proteins2, make_seqrecord_from_fasta
 from complexbuilder.common.sequences import (
     concatenate_chunks,
     generate_multimer_input_for_colabfold,
@@ -86,5 +86,27 @@ for i in range(args.start, args.end + 1):
                 num = i + 1
                 with open(f"new{os.path.splitext(basename)[0]}_{i}.fasta", "w") as f:
                     f.write(chunk)
+
+# %%
+file = "/Users/YoshitakaM/Desktop/combi/database.fasta"
+basename = os.path.basename(file)
+if not os.path.exists(file):
+    logger.warning(f"File {file} not found.")
+proteins = make_seqrecord_from_fasta(file, 1950)
+if len(proteins) > 0:
+    protein_chunks = generate_multimer_input_for_colabfold(
+        proteins,
+        extention="fasta",
+        use_productname=False,
+    )
+    split_chunks = concatenate_chunks(protein_chunks, args.maxbytes)
+    if len(split_chunks) == 1:
+        with open(f"new{os.path.splitext(basename)[0]}.fasta", "w") as f:
+            f.write(split_chunks[0])
+    else:
+        for i, chunk in enumerate(split_chunks):
+            num = i + 1
+            with open(f"new{os.path.splitext(basename)[0]}_{i}.fasta", "w") as f:
+                f.write(chunk)
 
 # %%
