@@ -175,6 +175,33 @@ def classify_proteins2(
     return proteins
 
 
+def make_seqrecord_from_fasta(
+    fasta_file: str | Path, max_length: int = 1950
+) -> list[SeqRecord]:
+    """Collect protein sequences from FASTA file and return a list of
+    SeqRecord objects.
+
+    Args:
+        - fasta_file (str | Path): Path to the FASTA file.
+        - max_length (int): Maximum length of protein sequences
+    Returns:
+        - proteins (list[SeqRecord]): List of SeqRecord objects
+            for proteins.
+    """
+    proteins: list[SeqRecord] = []
+    fasta_file = Path(fasta_file)
+    for record in SeqIO.parse(fasta_file, "fasta"):
+        if len(record.seq) < max_length:
+            proteins.append(record)
+        else:
+            logger.warning(
+                f"The protein sequence {record.id} is too long. "
+                f"Length: {len(record.seq)} > {max_length}"
+            )
+    logger.info(f"Number of proteins: {len(proteins)}")
+    return proteins
+
+
 def split_proteinids(text: str) -> tuple[str, str]:
     """
     Split protein complexes by an underscore that is followed by a lowercase letter.
