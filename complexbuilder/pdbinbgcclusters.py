@@ -3,6 +3,7 @@
 import csv
 import io
 import json
+import os
 from itertools import permutations
 from pathlib import Path
 
@@ -10,11 +11,15 @@ import pandas as pd
 
 from complexbuilder.common.parser import sanitised_name
 
+# %%
+
 
 def parse_multi_value(field: str) -> list[str]:
     """
     Parse a string field that may contain multiple values enclosed in {}.
     If the field contains quoted values (e.g. "val1,val2"), it splits accordingly.
+    e.g. "{A,B,C}" -> ["A", "B", "C"]
+    e.g. '{A,"A,B",A}' -> ["A", "A,B", "A"]
     """
     field = field.strip()
     if field.startswith("{") and field.endswith("}"):
@@ -108,13 +113,34 @@ def is_valid_mibig_accession(accession: str, bgcnumber: int = 2826) -> bool:
     return 1 <= num <= bgcnumber
 
 
-def get_oligomeric_state(pdb_id_field: str):
+def _parse_max_homooligomeric_state_to_int(oligomeric_state: str) -> int | None:
+    """
+    Parse the homooligomeric state string to an integer.
+    E.g.
+      'Homo 2-mer' -> 2
+      'Monomer' -> 1
+      'Homo 4-mer' -> 4
+      'Hetero 2-mer' -> None
+      'Unknown' -> None
+      'Homo 6-mer' -> 6
+    """
+    max_oligomer = None
+    if oligomeric_state.startswith("Homo"):
+        max_oligomer = int(oligomeric_state.split(" ")[1].split("-")[0])
+    elif oligomeric_state == "Monomer":
+        max_oligomer = 1
+    return max_oligomer
+
+
+def get_oligomeric_state(pdb_id_field: str, rcsb_data_dir: str):
     """
     Get the oligomeric state from "rcsb_{pdb_Id}.json" file.
     In the json file, the oligomeric state is embedded in the ["rcsb_struct_symmetry"][0]["oligomeric_state"]
     field.
     Args:
         pdb_id_field (str): The PDB ID string. e.g. "{5DYV,7PXO}" or "{8QFU}"
+        rcsb_data_dir (str): The directory containing RCSB JSON files.
+                             e.g. "/Users/moriwaki/work/rcsb_pdb_api"
     Returns:
         str: The oligomeric state as a string. If the oligomeric state is not found or invalid, return "Unknown".
     """
@@ -122,9 +148,7 @@ def get_oligomeric_state(pdb_id_field: str):
     pdb_ids = parse_multi_value(pdb_id_field)
     # Define the path to the JSON file
     for pdb_id in pdb_ids:
-        json_path = Path(
-            f"/Users/YoshitakaM/Desktop/work/rcsb_pdb_api/rcsb_{pdb_id}.json"
-        )
+        json_path = Path(f"{rcsb_data_dir}/rcsb_{pdb_id}.json")
         with open(json_path, "r") as f:
             data = json.load(f)
 
@@ -136,7 +160,7 @@ def get_oligomeric_state(pdb_id_field: str):
             return "Unknown"
 
 
-def find_shared_pdb_protein_pairs(df: pd.DataFrame) -> list[tuple]:
+def find_pdbid_that_have_different_chain_ids(df: pd.DataFrame) -> list[tuple]:
     """
     Find protein pairs that share the same PDB ID but have different chain IDs within each BGC.
 
@@ -195,34 +219,68 @@ def find_shared_pdb_protein_pairs(df: pd.DataFrame) -> list[tuple]:
     return results
 
 
+def publish_sheet(
+    df: pd.DataFrame,
+    target_dir: str = "/Users/YoshitakaM/Desktop/positive_homomers",
+    output_file: str = "homocomplexes.xlsx",
+) -> None:
+    """
+    Publish the DataFrame to an Excel file in the specified directory.
+    Args:
+        df (pd.DataFrame): The DataFrame to be published.
+        target_dir (str): The directory where the output file will be saved.
+        output_file (str): The name of the output Excel file.
+    Returns:
+        None
+    """
+    os.makedirs(target_dir, exist_ok=True)
+    output_sheet = os.path.join(target_dir, output_file)
+    df.to_excel(output_sheet, sheet_name="homocomplexes", index=False)
+
+
 # %%
 # blast_pdbfile = "/Users/YoshitakaM/Desktop/blast_pdb24.12_mini1.tsv"
 blast_pdbfile = "/Users/YoshitakaM/Desktop/blast_pdb24.12.tsv"
-
+# %%
 df = pd.read_csv(blast_pdbfile, delimiter="\t")
-# dfのidentity列の値が95.0以上の行を取得
 df2 = df[df["identity"] >= 95.0].copy()
 df2 = df2[df2["mibig_accession"].apply(is_valid_mibig_accession)]
-
-df2["max_chain_count"] = df2["chain_id"].apply(get_max_chain_count)
-df2["oligomeric_state"] = df2["pdb_id"].apply(get_oligomeric_state)
-
-# "mibig_accession", "protein_id" ごとに最大の chain_count を求める
-max_chain_count = (
-    df2.groupby(["mibig_accession", "protein_id"])["max_chain_count"]
-    .max()
-    .reset_index()
+df2["oligomeric_state"] = df2["pdb_id"].apply(
+    get_oligomeric_state, rcsb_data_dir="/Users/YoshitakaM/Desktop/work/rcsb_pdb_api"
 )
-
-# max_chain_countが2以上のものを取得
-df3 = df2.merge(
-    max_chain_count, on=["mibig_accession", "protein_id"], suffixes=("", "_max")
+df2["parsed_oligomeric_state"] = df2["oligomeric_state"].apply(
+    _parse_max_homooligomeric_state_to_int
 )
+df3 = df2.copy()
+max_mask = df3.groupby(["mibig_accession", "protein_id"])[
+    "parsed_oligomeric_state"
+].transform(lambda x: x == x.max() if x.max() is not None else x.isna())
+df3 = df3[max_mask]
+df3 = df3.drop_duplicates(["mibig_accession", "protein_id"])
+# df3["parsed_oligomeric_state"]のうち、2.0以上のものを抽出
+df4 = df3[df3["parsed_oligomeric_state"] >= 2.0]
 # %%
-
+for accession, protein_id, pdb_id in zip(
+    df4["mibig_accession"],
+    df4["protein_id"],
+    df4["pdb_id"],
+    strict=False,
+):
+    # print(f"{accession}\t{sanitised_name(protein_id)}\t{parse_multi_value(pdb_id)}")
+    sanitised_id = sanitised_name(protein_id)
+    for pdbid in parse_multi_value(pdb_id):
+        sanitised_pdbid = sanitised_name(pdbid)
+        print(
+            f"scp -rp yayoi:/home/database/pdb_mmcif/mmcif_files/{sanitised_pdbid}.cif {accession}/{sanitised_id}_{sanitised_id}/"
+        )
+    # print(
+    #     f"mkdir -p {accession}/{sanitised_id}_{sanitised_id}\n"
+    #     rf"scp -rp yayoi:/data2/moriwaki/BGCcomplex/merged/{accession}/{sanitised_id}_{sanitised_id}/{{'*'.json,'*'.png,'*'.cif}} "
+    #     f"{accession}/{sanitised_id}_{sanitised_id}"
+    # )
 
 # %%
-results = find_shared_pdb_protein_pairs(df2)
+results = find_pdbid_that_have_different_chain_ids(df2)
 seen_proteins = {}
 
 for accession, pdb, proteins, _ in results:
