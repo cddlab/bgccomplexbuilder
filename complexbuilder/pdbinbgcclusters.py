@@ -3,27 +3,12 @@
 import csv
 import io
 import json
-import string
 from itertools import permutations
 from pathlib import Path
 
 import pandas as pd
 
-# %%
-# blast_pdbfile = "/Users/YoshitakaM/Desktop/blast_pdb24.12_mini1.tsv"
-blast_pdbfile = "/Users/YoshitakaM/Desktop/blast_pdb24.12.tsv"
-
-# TAB-separated data file
-df = pd.read_csv(blast_pdbfile, delimiter="\t")
-# dfのidentity列の値が95.0以上の行を取得
-df2 = df[df["identity"] >= 95.0].copy()
-
-
-def sanitised_name(name) -> str:
-    """Returns sanitised version of the name that can be used as a filename."""
-    lower_spaceless_name = name.lower().replace(" ", "_")
-    allowed_chars = set(string.ascii_lowercase + string.digits + "_-.")
-    return "".join(char for char in lower_spaceless_name if char in allowed_chars)
+from complexbuilder.common.parser import sanitised_name
 
 
 def parse_multi_value(field: str) -> list[str]:
@@ -151,59 +136,96 @@ def get_oligomeric_state(pdb_id_field: str):
             return "Unknown"
 
 
-df2 = df2[df2["mibig_accession"].apply(is_valid_mibig_accession)]
+def find_shared_pdb_protein_pairs(df: pd.DataFrame) -> list[tuple]:
+    """
+    Find protein pairs that share the same PDB ID but have different chain IDs within each BGC.
 
-# df2["max_chain_count"] = df2["chain_id"].apply(get_max_chain_count)
-# df2["oligomeric_state"] = df2["pdb_id"].apply(get_oligomeric_state)
+    This function identifies cases where multiple proteins from the same BGC accession
+    are found in the same PDB structure but with different chain identifiers. This indicates
+    potential protein-protein interactions that have been experimentally validated and
+    captured in protein structure databases.
 
-# # "mibig_accession", "protein_id" ごとに最大の chain_count を求める
-# max_chain_count = (
-#     df2.groupby(["mibig_accession", "protein_id"])["max_chain_count"]
-#     .max()
-#     .reset_index()
-# )
+    Args:
+        df (pd.DataFrame): A DataFrame containing at minimum the columns:
+            - "mibig_accession": BGC identifier
+            - "protein_id": Protein identifier
+            - "pdb_id": PDB identifier (possibly with multiple values in braces)
+            - "chain_id": Chain identifier (possibly with multiple values in braces)
 
-# # # max_chain_countが2以上のものを取得
-# # df3 = df2.merge(
-# #     max_chain_count, on=["mibig_accession", "protein_id"], suffixes=("", "_max")
-# # )
+    Returns:
+        list[tuple]: A list of tuples, each containing:
+            - accession (str): The BGC accession
+            - pdb (str): The shared PDB ID
+            - protein_set (set): Set of protein IDs associated with this PDB ID
+            - chain_set (set): Set of chain IDs associated with these proteins
 
-results = []
-# Group by "mibig_accession"
+    Note:
+        The function excludes cases where different proteins share a PDB ID but all have
+        identical chain IDs, as these likely represent the same physical entity in the structure.
+    """
+    results = []
+    for accession, group in df.groupby("mibig_accession"):
+        # Build a dictionary: { pdb_id : list of (protein_id, chain_id) }
+        pdb_to_entries = {}
+        for _, row in group.iterrows():
+            protein = row["protein_id"]
+            pdb_ids = parse_multi_value(row["pdb_id"])
+            chain_ids = parse_chain_ids(row["chain_id"])  # same length as pdb_ids
+            for i in range(len(pdb_ids)):
+                pdb = pdb_ids[i]
+                chain = chain_ids[i]
+                # Append the tuple (protein, chain) for this pdb id
+                pdb_to_entries.setdefault(pdb, []).append((protein, chain))
 
-# Group rows by "mibig_accession"
-for accession, group in df2.groupby("mibig_accession"):
-    # Build a dictionary: { pdb_id : list of (protein_id, chain_id) }
-    pdb_to_entries = {}
-    for _, row in group.iterrows():
-        protein = row["protein_id"]
-        pdb_ids = parse_multi_value(row["pdb_id"])
-        chain_ids = parse_chain_ids(row["chain_id"])  # same length as pdb_ids
-        for i in range(len(pdb_ids)):
-            pdb = pdb_ids[i]
-            chain = chain_ids[i]
-            # Append the tuple (protein, chain) for this pdb id
-            pdb_to_entries.setdefault(pdb, []).append((protein, chain))
+        # For each pdb id, check if there are different protein_ids
+        # and that they don't all have the same chain.
+        for pdb, entries in pdb_to_entries.items():
+            # Get the set of unique protein_ids and unique chains for this pdb id.
+            protein_set = {prot for prot, ch in entries}
+            chain_set = {ch for prot, ch in entries}
 
-    # For each pdb id, check if there are different protein_ids
-    # and that they don't all have the same chain.
-    for pdb, entries in pdb_to_entries.items():
-        # Get the set of unique protein_ids and unique chains for this pdb id.
-        protein_set = {prot for prot, ch in entries}
-        chain_set = {ch for prot, ch in entries}
+            if len(protein_set) > 1:
+                # Exclude if the chain IDs are identical for all occurrences.
+                if len(chain_set) == 1:
+                    # Same pdbid_chain for all proteins, so ignore.
+                    continue
+                else:
+                    results.append((accession, pdb, protein_set, chain_set))
 
-        if len(protein_set) > 1:
-            # Exclude if the chain IDs are identical for all occurrences.
-            if len(chain_set) == 1:
-                # Same pdbid_chain for all proteins, so ignore.
-                continue
-            else:
-                results.append((accession, pdb, protein_set, chain_set))
+    return results
+
 
 # %%
+# blast_pdbfile = "/Users/YoshitakaM/Desktop/blast_pdb24.12_mini1.tsv"
+blast_pdbfile = "/Users/YoshitakaM/Desktop/blast_pdb24.12.tsv"
+
+df = pd.read_csv(blast_pdbfile, delimiter="\t")
+# dfのidentity列の値が95.0以上の行を取得
+df2 = df[df["identity"] >= 95.0].copy()
+df2 = df2[df2["mibig_accession"].apply(is_valid_mibig_accession)]
+
+df2["max_chain_count"] = df2["chain_id"].apply(get_max_chain_count)
+df2["oligomeric_state"] = df2["pdb_id"].apply(get_oligomeric_state)
+
+# "mibig_accession", "protein_id" ごとに最大の chain_count を求める
+max_chain_count = (
+    df2.groupby(["mibig_accession", "protein_id"])["max_chain_count"]
+    .max()
+    .reset_index()
+)
+
+# max_chain_countが2以上のものを取得
+df3 = df2.merge(
+    max_chain_count, on=["mibig_accession", "protein_id"], suffixes=("", "_max")
+)
+# %%
+
+
+# %%
+results = find_shared_pdb_protein_pairs(df2)
 seen_proteins = {}
 
-for accession, pdb, proteins, chains in results:
+for accession, pdb, proteins, _ in results:
     # Convert the proteins set into a frozenset to use as a hashable key.
     protein_key = frozenset(proteins)
     if accession not in seen_proteins:

@@ -268,8 +268,8 @@ for bgc_id in dataInt:
     plt.clf()
     count += 1
     print(f"Processed {count} / {len(dataInt)}: {bgc_id}")
-    if count > 30:
-        print("30個以上のBGCを処理しました。")
+    if count > 500:
+        print("500個以上のBGCを処理しました。")
         break
 
 # %%
