@@ -6,7 +6,7 @@ import os
 import pandas as pd
 
 
-def make_dataframe(target_dir: str) -> pd.DataFrame:
+def make_heterodataframe(target_dir: str) -> pd.DataFrame:
     """Create a DataFrame from BGC directories.
     Args:
         target_dir (str): The directory containing BGC folders.
@@ -57,9 +57,10 @@ def make_dataframe(target_dir: str) -> pd.DataFrame:
 
 
 # %%
-
+target_dir = "/Users/YoshitakaM/Desktop/positive_homomers"
+output_sheet = os.path.join(target_dir, "homocomplexes2.xlsx")
+# %%
 target_dir = "/Users/YoshitakaM/Library/CloudStorage/OneDrive-tmd.ac.jp/bgccomplex/positive_hetdimers"
 output_sheet = os.path.join(target_dir, "heterocomplexes.xlsx")
-df = make_dataframe(target_dir)
+df = make_heterodataframe(target_dir)
 df.to_excel(output_sheet, sheet_name="heterocomplexes", index=False)
-# %%

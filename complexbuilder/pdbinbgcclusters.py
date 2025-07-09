@@ -11,8 +11,6 @@ import pandas as pd
 
 from complexbuilder.common.parser import sanitised_name
 
-# %%
-
 
 def parse_multi_value(field: str) -> list[str]:
     """
@@ -87,7 +85,7 @@ def get_max_chain_count(chain_field: str) -> int:
     """
     For a chain_id field that may include multiple groups (separated by commas and braces),
     compute the chain count for each group and return the maximum.
-    各行のchain_idについて複数グループがあれば最大値を返す。
+    If multiple chain groups are present, it returns the maximum count of chains.
     """
     groups = parse_multi_value(chain_field)
     return max(count_chain_group(g) for g in groups)
@@ -238,11 +236,76 @@ def publish_sheet(
     df.to_excel(output_sheet, sheet_name="homocomplexes", index=False)
 
 
+def create_proteins_column(row):
+    """
+    Create a proteins column by concatenating the sanitised protein_id twice with an underscore.
+    """
+    return f"{sanitised_name(row['protein_id'])}_{sanitised_name(row['protein_id'])}"
+
+
+def make_homodataframe(target_dir: str) -> pd.DataFrame:
+    """Create a DataFrame from BGC directories.
+    Args:
+        target_dir (str): The directory containing BGC folders.
+    Returns:
+        pd.DataFrame: A DataFrame containing the BGC information.
+    """
+    cols = [
+        "mibig_accession",
+        "proteins",
+        "ipSAE",
+        "ipSAE_d0chn",
+        "ipSAE_d0dom",
+        "ipTM_af",
+        "ipTM_d0chn",
+    ]
+    df = pd.DataFrame(columns=cols)
+    # find all BGC directories starts with "BGC" in target_dir
+    bgc_dirs = [
+        d
+        for d in os.listdir(target_dir)
+        if d.startswith("BGC000") and os.path.isdir(os.path.join(target_dir, d))
+    ]
+
+    for bgcaccession_id in bgc_dirs:
+        homocomplex_dirs = [
+            d for d in os.listdir(os.path.join(target_dir, bgcaccession_id))
+        ]
+        for homocomplex_dir in homocomplex_dirs:
+            for filename in os.listdir(
+                os.path.join(target_dir, bgcaccession_id, homocomplex_dir)
+            ):
+                if not filename.endswith("_af3pae_best.png"):
+                    continue
+                if filename.endswith("_af3pae_best.png"):
+                    filesuffix = filename.split("_af3pae_best.png")[0]
+                    metrics_file = os.path.join(
+                        target_dir,
+                        bgcaccession_id,
+                        homocomplex_dir,
+                        f"{filesuffix}_ipsae.json",
+                    )
+                with open(metrics_file, "r") as f:
+                    metrics = json.load(f)[0]
+                df.loc[len(df)] = [
+                    bgcaccession_id,
+                    filesuffix,
+                    metrics["ipSAE"],
+                    metrics["ipSAE_d0chn"],
+                    metrics["ipSAE_d0dom"],
+                    metrics["ipTM_af"],
+                    metrics["ipTM_d0chn"],
+                ]
+
+    df.sort_values(by="mibig_accession", inplace=True)
+    return df
+
+
 # %%
 # blast_pdbfile = "/Users/YoshitakaM/Desktop/blast_pdb24.12_mini1.tsv"
 blast_pdbfile = "/Users/YoshitakaM/Desktop/blast_pdb24.12.tsv"
-# %%
 df = pd.read_csv(blast_pdbfile, delimiter="\t")
+# %%
 df2 = df[df["identity"] >= 95.0].copy()
 df2 = df2[df2["mibig_accession"].apply(is_valid_mibig_accession)]
 df2["oligomeric_state"] = df2["pdb_id"].apply(
@@ -258,26 +321,94 @@ max_mask = df3.groupby(["mibig_accession", "protein_id"])[
 df3 = df3[max_mask]
 df3 = df3.drop_duplicates(["mibig_accession", "protein_id"])
 # df3["parsed_oligomeric_state"]のうち、2.0以上のものを抽出
-df4 = df3[df3["parsed_oligomeric_state"] >= 2.0]
+df4 = df3[df3["parsed_oligomeric_state"] >= 2.0].copy()
+df4.loc[:, "proteins"] = df4.apply(create_proteins_column, axis=1)
 # %%
-for accession, protein_id, pdb_id in zip(
-    df4["mibig_accession"],
-    df4["protein_id"],
-    df4["pdb_id"],
-    strict=False,
-):
-    # print(f"{accession}\t{sanitised_name(protein_id)}\t{parse_multi_value(pdb_id)}")
-    sanitised_id = sanitised_name(protein_id)
-    for pdbid in parse_multi_value(pdb_id):
-        sanitised_pdbid = sanitised_name(pdbid)
-        print(
-            f"scp -rp yayoi:/home/database/pdb_mmcif/mmcif_files/{sanitised_pdbid}.cif {accession}/{sanitised_id}_{sanitised_id}/"
+target_dir = "/Users/YoshitakaM/Desktop/positive_homomers"
+output_sheet = os.path.join(target_dir, "homocomplexes23.xlsx")
+df5 = make_homodataframe(target_dir)
+# %%
+# df4のデータとdf5のデータを、mibig_accession, proteinsのカラムを使ってマージ
+df6 = pd.merge(
+    df4,
+    df5,
+    how="left",
+    left_on=["mibig_accession", "proteins"],
+    right_on=["mibig_accession", "proteins"],
+    suffixes=("", "_y"),
+)
+publish_sheet(df6, target_dir=target_dir, output_file="homocomplexes23.xlsx")
+
+
+# %%
+def int_to_chain_ids(chain_count: int) -> list[str]:
+    """
+    Convert an integer chain count to a string of chain IDs.
+    For example, 2 -> ["A", "B"], 4 -> ["A", "B", "C", "D"], etc.
+    """
+    return [chr(65 + i) for i in range(chain_count)]
+
+
+tsubame_transfer_dir = (
+    "/Users/YoshitakaM/Desktop/positive_homomers/homomer_additional/tsubame_transfer"
+)
+os.makedirs(tsubame_transfer_dir, exist_ok=True)
+foodin_transfer_dir = (
+    "/Users/YoshitakaM/Desktop/positive_homomers/homomer_additional/foodin_transfer"
+)
+os.makedirs(foodin_transfer_dir, exist_ok=True)
+# %%
+returnfile_f = (
+    "/Users/YoshitakaM/Desktop/positive_homomers/homomer_additional/return_foodin.sh"
+)
+returnfile_t = (
+    "/Users/YoshitakaM/Desktop/positive_homomers/homomer_additional/return_tsubame.sh"
+)
+return_handle_f = open(returnfile_f, "w")
+return_handle_f.write("#!/bin/bash\n")
+return_handle_t = open(returnfile_t, "w")
+return_handle_t.write("#!/bin/bash\n")
+for row in df6.itertuples(index=False, name="Pandas"):
+    if (
+        isinstance(row.parsed_oligomeric_state, float)
+        and row.parsed_oligomeric_state > 2.0
+    ):
+        filename = (
+            "/Users/YoshitakaM/Desktop/positive_homomers/homomer_additional/"
+            f"{row.mibig_accession}/{row.proteins}_data.json"
         )
-    # print(
-    #     f"mkdir -p {accession}/{sanitised_id}_{sanitised_id}\n"
-    #     rf"scp -rp yayoi:/data2/moriwaki/BGCcomplex/merged/{accession}/{sanitised_id}_{sanitised_id}/{{'*'.json,'*'.png,'*'.cif}} "
-    #     f"{accession}/{sanitised_id}_{sanitised_id}"
-    # )
+        if not os.path.exists(filename):
+            continue
+        with open(filename) as f:
+            tmp = json.load(f)
+            if tmp["sequences"][0]["protein"]["id"] == ["A", "B"]:
+                chain_count = int(row.parsed_oligomeric_state)
+                tmp["sequences"][0]["protein"]["id"] = int_to_chain_ids(chain_count)
+                newname = f"{sanitised_name(row.protein_id)}_{chain_count}mer"
+                tmp["name"] = newname
+        if len(tmp["sequences"][0]["protein"]["sequence"]) * chain_count < 2001:
+            outfile = os.path.join(foodin_transfer_dir, f"{newname}.json")
+            with open(outfile, "w") as f:
+                json.dump(tmp, f, indent=2, ensure_ascii=False)
+            return_handle_f.write(f"mkdir -p ../{row.mibig_accession}\n")
+            return_handle_f.write(
+                f"mv {sanitised_name(row.protein_id)}_{chain_count}mer {sanitised_name(row.protein_id)}_{chain_count}mer.json ../{row.mibig_accession}\n"
+            )
+        elif len(tmp["sequences"][0]["protein"]["sequence"]) * chain_count < 4001:
+            outfile = os.path.join(tsubame_transfer_dir, f"{newname}.json")
+            with open(outfile, "w") as f:
+                json.dump(tmp, f, indent=2, ensure_ascii=False)
+            return_handle_t.write(f"mkdir -p ../{row.mibig_accession}\n")
+            return_handle_t.write(
+                f"mv {sanitised_name(row.protein_id)}_{chain_count}mer {sanitised_name(row.protein_id)}_{chain_count}mer.json ../{row.mibig_accession}\n"
+            )
+        else:
+            print(
+                f"Skipping {newname} of {row.mibig_accession} as it exceeds 4000 sequence length for transfer."
+            )
+            continue
+return_handle_f.close()
+return_handle_t.close()
 
 # %%
 results = find_pdbid_that_have_different_chain_ids(df2)
