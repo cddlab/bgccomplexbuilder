@@ -131,31 +131,6 @@ def run_ipsae_on_af3(
 # %%
 
 
-# ipsae_py_script = (
-#     "/Users/YoshitakaM/Desktop/work/complexbuilder/complexbuilder/common/ipsae.py"
-# )
-# bgc_directory = "/Users/YoshitakaM/Desktop/BGC_heteromer"
-# python_binary = "/Users/YoshitakaM/Desktop/work/complexbuilder/.venv/bin/python3.12"
-# pae_cutoff = 10
-# dist_cutoff = 10
-# ipsae_cutoff = 0.5
-# start = 1296
-# end = 1296
-
-# for bgc_number in range(start, end + 1):
-#     run_ipsae_on_af3(
-#         bgc_directory=bgc_directory,
-#         python_binary=python_binary,
-#         ipsae_py_script=ipsae_py_script,
-#         bgc_number=bgc_number,
-#         pae_cutoff=pae_cutoff,
-#         dist_cutoff=dist_cutoff,
-#         is_overwrite=True,
-#     )
-
-# %%
-
-
 def main():
     parser = argparse.ArgumentParser(
         description="Generate bash script to transfer files."
