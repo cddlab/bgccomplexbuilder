@@ -301,6 +301,83 @@ def make_homodataframe(target_dir: str) -> pd.DataFrame:
     return df
 
 
+def int_to_chain_ids(chain_count: int) -> list[str]:
+    """
+    Convert an integer chain count to a string of chain IDs.
+    For example, 2 -> ["A", "B"], 4 -> ["A", "B", "C", "D"], etc.
+    """
+    return [chr(65 + i) for i in range(chain_count)]
+
+
+def transfer_homomer_data(df6: pd.DataFrame, homomer_dir: str) -> None:
+    """
+    Process homomer data to generate JSON files and shell scripts for transfer.
+
+    Args:
+        df6 (pd.DataFrame): DataFrame containing homomer data.
+        homomer_dir (str): Directory where the processed files will be stored.
+    """
+    gpuH100_transfer_dir = os.path.join(homomer_dir, "gpuH100_transfer")
+    os.makedirs(gpuH100_transfer_dir, exist_ok=True)
+    gpu4090_transfer_dir = os.path.join(homomer_dir, "gpu4090_transfer")
+    os.makedirs(gpu4090_transfer_dir, exist_ok=True)
+
+    returnfile_f = os.path.join(homomer_dir, "return_gpu4090.sh")
+    returnfile_t = os.path.join(homomer_dir, "return_gpuH100.sh")
+
+    return_handle_f = open(returnfile_f, "w")
+    return_handle_f.write("#!/bin/bash\n")
+    return_handle_t = open(returnfile_t, "w")
+    return_handle_t.write("#!/bin/bash\n")
+
+    # データフレームの行ごとの処理
+    for row in df6.itertuples(index=False, name="Pandas"):
+        if (
+            isinstance(row.parsed_oligomeric_state, float)
+            and row.parsed_oligomeric_state > 2.0
+        ):
+            filename = os.path.join(
+                homomer_dir, f"{row.mibig_accession}/{row.proteins}_data.json"
+            )
+            if not os.path.exists(filename):
+                continue
+
+            with open(filename) as f:
+                tmp = json.load(f)
+                if tmp["sequences"][0]["protein"]["id"] == ["A", "B"]:
+                    chain_count = int(row.parsed_oligomeric_state)
+                    tmp["sequences"][0]["protein"]["id"] = int_to_chain_ids(chain_count)
+                    newname = f"{sanitised_name(row.protein_id)}_{chain_count}mer"
+                    tmp["name"] = newname
+
+            seq_length = len(tmp["sequences"][0]["protein"]["sequence"]) * chain_count
+
+            if seq_length < 2001:
+                outfile = os.path.join(gpu4090_transfer_dir, f"{newname}.json")
+                with open(outfile, "w") as f:
+                    json.dump(tmp, f, indent=2, ensure_ascii=False)
+                return_handle_f.write(f"mkdir -p ../{row.mibig_accession}\n")
+                return_handle_f.write(
+                    f"mv {sanitised_name(row.protein_id)}_{chain_count}mer {sanitised_name(row.protein_id)}_{chain_count}mer.json ../{row.mibig_accession}\n"
+                )
+            elif seq_length < 4001:
+                outfile = os.path.join(gpuH100_transfer_dir, f"{newname}.json")
+                with open(outfile, "w") as f:
+                    json.dump(tmp, f, indent=2, ensure_ascii=False)
+                return_handle_t.write(f"mkdir -p ../{row.mibig_accession}\n")
+                return_handle_t.write(
+                    f"mv {sanitised_name(row.protein_id)}_{chain_count}mer {sanitised_name(row.protein_id)}_{chain_count}mer.json ../{row.mibig_accession}\n"
+                )
+            else:
+                print(
+                    f"Skipping {newname} of {row.mibig_accession} as it exceeds 4000 sequence length for transfer."
+                )
+                continue
+
+    return_handle_f.close()
+    return_handle_t.close()
+
+
 # %%
 # blast_pdbfile = "/Users/YoshitakaM/Desktop/blast_pdb24.12_mini1.tsv"
 blast_pdbfile = "/Users/YoshitakaM/Desktop/blast_pdb24.12.tsv"
@@ -341,75 +418,8 @@ publish_sheet(df6, target_dir=target_dir, output_file="homocomplexes23.xlsx")
 
 
 # %%
-def int_to_chain_ids(chain_count: int) -> list[str]:
-    """
-    Convert an integer chain count to a string of chain IDs.
-    For example, 2 -> ["A", "B"], 4 -> ["A", "B", "C", "D"], etc.
-    """
-    return [chr(65 + i) for i in range(chain_count)]
-
-
-tsubame_transfer_dir = (
-    "/Users/YoshitakaM/Desktop/positive_homomers/homomer_additional/tsubame_transfer"
-)
-os.makedirs(tsubame_transfer_dir, exist_ok=True)
-foodin_transfer_dir = (
-    "/Users/YoshitakaM/Desktop/positive_homomers/homomer_additional/foodin_transfer"
-)
-os.makedirs(foodin_transfer_dir, exist_ok=True)
-# %%
-returnfile_f = (
-    "/Users/YoshitakaM/Desktop/positive_homomers/homomer_additional/return_foodin.sh"
-)
-returnfile_t = (
-    "/Users/YoshitakaM/Desktop/positive_homomers/homomer_additional/return_tsubame.sh"
-)
-return_handle_f = open(returnfile_f, "w")
-return_handle_f.write("#!/bin/bash\n")
-return_handle_t = open(returnfile_t, "w")
-return_handle_t.write("#!/bin/bash\n")
-for row in df6.itertuples(index=False, name="Pandas"):
-    if (
-        isinstance(row.parsed_oligomeric_state, float)
-        and row.parsed_oligomeric_state > 2.0
-    ):
-        filename = (
-            "/Users/YoshitakaM/Desktop/positive_homomers/homomer_additional/"
-            f"{row.mibig_accession}/{row.proteins}_data.json"
-        )
-        if not os.path.exists(filename):
-            continue
-        with open(filename) as f:
-            tmp = json.load(f)
-            if tmp["sequences"][0]["protein"]["id"] == ["A", "B"]:
-                chain_count = int(row.parsed_oligomeric_state)
-                tmp["sequences"][0]["protein"]["id"] = int_to_chain_ids(chain_count)
-                newname = f"{sanitised_name(row.protein_id)}_{chain_count}mer"
-                tmp["name"] = newname
-        if len(tmp["sequences"][0]["protein"]["sequence"]) * chain_count < 2001:
-            outfile = os.path.join(foodin_transfer_dir, f"{newname}.json")
-            with open(outfile, "w") as f:
-                json.dump(tmp, f, indent=2, ensure_ascii=False)
-            return_handle_f.write(f"mkdir -p ../{row.mibig_accession}\n")
-            return_handle_f.write(
-                f"mv {sanitised_name(row.protein_id)}_{chain_count}mer {sanitised_name(row.protein_id)}_{chain_count}mer.json ../{row.mibig_accession}\n"
-            )
-        elif len(tmp["sequences"][0]["protein"]["sequence"]) * chain_count < 4001:
-            outfile = os.path.join(tsubame_transfer_dir, f"{newname}.json")
-            with open(outfile, "w") as f:
-                json.dump(tmp, f, indent=2, ensure_ascii=False)
-            return_handle_t.write(f"mkdir -p ../{row.mibig_accession}\n")
-            return_handle_t.write(
-                f"mv {sanitised_name(row.protein_id)}_{chain_count}mer {sanitised_name(row.protein_id)}_{chain_count}mer.json ../{row.mibig_accession}\n"
-            )
-        else:
-            print(
-                f"Skipping {newname} of {row.mibig_accession} as it exceeds 4000 sequence length for transfer."
-            )
-            continue
-return_handle_f.close()
-return_handle_t.close()
-
+# homomer_dir = "/Users/YoshitakaM/Desktop/positive_homomers/homomer_additional/"
+# transfer_homomer_data(df6, homomer_dir)
 # %%
 results = find_pdbid_that_have_different_chain_ids(df2)
 seen_proteins = {}
