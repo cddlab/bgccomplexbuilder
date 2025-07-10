@@ -1,4 +1,3 @@
-# %%
 import argparse
 import json
 import os
@@ -7,9 +6,9 @@ from pathlib import Path
 
 from loguru import logger
 
-from complexbuilder.common.log import log_setup
+# from complexbuilder.common.log import log_setup
 
-log_setup(level="SUCCESS")
+# log_setup(level="SUCCESS")
 
 
 def split_proteinids(text: str) -> tuple[str, str]:
@@ -210,28 +209,16 @@ def main():
         action="store_true",
         help="Whether to include the assembly type in the output.",
     )
-    # args = parser.parse_args()
-    args = parser.parse_args(
-        [
-            "--bgc_directory",
-            "/data2/moriwaki/BGCcomplex/homomers_additional",
-            "--outputjson",
-            "hitcomplexes.json",
-            "--iptm_threshold",
-            "0.0",
-            "--ipsae_threshold",
-            "0.0",
-            "--metrics_json",
-            "complexmetrics.json",
-        ]
-    )
-    make_hitcomplexlist(
+    args = parser.parse_args()
+    results_json = make_hitcomplexlist(
         dir=args.bgc_directory,
         ipsae_threshold=args.ipsae_threshold,
         iptm_threshold=args.iptm_threshold,
         metrics_json=args.metrics_json,
         display_homo_hetero=args.display_homo_hetero,
     )
+    with open(args.outputjson, "w") as f:
+        json.dump(results_json, f, indent=2)
 
 
 if __name__ == "__main__":
