@@ -152,7 +152,7 @@ def main():
     parser.add_argument(
         "--ipsae_py_script",
         metavar="ipSAE script",
-        default="/data2/moriwaki/complexbuilder/complexbuilder/common/ipsae.py",
+        default="/data2/moriwaki/complexbuilder/complexbuilder/analysis/ipsae.py",
         type=str,
         help="Path to the ipSAE script.",
     )

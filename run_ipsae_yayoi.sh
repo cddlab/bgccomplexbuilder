@@ -1,6 +1,6 @@
 #!/bin/bash
 #PBS -q default
-#PBS -l nodes=1:ppn=1:groupB
+#PBS -l nodes=1:ppn=1:cpu
 #PBS -l walltime=12:00:00
 #PBS -m ae
 #PBS -M moriwaki@bilab.sakura.ne.jp
