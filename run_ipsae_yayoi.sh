@@ -13,4 +13,4 @@ test $PBS_O_WORKDIR && cd $PBS_O_WORKDIR
 test $START || { echo "START is not set." >&2 ; exit 1 ; }
 test $END || { echo "END is not set." >&2 ; exit 1 ; }
 
-.venv/bin/python3.12 complexbuilder/common/run_ipsae_yayoi.py -s $START -e $END
+.venv/bin/python3.12 complexbuilder/analysis/run_ipsae_yayoi.py -s $START -e $END
