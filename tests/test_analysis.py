@@ -1,6 +1,6 @@
 import json
 
-from complexbuilder.common.parser import (
+from complexbuilder.analysis.extract_hitcomplexes import (
     _check_homo_hetero,
     make_hitcomplexlist,
     split_proteinids,

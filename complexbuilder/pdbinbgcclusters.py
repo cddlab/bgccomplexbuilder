@@ -4,6 +4,7 @@ import csv
 import io
 import json
 import os
+import re
 from itertools import permutations
 from pathlib import Path
 
@@ -379,6 +380,45 @@ def transfer_homomer_data(df6: pd.DataFrame, homomer_dir: str) -> None:
 
 
 # %%
+def _convert_to_repeated_protein_id(protein_id: str) -> str:
+    """
+    Convert a protein ID to a repeated name.
+    e.g. "aam94792.1_4mer" -> "aam94792.1_aam94792.1"
+         "aam94793.1_4mer" -> "aam94793.1_aam94793.1"
+         "aam70337.1_10mer" -> "aam70337.1_aam70337.1"
+         "wp_003722052.1_3mer" -> "wp_003722052.1_wp_003722052.1"
+    """
+    # remove the suffix "_4mer", "_10mer", etc.
+    protein = re.sub(r"(_\d+mer)$", "", protein_id)
+    return f"{protein}_{protein}"
+
+
+def homomer_add_hit_to_df(jsondata: dict) -> pd.DataFrame:
+    """
+    Convert nested JSON data with BGC entries to a pandas DataFrame.
+    Args:
+        json_data (dict): Nested JSON data with BGC IDs as top-level keys
+
+    Returns:
+        pd.DataFrame: DataFrame with columns: mibig_accession, proteins, ipSAE, ipTM
+    """
+    rows = []
+    for bgc_id, proteins_data in jsondata.items():
+        if not proteins_data:
+            continue
+        for protein_id, metrics in proteins_data.items():
+            row = {
+                "mibig_accession": bgc_id,
+                "proteins": _convert_to_repeated_protein_id(protein_id),
+                "ipSAE_homomer": metrics.get("ipSAE"),
+                "ipTM_homomer": metrics.get("ipTM"),
+            }
+            rows.append(row)
+    df = pd.DataFrame(rows)
+    return df
+
+
+# %%
 # blast_pdbfile = "/Users/YoshitakaM/Desktop/blast_pdb24.12_mini1.tsv"
 blast_pdbfile = "/Users/YoshitakaM/Desktop/blast_pdb24.12.tsv"
 df = pd.read_csv(blast_pdbfile, delimiter="\t")
@@ -416,6 +456,21 @@ df6 = pd.merge(
 )
 publish_sheet(df6, target_dir=target_dir, output_file="homocomplexes23.xlsx")
 
+
+# %%
+additional_homomer_file = "/Users/YoshitakaM/Desktop/positive_homomers/homomer_additional/homomer_additional_hitcomplexes.json"
+with open(additional_homomer_file, "r") as f:
+    additional_homomer_data = json.load(f)
+df7 = homomer_add_hit_to_df(additional_homomer_data)
+df8 = pd.merge(
+    df6,
+    df7,
+    how="left",
+    left_on=["mibig_accession", "proteins"],
+    right_on=["mibig_accession", "proteins"],
+    suffixes=("", "_y"),
+)
+publish_sheet(df8, target_dir=target_dir, output_file="homocomplexes3.xlsx")
 
 # %%
 # homomer_dir = "/Users/YoshitakaM/Desktop/positive_homomers/homomer_additional/"
