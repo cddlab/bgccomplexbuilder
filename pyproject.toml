@@ -11,10 +11,11 @@ dependencies = [
     "numpy>=2",
     "pandas",
     "requests",
+    "rdkit>=2025.03.3",
     "scipy",
     "scikit-image",
     "loguru",
-    "alphafold3-tools==0.0.7",
+    "alphafold3-tools",
     "rcsb-api==1.1.3",
     "openpyxl"
 ]
