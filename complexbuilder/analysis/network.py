@@ -8,8 +8,9 @@ import networkx as nx
 from Bio import SeqIO
 from loguru import logger
 
+from complexbuilder.analysis.extract_hitcomplexes import split_proteinids
 from complexbuilder.common.log import log_setup
-from complexbuilder.common.parser import sanitised_name, split_proteinids
+from complexbuilder.common.parser import sanitised_name
 
 log_setup(level="DEBUG")
 
@@ -223,20 +224,21 @@ for bgc_id in dataInt:
 
     ### ネットワーク描画 ###
     num_nodes = len(G.nodes)
-    # proportional size based on number of nodes
-    base_width, base_height = 12, 12
-    scale_factor_w, scale_factor_h = 0.3, 0.3
+    # proportional size based on number of nodes.
+    # 4:3 is best.
+    base_width, base_height = 8.0, 6.0
+    scale_factor_w, scale_factor_h = 0.80, 0.60
     fig_width = base_width + scale_factor_w * num_nodes
     fig_height = base_height + scale_factor_h * num_nodes
     fig, ax = plt.subplots(1, 1, figsize=(fig_width, fig_height), dpi=300)
-    pos = nx.shell_layout(G, scale=1)
+    pos = nx.circular_layout(G, scale=1)
     # edge_color is set to a colormap based on weights
     # weights are normalized to the range [0, 1] for colormap
     edge_colors = [cmap(w) for w in weights]
     # widths
-    widths = [w * 10 for w in weights]
+    widths = [w * 8 for w in weights]
     # node size is proportional to the length of the description
-    node_sizes = [len(G.nodes[node]["description"]) * 150 for node in G.nodes]
+    node_sizes = [len(G.nodes[node]["description"]) * 120 for node in G.nodes]
     nx.draw(
         G,
         pos,
@@ -244,7 +246,7 @@ for bgc_id in dataInt:
         width=widths,
         edge_color=edge_colors,
         edge_cmap=cmap,
-        alpha=0.8,
+        alpha=0.5,
         node_color="lightblue",
         node_size=node_sizes,
         font_weight="bold",
@@ -268,8 +270,8 @@ for bgc_id in dataInt:
     plt.clf()
     count += 1
     print(f"Processed {count} / {len(dataInt)}: {bgc_id}")
-    if count > 500:
-        print("500個以上のBGCを処理しました。")
+    if count > 3000:
+        print("3000個以上のBGCを処理しました。")
         break
 
 # %%
