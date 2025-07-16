@@ -15,7 +15,6 @@ from complexbuilder.common.parser import sanitised_name
 log_setup(level="DEBUG")
 
 
-# %%
 def get_bgcgenes(dataInt: dict[str, dict], bgc_id: str) -> list[str]:
     """
     Extract a unique list of gene names for a given BGC from the input dataInt.
@@ -42,7 +41,6 @@ def get_bgcgenes(dataInt: dict[str, dict], bgc_id: str) -> list[str]:
     return bgcgenes
 
 
-# %%
 def extract_cds_info(mibiggbkdir: str, bgc_id: str):
     """
     Retrieve gene information for a given BGC ID.
@@ -190,12 +188,11 @@ def fold_description(description: str, width: int = 20) -> str:
     return "\n".join(wrapped_segments)
 
 
-# %%
-cmap = plt.get_cmap("coolwarm")  # カラーマップの設定
+cmap = plt.get_cmap("coolwarm")
 count = 0
 
 mibiggbkdir = "/Users/YoshitakaM/Downloads/mibig_gbk_4.0"
-hitcomplexesPath = "/Users/YoshitakaM/Desktop/hitcomplexes.json"
+hitcomplexesPath = "/Users/YoshitakaM/Desktop/hitcomplex_iptm0.6_ipsae0.0_all.json"
 outputdir = "/Users/YoshitakaM/Desktop/svg2/"
 with open(hitcomplexesPath, "r") as f:
     dataInt = json.load(f)
@@ -222,7 +219,7 @@ for bgc_id in dataInt:
         if not isinstance(w, (int, float)):
             print(f"problematic weight: edge=({u}, {v}), weight={w}, type={type(w)}")
 
-    ### ネットワーク描画 ###
+    ### Draw Network ###
     num_nodes = len(G.nodes)
     # proportional size based on number of nodes.
     # 4:3 is best.
@@ -258,7 +255,7 @@ for bgc_id in dataInt:
         for node in G.nodes
     }
 
-    # ラベルの描画
+    # draw edge labels and node labels
     nx.draw_networkx_edge_labels(G, pos, edge_labels=edge_labels, ax=ax)
     nx.draw_networkx_labels(
         G, pos, labels=node_labels, font_size=10, font_family="Arial", ax=ax
@@ -271,7 +268,7 @@ for bgc_id in dataInt:
     count += 1
     print(f"Processed {count} / {len(dataInt)}: {bgc_id}")
     if count > 3000:
-        print("3000個以上のBGCを処理しました。")
+        print("More than 3000 BGCs processed, stopping to avoid overload.")
         break
 
 # %%
