@@ -31,6 +31,10 @@ def test_split_proteinids():
         "wp_032798144.1",
         "ssgg_rs34700",
     )
+    assert split_proteinids("rso11565.1_rso11564.1") == (
+        "rso11565.1",
+        "rso11564.1",
+    )
 
 
 def test_make_hitcomplexlist(tmp_path):

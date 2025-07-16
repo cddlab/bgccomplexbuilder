@@ -31,7 +31,10 @@ def split_proteinids(text: str) -> tuple[str, str]:
             -> ("trx17522.1", "fnf07_04290")
         split_proteinids("ctg1_orf2_ctg1_orf2")
             -> ("ctg1_orf2", "ctg1_orf2")
-
+        split_proteinids("wp_032798144.1_ssgg_rs34700")
+            -> ("wp_032798144.1", "ssgg_rs34700")
+        split_proteinids("rso11565.1_rso11565.1")
+            -> ("rso11565.1", "rso11565.1")
     Args:
         text (str): The protein complex string to split.
 
@@ -42,8 +45,8 @@ def split_proteinids(text: str) -> tuple[str, str]:
         ValueError: If no valid splitting underscore is found or if an even number of them is detected.
     """
     # Find indices of underscores immediately followed by a lowercase letter.
-    # But not followed by "rs" (e.g., "ssgg_rs34700").
-    valid_indices = [m.start() for m in re.finditer(r"_(?!rs)(?=[a-z])", text)]
+    # Also, "_rs[1-9]" (e.g., "ssgg_rs34700") is not acceptable, but "_rso" (e.g., "rso11565.1_rso11565.1") is acceptable.
+    valid_indices = [m.start() for m in re.finditer(r"_(?!rs\d)(?=[a-z])", text)]
     if not valid_indices:
         raise ValueError(f"No valid splitting underscore found in: {text}")
 
