@@ -10,17 +10,18 @@ from rdkit.Chem.PandasTools import ChangeMoleculeRendering
 
 from complexbuilder.common.log import log_setup
 
-log_setup(level="DEBUG")
+log_setup(level="SUCCESS")
 
 
 # %%
 def write_html(df, output):
     scripts = """
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/foundation/6.4.3/css/foundation.min.css" rel="stylesheet"/>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/foundation/6.9.0/css/foundation.min.css" rel="stylesheet"/>
     <link href="https://cdn.datatables.net/v/zf/jq-3.6.0/dt-1.13.4/b-2.3.6/b-html5-2.3.6/date-1.4.1/fh-3.3.2/sb-1.4.2/datatables.min.css" rel="stylesheet"/>
 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/foundation/6.9.0/js/foundation.min.js"></script>
     <script src="https://cdn.datatables.net/v/zf/jq-3.6.0/dt-1.13.4/b-2.3.6/b-html5-2.3.6/date-1.4.1/fh-3.3.2/sb-1.4.2/datatables.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/foundation/6.4.3/js/foundation.min.js"></script>
+
 
     <script>
         $(document).ready(function() {$('.my-table').DataTable({
@@ -29,18 +30,35 @@ def write_html(df, output):
             buttons: ['copy'],
             fixedHeader: true,
             dom: 'iQrtBlp',
+            language: {
+                searchBuilder: {
+                    title: 'BGC PPI network visualizer'
+                }
+            },
         });})
     </script>
     """
+    style_block = """
+    <style type="text/css">
+      .test-container {
+        text-align: center;
+        padding: 20px;
+      }
+    </style>
+    """
+    div_start = '<div class="test-container">'
+    div_end = "</div>"
 
-    html = df.to_html(classes="my-table", escape=False)
-    html = scripts + html
+    html = df.to_html(classes="my-table", escape=False, index=False)
+    html = scripts + style_block + div_start + html + div_end
     with open(output, mode="w") as f:
         f.write(html)
 
 
 # %%
-def add_data(mibig_json_file: Path, pre_df: pd.DataFrame | None = None) -> pd.DataFrame:
+def add_data(
+    mibig_json_file: Path, svgdirectory: Path, pre_df: pd.DataFrame | None = None
+) -> pd.DataFrame:
     """
     Adds data from a MIBiG JSON file to a DataFrame.
     """
@@ -53,22 +71,30 @@ def add_data(mibig_json_file: Path, pre_df: pd.DataFrame | None = None) -> pd.Da
     compoundnames = [d["name"] for d in data["compounds"]]
     accession_id = data["accession"]
     version = data["version"]
+    classes = [d["class"] for d in data["biosynthesis"]["classes"] if "class" in d]
     acc_ver = f"{accession_id}.{version}"
     taxname = data["taxonomy"]["name"]
+    networksvgpath = Path(svgdirectory, f"{accession_id}.svg")
+    network = f'<a href="{networksvgpath}" target="_blank" rel="noopener noreferrer"><img src="{networksvgpath}" alt="Network" /></a>'
 
-    rep_compoundname = compoundnames[0] if compoundnames else "Unknown"
-    logger.info(f"Processing {mibig_json_file}: {acc_ver} {taxname} {rep_compoundname}")
+    compoundname = "<br>".join(compoundnames if compoundnames else "No compound name")
+    classes_str = "<br>".join(classes if classes else "No class")
+    logger.info(f"Processing {mibig_json_file}: {acc_ver} {taxname} {compoundname}")
     df = pd.DataFrame(
         {
             "Accession": [acc_ver],
             "Taxonomy": [taxname],
+            "Class": [classes_str],
             "SMILES": [compounds[0]] if compounds else None,
-            "Representative Compound Name": [rep_compoundname],
+            "Compound Names": [compoundname],
+            "Network": [network],
         }
     )
+    # Italic font
+    df["Taxonomy"] = df["Taxonomy"].apply(lambda x: f"<i>{x}</i>")
     # Hyperlink to MIBiG entry
     df["Accession"] = df["Accession"].apply(
-        lambda x: f'<a href="https://mibig.secondarymetabolites.org/repository/{x}">{x}</a>'
+        lambda x: f'<a href="https://mibig.secondarymetabolites.org/repository/{x}" target="_blank" rel="noopener noreferrer">{x}</a>'
     )
 
     if df["SMILES"].notnull().any():
@@ -83,16 +109,18 @@ def add_data(mibig_json_file: Path, pre_df: pd.DataFrame | None = None) -> pd.Da
 
 
 mibigjsondirectory = Path("/Users/YoshitakaM/Downloads/mibig_json_4.0")
+svgdirectory = Path("/Users/YoshitakaM/Desktop/svg2")
+svgdirectory = Path("./svg2")
 
-for i in range(1, 201):
+for i in range(1, 2827):
     mibig_json_file = mibigjsondirectory / f"BGC000{i:04d}.json"
     if i == 1:
         print(f"Processing {mibig_json_file}")
-        df = add_data(mibig_json_file)
+        df = add_data(mibig_json_file, svgdirectory)
     else:
         if mibig_json_file.exists():
-            df = add_data(mibig_json_file, df)
+            df = add_data(mibig_json_file, svgdirectory, df)
 ChangeMoleculeRendering(df)
 df.drop(columns=["SMILES"], inplace=True)
-write_html(df, "hoge.html")
+write_html(df, "publish.html")
 # %%
