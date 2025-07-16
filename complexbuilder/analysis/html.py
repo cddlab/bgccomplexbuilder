@@ -4,23 +4,13 @@ import json
 from pathlib import Path
 
 import pandas as pd
-from rdkit import Chem
-from rdkit.Chem import Draw, PandasTools
-from rdkit.Chem.Draw import IPythonConsole
+from loguru import logger
+from rdkit.Chem import PandasPatcher, PandasTools
+from rdkit.Chem.PandasTools import ChangeMoleculeRendering
 
-PandasTools.RenderImagesInAllDataFrames(True)
+from complexbuilder.common.log import log_setup
 
-
-# %%
-mibigjsondirectory = Path("/Users/YoshitakaM/Downloads/mibig_json_4.0")
-mibig_json_file = mibigjsondirectory / "BGC0000001.json"
-
-with mibig_json_file.open("r") as f:
-    mibig_data = json.load(f)
-
-products = [d["structure"] for d in mibig_data["compounds"]]
-
-smiles = products[0]
+log_setup(level="DEBUG")
 
 
 # %%
@@ -43,16 +33,66 @@ def write_html(df, output):
     </script>
     """
 
-    html = df.to_html(classes="my-table")
+    html = df.to_html(classes="my-table", escape=False)
     html = scripts + html
     with open(output, mode="w") as f:
         f.write(html)
 
 
-df = pd.DataFrame({"SMILES": ["CCO", "c1ccccc1", "CC(=O)O"]})
+# %%
+def add_data(mibig_json_file: Path, pre_df: pd.DataFrame | None = None) -> pd.DataFrame:
+    """
+    Adds data from a MIBiG JSON file to a DataFrame.
+    """
+    with mibig_json_file.open("r") as f:
+        data = json.load(f)
 
-# SMILES列からMolオブジェクトを生成して "ROMol" という列に追加
-PandasTools.AddMoleculeColumnToFrame(df, smilesCol="SMILES", molCol="ROMol")
-df.head()
+    compounds = [d["structure"] for d in data["compounds"] if "structure" in d]
+    if not compounds:
+        compounds = [None]
+    compoundnames = [d["name"] for d in data["compounds"]]
+    accession_id = data["accession"]
+    version = data["version"]
+    acc_ver = f"{accession_id}.{version}"
+    taxname = data["taxonomy"]["name"]
+
+    rep_compoundname = compoundnames[0] if compoundnames else "Unknown"
+    logger.info(f"Processing {mibig_json_file}: {acc_ver} {taxname} {rep_compoundname}")
+    df = pd.DataFrame(
+        {
+            "Accession": [acc_ver],
+            "Taxonomy": [taxname],
+            "SMILES": [compounds[0]] if compounds else None,
+            "Representative Compound Name": [rep_compoundname],
+        }
+    )
+    # Hyperlink to MIBiG entry
+    df["Accession"] = df["Accession"].apply(
+        lambda x: f'<a href="https://mibig.secondarymetabolites.org/repository/{x}">{x}</a>'
+    )
+
+    if df["SMILES"].notnull().any():
+        PandasTools.AddMoleculeColumnToFrame(
+            df, smilesCol="SMILES", molCol="Representative Structure"
+        )
+    else:
+        df["Representative Structure"] = None
+    if pre_df is not None:
+        df = pd.concat([pre_df, df])
+    return df
+
+
+mibigjsondirectory = Path("/Users/YoshitakaM/Downloads/mibig_json_4.0")
+
+for i in range(1, 201):
+    mibig_json_file = mibigjsondirectory / f"BGC000{i:04d}.json"
+    if i == 1:
+        print(f"Processing {mibig_json_file}")
+        df = add_data(mibig_json_file)
+    else:
+        if mibig_json_file.exists():
+            df = add_data(mibig_json_file, df)
+ChangeMoleculeRendering(df)
+df.drop(columns=["SMILES"], inplace=True)
 write_html(df, "hoge.html")
 # %%
