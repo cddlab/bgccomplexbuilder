@@ -1,10 +1,18 @@
 import json
+from pathlib import Path
 
+from complexbuilder.analysis.conjoinedtwins import compare_two_chains
 from complexbuilder.analysis.extract_hitcomplexes import (
     _check_homo_hetero,
     make_hitcomplexlist,
     split_proteinids,
 )
+
+
+def test_compare_two_chains():
+    ciffile = Path("tests/testfiles/MonBI_MonBII_model.cif")
+    rmsd = compare_two_chains(ciffile, "A", "B")
+    assert rmsd < 0.7
 
 
 def test_check_homo_hetero():
