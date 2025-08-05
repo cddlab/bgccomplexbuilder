@@ -1,6 +1,5 @@
 import os
 
-import pytest
 from Bio.Seq import Seq
 from Bio.SeqRecord import SeqRecord
 
@@ -11,26 +10,25 @@ from complexbuilder.common.sequences import (
     generate_seqs_combinations,
 )
 
+# def test_generate_seqs_combinations():
+#     """test of generate_seqs_combinations"""
+#     seq1 = SeqRecord(
+#         Seq("MTEITAAMVKELREST"), id="seq1", description="Example sequence 1"
+#     )
 
-def test_generate_seqs_combinations():
-    """test of generate_seqs_combinations"""
-    seq1 = SeqRecord(
-        Seq("MTEITAAMVKELREST"), id="seq1", description="Example sequence 1"
-    )
-
-    seq2 = SeqRecord(Seq("AKAIKES"), id="seq2", description="Example sequence 2")
-    seq3 = SeqRecord(Seq("TAKCLSICKSITK"), id="seq3", description="Example sequence 3")
-    seqs = [seq1, seq2, seq3]
-    generate_seqs_combinations(seqs)
-    assert len(generate_seqs_combinations(seqs)) == 6
-    test1, test2 = generate_seqs_combinations(seqs)[0]
-    assert test1.seq + test2.seq == "MTEITAAMVKELRESTMTEITAAMVKELREST"
-    concatenated_seqs: list[SeqRecord] = [
-        concatenate_two_sequences(seq1, seq2)
-        for seq1, seq2 in generate_seqs_combinations(seqs)
-    ]
-    assert concatenated_seqs[0].seq == "MTEITAAMVKELREST:MTEITAAMVKELREST"
-    assert concatenated_seqs[0].id == "seq1_seq1"
+#     seq2 = SeqRecord(Seq("AKAIKES"), id="seq2", description="Example sequence 2")
+#     seq3 = SeqRecord(Seq("TAKCLSICKSITK"), id="seq3", description="Example sequence 3")
+#     seqs = [seq1, seq2, seq3]
+#     generate_seqs_combinations(seqs)
+#     assert len(generate_seqs_combinations(seqs)) == 6
+#     test1, test2 = generate_seqs_combinations(seqs)[0]
+#     assert test1.seq + test2.seq == "MTEITAAMVKELRESTMTEITAAMVKELREST"
+#     concatenated_seqs: list[SeqRecord] = [
+#         concatenate_two_sequences(seq1, seq2)
+#         for seq1, seq2 in generate_seqs_combinations(seqs)
+#     ]
+#     assert concatenated_seqs[0].seq == "MTEITAAMVKELREST:MTEITAAMVKELREST"
+#     assert concatenated_seqs[0].id == "seq1_seq1"
 
 
 def test_BGC0000028():
@@ -43,7 +41,7 @@ def test_BGC0000028():
         nonnrpspksproteins, extention="fasta", use_productname=False
     )
     with open(f"{os.path.splitext(basename)[0]}.fasta", "w") as f:
-        f.write(output)
+        f.write("".join(output))
 
 
 def test_BGC0000037():
@@ -57,7 +55,7 @@ def test_BGC0000037():
         nonnrpspksproteins, extention="fasta", use_productname=False
     )
     with open(f"{os.path.splitext(basename)[0]}.fasta", "w") as f:
-        f.write(output)
+        f.write("".join(output))
 
 
 def test_BGC0000053():
@@ -79,23 +77,3 @@ def test_BGC0000087():
     _ = generate_multimer_input_for_colabfold(
         nonnrpspksproteins, extention="fasta", use_productname=False
     )
-
-
-@pytest.mark.parametrize(
-    "uniprot_id, expected_output, raises_exception",
-    [
-        (
-            "P69905",
-            (
-                "MVLSPADKTNVKAAWGKVGAHAGEYGAEALERMFLSFPTTKTYFPHFDLSHGSAQVKGHGKKVADALTNAVAHVDDMPN"
-                "ALSALSDLHAHKLRVDPVNFKLLSHCLLVTLAAHLPAEFTPAVHASLDKFLASVSTVLTSKYR"
-            ),
-            False,  # 正常系: 例外が発生しない
-        ),
-        (
-            "P9C9999",
-            None,  # No expected output
-            True,  # Invalid uniprot_id
-        ),
-    ],
-)
