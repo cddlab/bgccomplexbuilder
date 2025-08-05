@@ -188,87 +188,107 @@ def fold_description(description: str, width: int = 20) -> str:
     return "\n".join(wrapped_segments)
 
 
-cmap = plt.get_cmap("coolwarm")
-count = 0
+def make_network_svg(
+    mibiggbkdir: str, hitcomplexesPath: str, outputdir: str, max_count: int = 3000
+) -> None:
+    """
+    Create a network SVG for each BGC in the hitcomplexes data.
+
+    Args:
+        mibiggbkdir (str): Path to the directory containing MIBiG GenBank files.
+        hitcomplexesPath (str): Path to the JSON file containing hit complexes.
+        outputdir (str): Directory where the SVG files will be saved.
+        max_count (int): Maximum number of BGCs to process. Default is 3000.
+    """
+    if not os.path.exists(hitcomplexesPath):
+        logger.error(f"Hit complexes file not found: {hitcomplexesPath}")
+        return
+
+    cmap = plt.get_cmap("coolwarm")
+    count = 0
+
+    with open(hitcomplexesPath, "r") as f:
+        dataInt = json.load(f)
+    for bgc_id in dataInt:
+        bgcgenes = get_bgcgenes(dataInt, bgc_id)
+        cds_info_list = extract_cds_info(mibiggbkdir, bgc_id)
+        node_desc = make_node_desc_dict(bgcgenes, cds_info_list)
+        G = nx.Graph()
+        for gene in bgcgenes:
+            # add nodes with descriptions
+            G.add_node(
+                gene,
+                description=node_desc.get(gene, "No description available"),
+            )
+        for protein_dimer in dataInt[bgc_id]:
+            # protein dimer is like "aek75497.1_aek75507.1"
+            protein_a, protein_b = split_proteinids(protein_dimer)
+            iptm_score = dataInt[bgc_id][protein_dimer]["ipTM"]
+            G.add_edge(protein_a, protein_b, weight=iptm_score)
+        # 重み取得
+        weights = [G[u][v]["weight"] for u, v in G.edges()]
+        for u, v, data in G.edges(data=True):
+            w = data.get("weight")
+            if not isinstance(w, (int, float)):
+                print(
+                    f"problematic weight: edge=({u}, {v}), weight={w}, type={type(w)}"
+                )
+
+        ### Draw Network ###
+        num_nodes = len(G.nodes)
+        # proportional size based on number of nodes.
+        # 4:3 is best.
+        base_width, base_height = 8.0, 6.0
+        scale_factor_w, scale_factor_h = 0.80, 0.60
+        fig_width = base_width + scale_factor_w * num_nodes
+        fig_height = base_height + scale_factor_h * num_nodes
+        fig, ax = plt.subplots(1, 1, figsize=(fig_width, fig_height), dpi=300)
+        pos = nx.circular_layout(G, scale=1)
+        # edge_color is set to a colormap based on weights
+        # weights are normalized to the range [0, 1] for colormap
+        edge_colors = [cmap(w) for w in weights]
+        # widths
+        widths = [w * 8 for w in weights]
+        # node size is proportional to the length of the description
+        node_sizes = [len(G.nodes[node]["description"]) * 120 for node in G.nodes]
+        nx.draw(
+            G,
+            pos,
+            ax=ax,
+            width=widths,
+            edge_color=edge_colors,
+            edge_cmap=cmap,
+            alpha=0.5,
+            node_color="lightblue",
+            node_size=node_sizes,
+            font_weight="bold",
+        )
+
+        edge_labels = nx.get_edge_attributes(G, "weight")
+        node_labels = {
+            node: fold_description(G.nodes[node]["description"], width=20)
+            for node in G.nodes
+        }
+
+        # draw edge labels and node labels
+        nx.draw_networkx_edge_labels(G, pos, edge_labels=edge_labels, ax=ax)
+        nx.draw_networkx_labels(
+            G, pos, labels=node_labels, font_size=10, font_family="Arial", ax=ax
+        )
+        ax.axis("off")
+        os.makedirs(outputdir, exist_ok=True)
+        fig.savefig(os.path.join(outputdir, f"{bgc_id}.svg"))
+        plt.close()
+        plt.clf()
+        count += 1
+        print(f"Processed {count} / {len(dataInt)}: {bgc_id}")
+        if count > max_count:
+            print(f"More than {max_count} BGCs processed, stopping to avoid overload.")
+            break
+
+
+# %%
 
 mibiggbkdir = "/Users/YoshitakaM/Downloads/mibig_gbk_4.0"
 hitcomplexesPath = "/Users/YoshitakaM/Desktop/hitcomplex_iptm0.6_ipsae0.0_all.json"
 outputdir = "/Users/YoshitakaM/Desktop/svg2/"
-with open(hitcomplexesPath, "r") as f:
-    dataInt = json.load(f)
-for bgc_id in dataInt:
-    bgcgenes = get_bgcgenes(dataInt, bgc_id)
-    cds_info_list = extract_cds_info(mibiggbkdir, bgc_id)
-    node_desc = make_node_desc_dict(bgcgenes, cds_info_list)
-    G = nx.Graph()
-    for gene in bgcgenes:
-        # add nodes with descriptions
-        G.add_node(
-            gene,
-            description=node_desc.get(gene, "No description available"),
-        )
-    for protein_dimer in dataInt[bgc_id]:
-        # protein dimer is like "aek75497.1_aek75507.1"
-        protein_a, protein_b = split_proteinids(protein_dimer)
-        iptm_score = dataInt[bgc_id][protein_dimer]["ipTM"]
-        G.add_edge(protein_a, protein_b, weight=iptm_score)
-    # 重み取得
-    weights = [G[u][v]["weight"] for u, v in G.edges()]
-    for u, v, data in G.edges(data=True):
-        w = data.get("weight")
-        if not isinstance(w, (int, float)):
-            print(f"problematic weight: edge=({u}, {v}), weight={w}, type={type(w)}")
-
-    ### Draw Network ###
-    num_nodes = len(G.nodes)
-    # proportional size based on number of nodes.
-    # 4:3 is best.
-    base_width, base_height = 8.0, 6.0
-    scale_factor_w, scale_factor_h = 0.80, 0.60
-    fig_width = base_width + scale_factor_w * num_nodes
-    fig_height = base_height + scale_factor_h * num_nodes
-    fig, ax = plt.subplots(1, 1, figsize=(fig_width, fig_height), dpi=300)
-    pos = nx.circular_layout(G, scale=1)
-    # edge_color is set to a colormap based on weights
-    # weights are normalized to the range [0, 1] for colormap
-    edge_colors = [cmap(w) for w in weights]
-    # widths
-    widths = [w * 8 for w in weights]
-    # node size is proportional to the length of the description
-    node_sizes = [len(G.nodes[node]["description"]) * 120 for node in G.nodes]
-    nx.draw(
-        G,
-        pos,
-        ax=ax,
-        width=widths,
-        edge_color=edge_colors,
-        edge_cmap=cmap,
-        alpha=0.5,
-        node_color="lightblue",
-        node_size=node_sizes,
-        font_weight="bold",
-    )
-
-    edge_labels = nx.get_edge_attributes(G, "weight")
-    node_labels = {
-        node: fold_description(G.nodes[node]["description"], width=20)
-        for node in G.nodes
-    }
-
-    # draw edge labels and node labels
-    nx.draw_networkx_edge_labels(G, pos, edge_labels=edge_labels, ax=ax)
-    nx.draw_networkx_labels(
-        G, pos, labels=node_labels, font_size=10, font_family="Arial", ax=ax
-    )
-    ax.axis("off")
-    os.makedirs(outputdir, exist_ok=True)
-    fig.savefig(os.path.join(outputdir, f"{bgc_id}.svg"))
-    plt.close()
-    plt.clf()
-    count += 1
-    print(f"Processed {count} / {len(dataInt)}: {bgc_id}")
-    if count > 3000:
-        print("More than 3000 BGCs processed, stopping to avoid overload.")
-        break
-
-# %%
