@@ -189,7 +189,7 @@ def main():
     parser.add_argument(
         "--iptm_threshold",
         metavar="ipTM threshold",
-        default=0.6,
+        default=0.55,
         type=float,
         help="Minimum ipTM score required for a complex to be considered a hit.",
     )
