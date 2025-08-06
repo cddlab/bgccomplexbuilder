@@ -1,7 +1,10 @@
 import json
 from pathlib import Path
 
-from complexbuilder.analysis.conjoinedtwins import compare_two_chains
+from complexbuilder.analysis.conjoinedtwins import (
+    calculate_rmsd_between_two_chains,
+    extract_hetero_complexes,
+)
 from complexbuilder.analysis.extract_hitcomplexes import (
     _check_homo_hetero,
     make_hitcomplexlist,
@@ -9,10 +12,39 @@ from complexbuilder.analysis.extract_hitcomplexes import (
 )
 
 
-def test_compare_two_chains():
+def test_calculate_rmsd_between_two_chains():
     ciffile = Path("tests/testfiles/MonBI_MonBII_model.cif")
-    rmsd = compare_two_chains(ciffile, "A", "B")
-    assert rmsd < 0.7
+    rmsd = calculate_rmsd_between_two_chains(ciffile, "A", "B")
+    assert rmsd is not None and rmsd < 0.7
+
+
+def test_extract_hetero_complexes():
+    test_data = {
+        "BGC0000001": {
+            "aek75492.1_aek75495.1": {
+                "complex_homo_hetero": "hetero",
+            }
+        },
+        "BGC0000007": {
+            "aas90001.1_aas90002.1": {
+                "complex_homo_hetero": "hetero",
+            },
+            "aas90020.1_aas90020.1": {
+                "complex_homo_hetero": "homo",
+            },
+            "aas89996.1_aas89996.1": {
+                "complex_homo_hetero": "homo",
+            },
+            "aas90003.1_aas90004.1": {
+                "complex_homo_hetero": "hetero",
+            },
+        },
+    }
+    assert extract_hetero_complexes(test_data) == [
+        ("BGC0000001", "aek75492.1_aek75495.1"),
+        ("BGC0000007", "aas90001.1_aas90002.1"),
+        ("BGC0000007", "aas90003.1_aas90004.1"),
+    ]
 
 
 def test_check_homo_hetero():
