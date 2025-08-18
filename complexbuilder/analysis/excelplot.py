@@ -29,6 +29,7 @@ rcParams["xtick.direction"] = "in"
 rcParams["ytick.direction"] = "in"
 rcParams["svg.fonttype"] = "none"
 # %%
+THRESHOLD = 0.55
 excelfile = Path(
     "/Users/YoshitakaM/Library/CloudStorage/OneDrive-TheUniversityofTokyo/bgccomplex/homocomplexes3.xlsx"
 )
@@ -47,6 +48,7 @@ ax[0].scatter(
 ax[0].set_title("ipSAE vs ipTM for Homooligomers in PDB")
 ax[0].set_xlabel("Chain pair ipTM")
 ax[0].set_ylabel("ipSAE")
+ax[0].axvline(THRESHOLD, c="gray", linestyle="--", linewidth=1.0)
 ax[0].grid(True, linestyle="--", alpha=0.7)
 
 ax[0].set_xlim(0, 1)
@@ -96,7 +98,7 @@ ax[1].scatter(
     alpha=0.7,
     s=30,
     c="#D25A45",
-    label="oligomeric number of \nGlobal Stoichiometry \ndisplayed in PDB",
+    label="biologically-relevant\noligomeric number\ndisplayed in PDB",
     edgecolors="w",
     marker="s",
     linewidth=0.5,
@@ -104,6 +106,7 @@ ax[1].scatter(
 
 ax[1].set_xlim(0, 1)
 ax[1].set_ylim(-0.02, 1)
+ax[1].axvline(THRESHOLD, c="gray", linestyle="--", linewidth=1.0)
 hans, labs = ax[1].get_legend_handles_labels()
 ax[1].legend(handles=hans, labels=labs, fontsize=12)
 ax[1].set_title("Change in ipSAE and ipTM metrics")
