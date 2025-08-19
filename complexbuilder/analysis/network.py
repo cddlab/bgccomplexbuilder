@@ -3,6 +3,7 @@
 import json
 import os
 
+import matplotlib as mpl
 import matplotlib.pyplot as plt
 import networkx as nx
 from Bio import SeqIO
@@ -13,6 +14,8 @@ from complexbuilder.common.log import log_setup
 from complexbuilder.common.parser import sanitised_name
 
 log_setup(level="DEBUG")
+mpl.rcParams["font.family"] = "Arial"
+mpl.rcParams["svg.fonttype"] = "none"
 
 
 def get_bgcgenes(dataInt: dict[str, dict], bgc_id: str) -> list[str]:
@@ -289,6 +292,13 @@ def make_network_svg(
 
 # %%
 
-mibiggbkdir = "/Users/YoshitakaM/Downloads/mibig_gbk_4.0"
-hitcomplexesPath = "/Users/YoshitakaM/Desktop/hitcomplex_iptm0.6_ipsae0.0_all.json"
-outputdir = "/Users/YoshitakaM/Desktop/svg2/"
+mibiggbkdir = "/Users/YoshitakaM/Desktop/kudo_f"
+hitcomplexesPath = (
+    "/Users/YoshitakaM/Desktop/BGC5002hitcomplex_iptm0.55_ipsae0.0_all.json"
+)
+outputdir = "/Users/YoshitakaM/Desktop/kudo_f/"
+
+# %%
+make_network_svg(mibiggbkdir, hitcomplexesPath, outputdir)
+
+# %%

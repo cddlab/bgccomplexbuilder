@@ -57,15 +57,15 @@ args = parser.parse_args(
         "--maxbytes",
         "6000000",
         "--start",
-        "1001",
+        "5003",
         "--end",
-        "2827",
+        "5003",
     ]
 )
 
 log_setup(level="WARNING")
 for i in range(args.start, args.end + 1):
-    file = f"/Users/YoshitakaM/Downloads/mibig_gbk_4.0/BGC{i:07d}.gbk"
+    file = f"/Users/YoshitakaM/Desktop/BGC{i:07d}.gbk"
     basename = os.path.basename(file)
     if not os.path.exists(file):
         logger.warning(f"File {file} not found.")
@@ -87,26 +87,5 @@ for i in range(args.start, args.end + 1):
                 with open(f"new{os.path.splitext(basename)[0]}_{i}.fasta", "w") as f:
                     f.write(chunk)
 
-# %%
-file = "/Users/YoshitakaM/Desktop/combi/database.fasta"
-basename = os.path.basename(file)
-if not os.path.exists(file):
-    logger.warning(f"File {file} not found.")
-proteins = make_seqrecord_from_fasta(file, 1950)
-if len(proteins) > 0:
-    protein_chunks = generate_multimer_input_for_colabfold(
-        proteins,
-        extention="fasta",
-        use_productname=False,
-    )
-    split_chunks = concatenate_chunks(protein_chunks, args.maxbytes)
-    if len(split_chunks) == 1:
-        with open(f"new{os.path.splitext(basename)[0]}.fasta", "w") as f:
-            f.write(split_chunks[0])
-    else:
-        for i, chunk in enumerate(split_chunks):
-            num = i + 1
-            with open(f"new{os.path.splitext(basename)[0]}_{i}.fasta", "w") as f:
-                f.write(chunk)
 
 # %%

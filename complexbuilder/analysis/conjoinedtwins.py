@@ -3,7 +3,10 @@ import json
 from pathlib import Path
 
 import gemmi
+import matplotlib.pyplot as plt
+import pandas as pd
 from loguru import logger
+from matplotlib import rcParams
 
 from complexbuilder.common.log import log_setup
 
@@ -88,4 +91,81 @@ with open(rmsdoutput, "w") as f:
 with open(rmsdoutput, "w") as f:
     json.dump(results, f, indent=2)
     logger.info(f"RMSD results saved to {rmsdoutput}")
+# %%
+
+
+def draw_histgram(rmsdfile: str | Path, outfigpath: str | Path) -> None:
+    """
+    Draw a histogram of RMSD values from a JSON file.
+    Args:
+        rmsdfile (str | Path): Path to the RMSD JSON file.
+        outfigpath (str | Path): Path to the output figure file.
+    """
+
+    with open(rmsdfile, "r") as f:
+        rmsd_data = json.load(f)
+
+    rmsd_values = [
+        complex_data["RMSD"]
+        for bgc_id, complexes in rmsd_data.items()
+        for complex_key, complex_data in complexes.items()
+        if complex_data.get("RMSD") is not None
+    ]
+    df = pd.DataFrame(rmsd_values, columns=["RMSD"])
+    # df["RMSD"] <= 2.0の割合を計算
+    total = df["RMSD"].count()
+    num_below_1 = (df["RMSD"] <= 1.0).sum()
+    fraction_below_1 = (df["RMSD"] <= 1.0).mean() * 100
+    num_below_2 = (df["RMSD"] <= 2.0).sum()
+    fraction_below_2 = (df["RMSD"] <= 2.0).mean() * 100
+    logger.info(f"Number of complexes with RMSD <= 1.0: {num_below_1} / {total}")
+    logger.info(f"Fraction of complexes with RMSD <= 1.0: {fraction_below_1:.3f} %")
+    logger.info(f"Number of complexes with RMSD <= 2.0: {num_below_2} / {total}")
+    logger.info(f"Fraction of complexes with RMSD <= 2.0: {fraction_below_2:.3f} %")
+    rcParams["font.family"] = "Arial"
+    rcParams["font.size"] = 16
+    rcParams["axes.labelsize"] = 9
+    rcParams["axes.titlesize"] = 9
+    rcParams["xtick.labelsize"] = 8
+    rcParams["ytick.labelsize"] = 8
+    rcParams["mathtext.fontset"] = "cm"
+
+    fig, ax = plt.subplots(1, 1, figsize=(3.2, 2.4), dpi=300)
+    bin_list = [0 + i * 1 for i in range(0, 101)]
+    ax.spines["right"].set_visible(False)
+    ax.spines["top"].set_visible(False)
+    ax.hist(df["RMSD"], bins=bin_list, color="#6CD8FD")
+    ax.set_xlim(0, 100)
+    ax.set_xticks(range(0, 101, 10))
+    ax.set_xlabel(r"rmsd [Å]")
+    ax.set_ylabel("count")
+    ax.set_yticks(range(0, 2000, 500))
+    ax.set_ylim(0, 1500)
+
+    axins = ax.inset_axes(
+        (0.7, 0.7, 0.27, 0.27),
+    )
+    bin_list2 = [0 + i * 1 for i in range(0, 11)]
+    axins.spines["right"].set_visible(False)
+    axins.spines["top"].set_visible(False)
+    axins.hist(df["RMSD"], bins=bin_list2, color="#6CD8FD")
+    axins.tick_params(labelsize=6)
+    axins.set_xlim(0, 10)
+    axins.set_xticks(range(0, 11, 2))
+    axins.set_xlabel(r"rmsd [Å]", fontsize=6)
+    axins.set_ylim(0, 1000)
+    axins.set_yticks(range(0, 1200, 200))
+    axins.set_ylabel("count", fontsize=6)
+    fig.savefig(
+        outfigpath,
+        bbox_inches="tight",
+        pad_inches=0.05,
+    )
+
+
+# %%
+rmsdfile = "/Users/YoshitakaM/Desktop/rmsd2.json"
+outfigpath = "/Users/YoshitakaM/Desktop/rmsd_histogram.svg"
+draw_histgram(rmsdfile, outfigpath)
+
 # %%
