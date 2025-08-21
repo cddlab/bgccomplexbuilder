@@ -7,7 +7,7 @@ requires-python = ">=3.12"
 dependencies = [
     "biopython>=1.84",
     "matplotlib",
-    "networkx",
+    "networkx==3.5",
     "numpy>=2",
     "pandas",
     "requests",
@@ -17,7 +17,8 @@ dependencies = [
     "loguru",
     "alphafold3-tools",
     "rcsb-api==1.1.3",
-    "openpyxl"
+    "openpyxl",
+    "seaborn>=0.13.2",
 ]
 
 [tool.uv]
