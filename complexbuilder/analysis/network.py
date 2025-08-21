@@ -137,7 +137,6 @@ def make_node_desc_dict(
                 if value is None:
                     continue
                 if sanitised_name(value) == sanitised_name(node):
-                    # マッチした場合、CDS情報全体の文字列を作成
                     parts = []
                     if cds_info.get("protein_id"):
                         parts.append(cds_info["protein_id"])
@@ -192,7 +191,11 @@ def fold_description(description: str, width: int = 20) -> str:
 
 
 def make_network_svg(
-    mibiggbkdir: str, hitcomplexesPath: str, outputdir: str, max_count: int = 3000
+    mibiggbkdir: str,
+    hitcomplexesPath: str,
+    rmsdPath: str,
+    outputdir: str,
+    max_count: int = 3000,
 ) -> None:
     """
     Create a network SVG for each BGC in the hitcomplexes data.
@@ -200,6 +203,7 @@ def make_network_svg(
     Args:
         mibiggbkdir (str): Path to the directory containing MIBiG GenBank files.
         hitcomplexesPath (str): Path to the JSON file containing hit complexes.
+        rmsdPath (str): Path to the JSON file containing RMSD data.
         outputdir (str): Directory where the SVG files will be saved.
         max_count (int): Maximum number of BGCs to process. Default is 3000.
     """
@@ -207,11 +211,13 @@ def make_network_svg(
         logger.error(f"Hit complexes file not found: {hitcomplexesPath}")
         return
 
-    cmap = plt.get_cmap("coolwarm")
     count = 0
+    rmsd_threshold = 2.0
 
     with open(hitcomplexesPath, "r") as f:
         dataInt = json.load(f)
+    with open(rmsdPath, "r") as f:
+        rmsd_data = json.load(f)
     for bgc_id in dataInt:
         bgcgenes = get_bgcgenes(dataInt, bgc_id)
         cds_info_list = extract_cds_info(mibiggbkdir, bgc_id)
@@ -227,31 +233,38 @@ def make_network_svg(
             # protein dimer is like "aek75497.1_aek75507.1"
             protein_a, protein_b = split_proteinids(protein_dimer)
             iptm_score = dataInt[bgc_id][protein_dimer]["ipTM"]
-            G.add_edge(protein_a, protein_b, weight=iptm_score)
-        # 重み取得
-        weights = [G[u][v]["weight"] for u, v in G.edges()]
+            rmsd_value = (
+                rmsd_data.get(bgc_id, {})
+                .get(protein_dimer, {})
+                .get("RMSD", float("inf"))
+            )
+            G.add_edge(protein_a, protein_b, iptm=iptm_score, rmsd=rmsd_value)
+        iptms = [G[u][v]["iptm"] for u, v in G.edges()]
         for u, v, data in G.edges(data=True):
-            w = data.get("weight")
+            w = data.get("iptm")
             if not isinstance(w, (int, float)):
-                print(
-                    f"problematic weight: edge=({u}, {v}), weight={w}, type={type(w)}"
-                )
+                print(f"problematic iptm: edge=({u}, {v}), iptm={w}, type={type(w)}")
 
         ### Draw Network ###
         num_nodes = len(G.nodes)
         # proportional size based on number of nodes.
-        # 4:3 is best.
         base_width, base_height = 8.0, 6.0
         scale_factor_w, scale_factor_h = 0.80, 0.60
         fig_width = base_width + scale_factor_w * num_nodes
         fig_height = base_height + scale_factor_h * num_nodes
         fig, ax = plt.subplots(1, 1, figsize=(fig_width, fig_height), dpi=300)
         pos = nx.circular_layout(G, scale=1)
-        # edge_color is set to a colormap based on weights
-        # weights are normalized to the range [0, 1] for colormap
-        edge_colors = [cmap(w) for w in weights]
+        # edge_color is set to a colormap based on iptms
+        # iptms are normalized to the range [0, 1] for colormap
+        cmap = plt.get_cmap("coolwarm")
+        rmsd_values = [G[u][v]["rmsd"] for u, v in G.edges()]
+        # RMSD < rmsd_thresholdの場合、紫色に設定
+        edge_colors = [
+            cmap(w) if rmsd > rmsd_threshold else (0, 0, 1.0, 1.0)
+            for w, rmsd in zip(iptms, rmsd_values, strict=False)
+        ]
         # widths
-        widths = [w * 8 for w in weights]
+        widths = [w * 8 for w in iptms]
         # node size is proportional to the length of the description
         node_sizes = [len(G.nodes[node]["description"]) * 120 for node in G.nodes]
         nx.draw(
@@ -267,7 +280,7 @@ def make_network_svg(
             font_weight="bold",
         )
 
-        edge_labels = nx.get_edge_attributes(G, "weight")
+        edge_labels = nx.get_edge_attributes(G, "iptm")
         node_labels = {
             node: fold_description(G.nodes[node]["description"], width=20)
             for node in G.nodes
@@ -292,13 +305,12 @@ def make_network_svg(
 
 # %%
 
-mibiggbkdir = "/Users/YoshitakaM/Desktop/kudo_f"
-hitcomplexesPath = (
-    "/Users/YoshitakaM/Desktop/BGC5002hitcomplex_iptm0.55_ipsae0.0_all.json"
-)
-outputdir = "/Users/YoshitakaM/Desktop/kudo_f/"
+mibiggbkdir = "/Users/YoshitakaM/Downloads/mibig_gbk_4.0"
+hitcomplexesPath = "/Users/YoshitakaM/Desktop/hitcomplex_iptm0.55_ipsae0.0_all.json"
+rmsdPath = "/Users/YoshitakaM/Desktop/rmsd.json"
+outputdir = "/Users/YoshitakaM/Desktop/svg2_2"
 
 # %%
-make_network_svg(mibiggbkdir, hitcomplexesPath, outputdir)
+make_network_svg(mibiggbkdir, hitcomplexesPath, rmsdPath, outputdir)
 
 # %%
