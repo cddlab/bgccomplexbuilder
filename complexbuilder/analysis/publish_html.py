@@ -5,7 +5,7 @@ from pathlib import Path
 
 import pandas as pd
 from loguru import logger
-from rdkit.Chem import PandasPatcher, PandasTools
+from rdkit.Chem import PandasTools
 from rdkit.Chem.PandasTools import ChangeMoleculeRendering
 
 from complexbuilder.common.log import log_setup
@@ -50,7 +50,11 @@ def write_html(df, output):
     div_end = "</div>"
 
     html = df.to_html(classes="my-table", escape=False, index=False)
-    html = scripts + style_block + div_start + html + div_end
+    caption = """
+    (2025.08.21) Updated. Structurally homologous (RMSD &lt; 2.0 Å) protein pairs are highlighted in blue.<br>
+    The raw JSON file can be downloaded from <a href="hitcomplex_iptm0.55_ipsae0.0_all.json">here (4.2 MB)</a>. <br>You can download these contents from <a href="networks.zip">here (54MB)</a> and view them offline.<br>Please be patient while the contents are being loaded...
+    """
+    html = scripts + style_block + div_start + caption + html + div_end
     with open(output, mode="w") as f:
         f.write(html)
 
@@ -109,11 +113,16 @@ def add_data(
 
 
 mibigjsondirectory = Path("/Users/YoshitakaM/Downloads/mibig_json_4.0")
-svgdirectory = Path("/Users/YoshitakaM/Desktop/svg2")
-svgdirectory = Path("./svg2")
+svgdirectory = Path("svg3")
 
 for i in range(1, 2827):
     mibig_json_file = mibigjsondirectory / f"BGC000{i:04d}.json"
+    if not mibig_json_file.exists():
+        continue
+    with open(mibig_json_file, "r", encoding="utf-8") as f:
+        data = json.load(f)
+    if data.get("status") != "active":
+        continue
     if i == 1:
         print(f"Processing {mibig_json_file}")
         df = add_data(mibig_json_file, svgdirectory)
