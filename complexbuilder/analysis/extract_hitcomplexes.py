@@ -46,24 +46,24 @@ def split_proteinids(text: str) -> tuple[str, str]:
     """
     # Find indices of underscores immediately followed by a lowercase letter.
     # Also, "_rs[1-9]" (e.g., "ssgg_rs34700") is not acceptable, but "_rso" (e.g., "rso11565.1_rso11565.1") is acceptable.
-    valid_indices = [m.start() for m in re.finditer(r"_(?!rs\d)(?=[a-z])", text)]
-    if not valid_indices:
+    matches = list(re.finditer(r"_(?!rs\d)+", text))
+    if not matches:
         raise ValueError(f"No valid splitting underscore found in: {text}")
 
-    if len(valid_indices) == 1:
-        split_index = valid_indices[0]
-    else:
-        # If more than one valid underscore is found, require an odd number.
-        if len(valid_indices) % 2 == 0:
-            raise ValueError(
-                f"Even number of valid splitting underscores found in: {text}"
-            )
-        # Pick the middle valid underscore.
-        mid = len(valid_indices) // 2
-        split_index = valid_indices[mid]
+    candidates = [(m.start(), len(m.group())) for m in matches]
 
+    def is_alpha_right(idx, length):
+        return (idx + length < len(text)) and text[idx + length].isalpha()
+
+    alpha_candidates = [(i, l) for (i, l) in candidates if is_alpha_right(i, l)]
+    if alpha_candidates:
+        use = alpha_candidates[len(alpha_candidates) // 2]
+    else:
+        use = candidates[len(candidates) // 2]
+
+    split_index, length = use
     left = text[:split_index]
-    right = text[split_index + 1 :]
+    right = text[split_index + length :]
     return (left, right)
 
 

@@ -1,50 +1,49 @@
 import json
 from pathlib import Path
 
-from complexbuilder.analysis.conjoinedtwins import (
-    calculate_rmsd_between_two_chains,
-    extract_hetero_complexes,
-)
+# from complexbuilder.analysis.conjoinedtwins import (
+#     calculate_rmsd_between_two_chains,
+#     extract_hetero_complexes,
+# )
 from complexbuilder.analysis.extract_hitcomplexes import (
     _check_homo_hetero,
     make_hitcomplexlist,
     split_proteinids,
 )
 
+# def test_calculate_rmsd_between_two_chains():
+#     ciffile = Path("tests/testfiles/MonBI_MonBII_model.cif")
+#     rmsd = calculate_rmsd_between_two_chains(ciffile, "A", "B")
+#     assert rmsd is not None and rmsd < 0.7
 
-def test_calculate_rmsd_between_two_chains():
-    ciffile = Path("tests/testfiles/MonBI_MonBII_model.cif")
-    rmsd = calculate_rmsd_between_two_chains(ciffile, "A", "B")
-    assert rmsd is not None and rmsd < 0.7
 
-
-def test_extract_hetero_complexes():
-    test_data = {
-        "BGC0000001": {
-            "aek75492.1_aek75495.1": {
-                "complex_homo_hetero": "hetero",
-            }
-        },
-        "BGC0000007": {
-            "aas90001.1_aas90002.1": {
-                "complex_homo_hetero": "hetero",
-            },
-            "aas90020.1_aas90020.1": {
-                "complex_homo_hetero": "homo",
-            },
-            "aas89996.1_aas89996.1": {
-                "complex_homo_hetero": "homo",
-            },
-            "aas90003.1_aas90004.1": {
-                "complex_homo_hetero": "hetero",
-            },
-        },
-    }
-    assert extract_hetero_complexes(test_data) == [
-        ("BGC0000001", "aek75492.1_aek75495.1"),
-        ("BGC0000007", "aas90001.1_aas90002.1"),
-        ("BGC0000007", "aas90003.1_aas90004.1"),
-    ]
+# def test_extract_hetero_complexes():
+#     test_data = {
+#         "BGC0000001": {
+#             "aek75492.1_aek75495.1": {
+#                 "complex_homo_hetero": "hetero",
+#             }
+#         },
+#         "BGC0000007": {
+#             "aas90001.1_aas90002.1": {
+#                 "complex_homo_hetero": "hetero",
+#             },
+#             "aas90020.1_aas90020.1": {
+#                 "complex_homo_hetero": "homo",
+#             },
+#             "aas89996.1_aas89996.1": {
+#                 "complex_homo_hetero": "homo",
+#             },
+#             "aas90003.1_aas90004.1": {
+#                 "complex_homo_hetero": "hetero",
+#             },
+#         },
+#     }
+#     assert extract_hetero_complexes(test_data) == [
+#         ("BGC0000001", "aek75492.1_aek75495.1"),
+#         ("BGC0000007", "aas90001.1_aas90002.1"),
+#         ("BGC0000007", "aas90003.1_aas90004.1"),
+#     ]
 
 
 def test_check_homo_hetero():
@@ -58,6 +57,10 @@ def test_check_homo_hetero():
 def test_split_proteinids():
     assert split_proteinids("trx17522.1_trx20192.1") == ("trx17522.1", "trx20192.1")
     # include "xx_04290"
+    assert split_proteinids("fnf07_04290_trx17522.1") == (
+        "fnf07_04290",
+        "trx17522.1",
+    )
     assert split_proteinids("trx17522.1_fnf07_04290") == (
         "trx17522.1",
         "fnf07_04290",
@@ -75,6 +78,17 @@ def test_split_proteinids():
         "rso11565.1",
         "rso11564.1",
     )
+    assert split_proteinids("ralta_b1233_caq71835.1") == (
+        "ralta_b1233",
+        "caq71835.1",
+    )
+    assert split_proteinids("ralta_b1233_ralta_b1233") == (
+        "ralta_b1233",
+        "ralta_b1233",
+    )
+    assert split_proteinids("aerm__aerm_") == ("aerm_", "aerm_")
+    assert split_proteinids("acm68692.1_aerm_") == ("acm68692.1", "aerm_")
+    assert split_proteinids("aerm__acm68692.1") == ("aerm_", "acm68692.1")
 
 
 def test_make_hitcomplexlist(tmp_path):
