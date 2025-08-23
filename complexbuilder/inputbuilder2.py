@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-# %%
+
 import argparse
 import os
 
@@ -57,9 +57,9 @@ args = parser.parse_args(
         "--maxbytes",
         "6000000",
         "--start",
-        "5003",
+        "1",
         "--end",
-        "5003",
+        "2826",
     ]
 )
 
@@ -86,6 +86,3 @@ for i in range(args.start, args.end + 1):
                 num = i + 1
                 with open(f"new{os.path.splitext(basename)[0]}_{i}.fasta", "w") as f:
                     f.write(chunk)
-
-
-# %%

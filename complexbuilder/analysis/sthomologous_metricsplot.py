@@ -1,5 +1,4 @@
 #!/usr/bin/env python3
-# %%
 
 import argparse
 import json
@@ -101,65 +100,57 @@ def plot_violin(
     fig.savefig(out)
 
 
-parser = argparse.ArgumentParser(
-    description="Plot ipTM / ipSAE violin plots filtered by RMSD."
-)
-parser.add_argument(
-    "-i",
-    "--input",
-    help="input JSON file path (must contain RMSD, ipTM, ipSAE).",
-    required=True,
-)
-parser.add_argument(
-    "-t",
-    "--rmsd-threshold",
-    type=float,
-    default=2.0,
-    help="RMSD threshold (Å). Default: %(default)s",
-)
-parser.add_argument(
-    "-o",
-    "--output",
-    help="output SVG file path (if not specified, will be saved as out_{threshold}.svg in the same directory as the JSON file)",
-)
-
-jsonfile = "/Users/YoshitakaM/Library/CloudStorage/OneDrive-TheUniversityofTokyo/bgccomplex/figures/rmsd.json"
-rmsd_threshold = 2.0
-outputfile = f"/Users/YoshitakaM/Library/CloudStorage/OneDrive-TheUniversityofTokyo/bgccomplex/figures/out_{rmsd_threshold}.svg"
-
-args = parser.parse_args(
-    [
+def main():
+    parser = argparse.ArgumentParser(
+        description="Plot ipTM / ipSAE violin plots filtered by RMSD. "
+        "Usage: .venv/bin/python3.12 -m complexbuilder.analysis.sthomologous_metricsplot -i /path/to/rmsd.json "
+        "-t 2.0 -o /path/to/outputplot.svg"
+    )
+    parser.add_argument(
         "-i",
-        jsonfile,
+        "--input",
+        help="input JSON file path (must contain RMSD, ipTM, ipSAE).",
+        required=True,
+    )
+    parser.add_argument(
         "-t",
-        str(rmsd_threshold),
+        "--rmsd-threshold",
+        type=float,
+        default=2.0,
+        help="RMSD threshold (Å). Default: %(default)s",
+    )
+    parser.add_argument(
         "-o",
-        outputfile,
-    ]
-)
+        "--output",
+        help="output SVG file path (if not specified, will be saved as out_{threshold}.svg in the same directory as the JSON file)",
+    )
 
-json_path = Path(args.input)
-if not json_path.is_file():
-    raise SystemExit(f"Input JSON not found: {json_path}")
+    args = parser.parse_args()
 
-if args.output:
-    output_path = Path(args.output)
-else:
-    output_path = json_path.parent / f"out_{args.rmsd_threshold}.svg"
+    json_path = Path(args.input)
+    if not json_path.is_file():
+        raise SystemExit(f"Input JSON not found: {json_path}")
 
-with json_path.open() as f:
-    data = json.load(f)
+    if args.output:
+        output_path = Path(args.output)
+    else:
+        output_path = json_path.parent / f"out_{args.rmsd_threshold}.svg"
 
-iptm_values, ipsae_values = collect_values(data, args.rmsd_threshold)
+    with json_path.open() as f:
+        data = json.load(f)
 
-iptm_median = pd.Series(iptm_values).median() if iptm_values else float("nan")
-print(f"ipTM median: {iptm_median:.2f}")
-ipsae_median = pd.Series(ipsae_values).median() if ipsae_values else float("nan")
-print(f"ipSAE median: {ipsae_median:.2f}")
+    iptm_values, ipsae_values = collect_values(data, args.rmsd_threshold)
 
-if not iptm_values and not ipsae_values:
-    raise SystemExit(f"No entries with RMSD <= {args.rmsd_threshold} found.")
+    iptm_median = pd.Series(iptm_values).median() if iptm_values else float("nan")
+    print(f"ipTM median: {iptm_median:.2f}")
+    ipsae_median = pd.Series(ipsae_values).median() if ipsae_values else float("nan")
+    print(f"ipSAE median: {ipsae_median:.2f}")
 
-plot_violin(iptm_values, ipsae_values, args.rmsd_threshold, output_path)
+    if not iptm_values and not ipsae_values:
+        raise SystemExit(f"No entries with RMSD <= {args.rmsd_threshold} found.")
 
-# %%
+    plot_violin(iptm_values, ipsae_values, args.rmsd_threshold, output_path)
+
+
+if __name__ == "__main__":
+    main()

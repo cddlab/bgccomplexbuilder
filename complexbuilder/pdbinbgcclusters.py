@@ -261,7 +261,7 @@ def make_homodataframe(target_dir: str) -> pd.DataFrame:
         "ipTM_d0chn",
     ]
     df = pd.DataFrame(columns=cols)
-    # find all BGC directories starts with "BGC" in target_dir
+
     bgc_dirs = [
         d
         for d in os.listdir(target_dir)
@@ -331,7 +331,6 @@ def transfer_homomer_data(df6: pd.DataFrame, homomer_dir: str) -> None:
     return_handle_t = open(returnfile_t, "w")
     return_handle_t.write("#!/bin/bash\n")
 
-    # データフレームの行ごとの処理
     for row in df6.itertuples(index=False, name="Pandas"):
         if (
             isinstance(row.parsed_oligomeric_state, float)
@@ -419,7 +418,6 @@ def homomer_add_hit_to_df(jsondata: dict) -> pd.DataFrame:
 
 
 # %%
-# blast_pdbfile = "/Users/YoshitakaM/Desktop/blast_pdb24.12_mini1.tsv"
 blast_pdbfile = "/Users/YoshitakaM/Desktop/blast_pdb24.12.tsv"
 df = pd.read_csv(blast_pdbfile, delimiter="\t")
 # %%
@@ -437,7 +435,6 @@ max_mask = df3.groupby(["mibig_accession", "protein_id"])[
 ].transform(lambda x: x == x.max() if x.max() is not None else x.isna())
 df3 = df3[max_mask]
 df3 = df3.drop_duplicates(["mibig_accession", "protein_id"])
-# df3["parsed_oligomeric_state"]のうち、2.0以上のものを抽出
 df4 = df3[df3["parsed_oligomeric_state"] >= 2.0].copy()
 df4.loc[:, "proteins"] = df4.apply(create_proteins_column, axis=1)
 # %%
@@ -445,7 +442,6 @@ target_dir = "/Users/YoshitakaM/Desktop/positive_homomers"
 output_sheet = os.path.join(target_dir, "homocomplexes23.xlsx")
 df5 = make_homodataframe(target_dir)
 # %%
-# df4のデータとdf5のデータを、mibig_accession, proteinsのカラムを使ってマージ
 df6 = pd.merge(
     df4,
     df5,
@@ -471,32 +467,3 @@ df8 = pd.merge(
     suffixes=("", "_y"),
 )
 publish_sheet(df8, target_dir=target_dir, output_file="homocomplexes3.xlsx")
-
-# %%
-# homomer_dir = "/Users/YoshitakaM/Desktop/positive_homomers/homomer_additional/"
-# transfer_homomer_data(df6, homomer_dir)
-# %%
-results = find_pdbid_that_have_different_chain_ids(df2)
-seen_proteins = {}
-
-for accession, pdb, proteins, _ in results:
-    # Convert the proteins set into a frozenset to use as a hashable key.
-    protein_key = frozenset(proteins)
-    if accession not in seen_proteins:
-        seen_proteins[accession] = set()
-    # If we've already seen this set of protein IDs for the given accession, skip.
-    if protein_key in seen_proteins[accession]:
-        continue
-    seen_proteins[accession].add(protein_key)
-    if len(list(proteins)) == 2:
-        linked_pairs = generate_linked_pairs(list(proteins))
-        for pair in linked_pairs:
-            # print(
-            #     f"BGC: {accession}, Linked Pair: {sanitised_name(pair)}, PDB: {pdb}, Chains: {', '.join(chains)}"
-            # )
-            print(
-                f"mkdir -p {accession}_{str(pdb).upper()}\n"
-                f"scp -rp yayoi_out:/data2/moriwaki/BGCcomplex/merged/{accession}/{sanitised_name(pair)}/'*' ./{accession}_{pdb}"
-            )
-
-    # %%

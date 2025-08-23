@@ -1,5 +1,4 @@
 #!/usr/bin/env python3
-# %%
 import argparse
 import json
 import os
@@ -18,15 +17,17 @@ def run_ipsae_on_af3(
     bgc_number: int,
     pae_cutoff: float = 10,
     dist_cutoff: float = 10,
-    is_overwrite: bool = False,
+    skip_paefigs: bool = False,
+    overwrite: bool = False,
 ) -> None:
     target_directory = f"{bgc_directory}/BGC{bgc_number:07d}"
     if not os.path.exists(f"{target_directory}"):
         print(f"af3 directory not found in {target_directory}")
-    elif os.path.exists(f"{target_directory}/complexmetrics.json") and not is_overwrite:
+    elif os.path.exists(f"{target_directory}/complexmetrics.json") and not overwrite:
         print(f"'complexmetrics.json' already exists on {target_directory}")
     else:
         ipsaes = []
+        ipsae_mins = []
         af3_iptms = []
         af3_subdirs = [
             d
@@ -34,17 +35,19 @@ def run_ipsae_on_af3(
             if os.path.isdir(os.path.join(f"{target_directory}", d))
         ]
         for af3_subdir in af3_subdirs:
-            paeplot.plot_all_paes(
-                f"{target_directory}/{af3_subdir}",
-                "af3pae",
-                dpi=100,
-            )
-            paeplot.plot_best_pae(
-                f"{target_directory}/{af3_subdir}",
-                "af3pae_best",
-                dpi=100,
-            )
-            # print(f"Running ipSAE on {af3_subdir}")
+            if not skip_paefigs:
+                logger.info(f"Making PAE figures for {af3_subdir}")
+                paeplot.plot_all_paes(
+                    f"{target_directory}/{af3_subdir}",
+                    "af3pae",
+                    dpi=100,
+                )
+                paeplot.plot_best_pae(
+                    f"{target_directory}/{af3_subdir}",
+                    "af3pae_best",
+                    dpi=100,
+                )
+
             logger.info(f"Running ipSAE on {af3_subdir}")
             os.system(
                 f"{python_binary} {ipsae_py_script} "
@@ -54,7 +57,7 @@ def run_ipsae_on_af3(
             )
 
             results = []
-
+            ipSAE_min = float("inf")
             with open(
                 f"{target_directory}/{af3_subdir}/{af3_subdir}_ipsae.json", "w"
             ) as f:
@@ -88,10 +91,13 @@ def run_ipsae_on_af3(
                         if not line.strip():
                             continue
                         parts = line.strip().split()
-                        if parts[type_idx] == "max":
+                        if parts[type_idx] == "asym":
+                            ipSAE_min = min(ipSAE_min, float(parts[ipsae_idx]))
+                        elif parts[type_idx] == "max":
                             results.append(
                                 {
                                     "ipSAE": float(parts[ipsae_idx]),
+                                    "ipSAE_min": ipSAE_min,
                                     "ipSAE_d0chn": float(parts[ipsae_d0chn_idx]),
                                     "ipSAE_d0dom": float(parts[ipsae_d0dom_idx]),
                                     "ipTM_af": float(parts[ipTM_af_idx]),
@@ -115,20 +121,20 @@ def run_ipsae_on_af3(
                 json.dump(results, f, indent=2)
 
             ipsaes.append({f"{af3_subdir}": results[0]["ipSAE"]})
+            ipsae_mins.append({f"{af3_subdir}": results[0]["ipSAE_min"]})
             af3_iptms.append({f"{af3_subdir}": results[0]["ipTM_af"]})
 
         # Sort the results by ipSAE and ipTM
         ipsaes.sort(key=lambda x: list(x.values())[0], reverse=True)
+        ipsae_mins.sort(key=lambda x: list(x.values())[0], reverse=True)
         af3_iptms.sort(key=lambda x: list(x.values())[0], reverse=True)
         out = {
             "ipSAE": ipsaes,
+            "ipSAE_min": ipsae_mins,
             "ipTM": af3_iptms,
         }
         with open(f"{target_directory}/complexmetrics.json", "w") as f:
             json.dump(out, f, indent=2)
-
-
-# %%
 
 
 def main():
@@ -186,6 +192,17 @@ def main():
         type=int,
         help="End number of the BGC.",
     )
+    parser.add_argument(
+        "--skip_paefigs",
+        action="store_true",
+        help="Skip making PAE figures.",
+    )
+    parser.add_argument(
+        "-O",
+        "--overwrite",
+        action="store_true",
+        help="Overwrite existing output files.",
+    )
     args = parser.parse_args()
     bgc_directory = args.bgc_directory
     python_binary = args.python_binary
@@ -194,6 +211,8 @@ def main():
     dist_cutoff = args.dist_cutoff
     start = args.nstart
     end = args.nend
+    skip_paefigs = args.skip_paefigs
+    overwrite = args.overwrite
     for bgc_number in range(start, end + 1):
         run_ipsae_on_af3(
             bgc_directory=bgc_directory,
@@ -202,7 +221,8 @@ def main():
             bgc_number=bgc_number,
             pae_cutoff=pae_cutoff,
             dist_cutoff=dist_cutoff,
-            is_overwrite=False,
+            skip_paefigs=skip_paefigs,
+            overwrite=overwrite,
         )
 
 

@@ -57,6 +57,50 @@ def make_heterodataframe(target_dir: str) -> pd.DataFrame:
 
 
 # %%
+
+pdbids = [
+    "2YJN",
+    "6O6E",
+    "8K4R",
+    "5CZD",
+    "1TQY",
+    "7THN",
+    "4TX3",
+    "4TX3",
+    "5IG9",
+    "8K60",
+    "8UC3",
+    "6J2U",
+    "5DWZ",
+    "8GS1",
+    "5KP6",
+    "8A82",
+    "8VSI",
+    "8T19",
+    "5KP7",
+    "6M01",
+    "7YN3",
+    "6CXT",
+    "8HCI",
+    "8HK0",
+    "6KXD",
+    "6M7L",
+    "7TCR",
+    "6QSP",
+    "6QSR",
+    "8HCI",
+]
+for pdbid in pdbids:
+    jsonfile = f"/Users/YoshitakaM/Desktop/work/rcsb_pdb_api/rcsb_{pdbid}.json"
+    with open(jsonfile, "r") as f:
+        rcsbstructdata = json.load(f)
+
+    oligomeric_states = [
+        rcsbstructdata["rcsb_struct_symmetry"][i]["oligomeric_state"]
+        for i in range(len(rcsbstructdata["rcsb_struct_symmetry"]))
+    ]
+    print(f"PDB ID {pdbid}: {oligomeric_states}")
+# %%
 target_dir = "/Users/YoshitakaM/Desktop/positive_homomers"
 output_sheet = os.path.join(target_dir, "homocomplexes2.xlsx")
 # %%

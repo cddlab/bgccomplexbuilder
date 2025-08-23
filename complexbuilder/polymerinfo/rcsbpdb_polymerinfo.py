@@ -4,7 +4,7 @@ from rcsbapi.data import DataQuery as Query
 
 from complexbuilder.common.log import log_setup
 
-log_setup(level="DEBUG")
+log_setup(level="INFO")
 
 
 def make_assembly_interface_dict_from_pdbids(pdbids: list[str]) -> dict:
@@ -102,11 +102,6 @@ def has_homo_interfaces(interface_dict: dict, pdbid: str, chainid: str) -> bool:
 
 
 # %%
-interface_dict = make_assembly_interface_dict_from_pdbids(
-    ["3WWN", "7M7J", "13PK", "8QFU"]
-)
-
-
 def has_hetero_interfaces(
     interface_dict: dict, pdbid: str, chainid_1: str, chainid_2: str
 ) -> bool:
@@ -179,6 +174,3 @@ def has_hetero_interfaces(
                             )
                             return True
     return False
-
-
-# %%

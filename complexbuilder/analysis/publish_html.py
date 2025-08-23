@@ -1,5 +1,4 @@
 #!/usr/bin/env python3
-# %%
 import json
 from pathlib import Path
 
@@ -13,7 +12,6 @@ from complexbuilder.common.log import log_setup
 log_setup(level="SUCCESS")
 
 
-# %%
 def write_html(df, output):
     scripts = """
     <link href="https://cdnjs.cloudflare.com/ajax/libs/foundation/6.9.0/css/foundation.min.css" rel="stylesheet"/>
@@ -59,7 +57,6 @@ def write_html(df, output):
         f.write(html)
 
 
-# %%
 def add_data(
     mibig_json_file: Path, svgdirectory: Path, pre_df: pd.DataFrame | None = None
 ) -> pd.DataFrame:
@@ -113,7 +110,7 @@ def add_data(
 
 
 mibigjsondirectory = Path("/Users/YoshitakaM/Downloads/mibig_json_4.0")
-svgdirectory = Path("svg3")
+svgdirectory = Path("svg")
 
 for i in range(1, 2827):
     mibig_json_file = mibigjsondirectory / f"BGC000{i:04d}.json"
@@ -132,4 +129,3 @@ for i in range(1, 2827):
 ChangeMoleculeRendering(df)
 df.drop(columns=["SMILES"], inplace=True)
 write_html(df, "publish.html")
-# %%

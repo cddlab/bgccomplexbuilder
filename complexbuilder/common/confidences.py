@@ -1,4 +1,3 @@
-# %%
 import json
 import math
 import os
@@ -17,7 +16,6 @@ dist_string = str(int(dist_cutoff))
 if dist_cutoff < 10:
     dist_string = "0" + dist_string
 
-# %%
 if os.path.splitext(pdb_path)[1] == ".pdb":
     pdb_stem = os.path.splitext(pdb_path)[0]
     path_stem = f"{pdb_stem}_{pae_string}_{dist_string}"
@@ -248,9 +246,7 @@ residues = []
 cb_residues = []
 chains = []
 atomsitefield_num = 0
-atomsitefield_dict = (
-    {}
-)  # contains order of atom_site fields in mmCIF files; handles any mmCIF field order
+atomsitefield_dict = {}  # contains order of atom_site fields in mmCIF files; handles any mmCIF field order
 
 token_mask = list()
 residue_set = {
@@ -352,7 +348,7 @@ ntokens = np.sum(token_array)
 distances = np.sqrt(
     ((coordinates[:, np.newaxis, :] - coordinates[np.newaxis, :, :]) ** 2).sum(axis=2)
 )
-# %%
+
 
 if af3:
     if os.path.exists(pae_file_path):
@@ -410,7 +406,6 @@ if af3:
         print("AF3 summary file does not exist: ", summary_file_path)
 
 
-# %%
 def init_chainpairdict_zeros(chainlist: list[str]) -> dict:
     """
     Initializes a nested dictionary with all values set to 0
@@ -731,7 +726,6 @@ def compute_interchain_max(
     }
 
 
-# %%
 pdockq, pdockq2, lis = compute_pdockq_all(
     unique_chains, numres, chains, distances, cb_plddt, pae_matrix, cutoff=8.0
 )
@@ -751,7 +745,6 @@ interchain_results = compute_interchain_max(
 )
 
 
-# %%
 def write_byres(
     byres_filepath,
     unique_chains,
@@ -778,7 +771,7 @@ def write_byres(
       - "unique_residues_chain1"
       - "unique_residues_chain2"
     """
-    # results_byres から必要な辞書を取得
+    # obtain variables from results_byres
     iptm_d0chn_byres = results_byres["iptm_d0chn_byres"]
     ipsae_d0chn_byres = results_byres["ipsae_d0chn_byres"]
     ipsae_d0dom_byres = results_byres["ipsae_d0dom_byres"]
@@ -786,11 +779,11 @@ def write_byres(
     d0res_byres = results_byres["d0res_byres"]
     n0chn = results_byres["n0chn"]
     n0res_byres = results_byres["n0res_byres"]
-    # unique_residues は set 型のネスト辞書
+    # unique_residues is a nested dict of sets
     unique_residues_chain1 = results_byres["unique_residues_chain1"]
     unique_residues_chain2 = results_byres["unique_residues_chain2"]
 
-    # ヘッダー出力
+    # output header
     with open(byres_filepath, "w") as OUT2:
         OUT2.write(
             "i   AlignChn ScoredChain  AlignResNum  AlignResType  AlignRespLDDT      "
@@ -806,37 +799,33 @@ def write_byres(
             for chain2 in unique_chains:
                 if chain1 == chain2:
                     continue
-                # n0chn: 各チェーンの残基数の和
+                # n0chn: sum of the residues belonging to chain1 and chain2
                 n0chn_val = np.sum(chains == chain1) + np.sum(chains == chain2)
-                # d0chn: calc_d0 により算出（calc_d0 は既存の関数）
+                # d0chn: calc_d0 applied to n0chn
                 d0chn[chain1][chain2] = calc_d0(n0chn_val)
-                # n0dom: ユニークな残基数（各 chain の set の要素数）
+                # n0dom: number of unique residues in chain1 and chain2
                 residues_1 = len(unique_residues_chain1[chain1][chain2])
                 residues_2 = len(unique_residues_chain2[chain1][chain2])
                 n0dom[chain1][chain2] = residues_1 + residues_2
                 d0dom[chain1][chain2] = calc_d0(n0dom[chain1][chain2])
 
-        # 各 chain ペアごとの by-residue 出力計算
+        # calculate each chain pair's by-residue output
         for chain1 in unique_chains:
             for chain2 in unique_chains:
                 if chain1 == chain2:
                     continue
 
-                # ptm_matrix_d0dom の計算: pae_matrix の各要素に
-                # d0dom[chain1][chain2] を引数として ptm_func_vec を適用
                 ptm_matrix_d0dom = ptm_func_vec(pae_matrix, d0dom[chain1][chain2])
-                # valid_pairs_matrix: chain2 に属し、かつ pae_matrix < pae_cutoff
-                # となるマスク
+                # valid_pairs_matrix: mask where residues belong to chain2 and pae_matrix < pae_cutoff
                 valid_pairs_matrix = (chains == chain2) & (pae_matrix < pae_cutoff)
-                # 各残基毎の valid pair 数および d0res の算出
+                # n0res_byres_all: sum of valid pairs for each residue
                 n0res_byres_all = np.sum(valid_pairs_matrix, axis=1)
                 d0res_byres_all = calc_d0_array(n0res_byres_all)
-                # 辞書の更新（results_byres 内の n0res_byres, d0res_byres を更新）
+
                 n0res_byres[chain1][chain2] = n0res_byres_all
-                # d0res_byres は各残基ごとに d0res を格納する配列
                 d0res_byres[chain1][chain2] = d0res_byres_all
 
-                # 各 residue の出力計算
+                # calculate outputs for each residue
                 for i in range(numres):
                     if chains[i] != chain1:
                         continue
@@ -875,7 +864,6 @@ def write_byres(
                     OUT2.write(outstring)
 
 
-# %%
 write_byres(
     "/Users/YoshitakaM/Desktop/byres.txt",
     unique_chains,
@@ -887,5 +875,3 @@ write_byres(
     residues,
     results_byres,
 )
-
-# %%

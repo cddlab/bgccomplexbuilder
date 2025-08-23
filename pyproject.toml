@@ -5,8 +5,8 @@ description = "module to build and predict protein multimer with ColabFold"
 readme = "README.md"
 requires-python = ">=3.12"
 dependencies = [
-    "biopython>=1.84",
-    "matplotlib",
+    "biopython>=1.85",
+    "matplotlib>=3.10.0",
     "networkx==3.5",
     "numpy>=2",
     "pandas",

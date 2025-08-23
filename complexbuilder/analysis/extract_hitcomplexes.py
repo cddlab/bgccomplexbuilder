@@ -6,10 +6,6 @@ from pathlib import Path
 
 from loguru import logger
 
-# from complexbuilder.common.log import log_setup
-
-# log_setup(level="SUCCESS")
-
 
 def split_proteinids(text: str) -> tuple[str, str]:
     """
@@ -35,6 +31,12 @@ def split_proteinids(text: str) -> tuple[str, str]:
             -> ("wp_032798144.1", "ssgg_rs34700")
         split_proteinids("rso11565.1_rso11565.1")
             -> ("rso11565.1", "rso11565.1")
+        split_proteinids("aerm__aerm_")
+            -> ("aerm_", "aerm_")
+        split_proteinids("acm68692.1_aerm_")
+            -> ("acm68692.1", "aerm_")
+        split_proteinids("aerm__acm68692.1")
+            -> ("aerm_", "acm68692.1")
     Args:
         text (str): The protein complex string to split.
 
@@ -55,7 +57,9 @@ def split_proteinids(text: str) -> tuple[str, str]:
     def is_alpha_right(idx, length):
         return (idx + length < len(text)) and text[idx + length].isalpha()
 
-    alpha_candidates = [(i, l) for (i, l) in candidates if is_alpha_right(i, l)]
+    alpha_candidates = [
+        (idx, length) for (idx, length) in candidates if is_alpha_right(idx, length)
+    ]
     if alpha_candidates:
         use = alpha_candidates[len(alpha_candidates) // 2]
     else:
@@ -143,6 +147,10 @@ def make_hitcomplexlist(
             list(item.keys())[0]: list(item.values())[0]
             for item in complexmetrics.get("ipSAE", [])
         }
+        ipSAE_min = {
+            list(item.keys())[0]: list(item.values())[0]
+            for item in complexmetrics.get("ipSAE_min", [])
+        }
         ipTM = {
             list(item.keys())[0]: list(item.values())[0]
             for item in complexmetrics.get("ipTM", [])
@@ -158,12 +166,14 @@ def make_hitcomplexlist(
                 if display_homo_hetero:
                     hitcomplexes[key] = {
                         "ipSAE": ipSAE[key],
+                        "ipSAE_min": ipSAE_min[key],
                         "ipTM": ipTM[key],
                         "complex_homo_hetero": _check_homo_hetero(key),
                     }
                 else:
                     hitcomplexes[key] = {
                         "ipSAE": ipSAE[key],
+                        "ipSAE_min": ipSAE_min[key],
                         "ipTM": ipTM[key],
                     }
         results[bgcdir] = hitcomplexes
@@ -226,5 +236,3 @@ def main():
 
 if __name__ == "__main__":
     main()
-
-# %%
