@@ -16,6 +16,22 @@ cd complexbuilder
 uv sync
 ```
 
+MiBIG GenBank files (GBK format) can be downloaded from the [MiBIG database](https://mibig.secondarymetabolites.org/download). We used MiBIG version 4.0 for this project. After downloading and extracting the GenBank files, you can use the `inputbuilder` script to create input FASTA files for `colabfold_search`.
+
+## Usage
+
+### Create input files for colabfold_search from GenBank files
+
+```bash
+uv run inputbuilder \
+    -i ~/Downloads/mibig_gbk_4.0 \
+    -o outputdir \
+    --max_length 1950 \
+    --maxbytes 6000000 \
+    --start 1 \
+    --end 2826
+```
+
 ## Contact
 
 For questions or further information, please contact the authors of the manuscript.

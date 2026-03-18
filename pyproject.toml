@@ -21,9 +21,6 @@ dependencies = [
     "seaborn>=0.13.2",
 ]
 
-[tool.uv]
-dev-dependencies = ["mypy", "notebook", "pytest", "ruff", "pyyaml"]
-
 [tool.uv.sources]
 alphafold3-tools = { git = "https://github.com/cddlab/alphafold3_tools.git" }
 
@@ -67,3 +64,13 @@ allow-direct-references = true
 
 [tool.hatch.build.targets.wheel]
 packages = ["complexbuilder"]
+
+[dependency-groups]
+dev = ["ty", "notebook", "pytest", "ruff", "pyyaml"]
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project.scripts]
+inputbuilder = "complexbuilder.inputbuilder:main"
