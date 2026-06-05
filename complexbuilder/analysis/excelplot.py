@@ -2,6 +2,7 @@ import argparse
 from pathlib import Path
 
 import matplotlib.pyplot as plt
+import numpy as np
 import pandas as pd
 from loguru import logger
 from matplotlib import rcParams
@@ -126,6 +127,18 @@ ax[0].set_xlim(0, 1)
 ax[0].set_ylim(-0.02, 1)
 add_second_axis(ax[0], iptm_valid, ipsae_valid, color="#0072BC")
 
+mask0 = iptm_valid.values >= 0.6
+r0 = np.corrcoef(iptm_valid.values[mask0], ipsae_valid.values[mask0])[0, 1]
+ax[0].text(
+    0.05,
+    0.95,
+    f"r = {r0:.2f}",
+    transform=ax[0].transAxes,
+    fontsize=12,
+    va="top",
+    ha="left",
+)
+
 ipsae_homo = df.iloc[:, 18]  # S列
 iptm_af_homo = df.iloc[:, 19]  # T列
 valid_data = ~(ipsae_homo.isna() | iptm_af_homo.isna())
@@ -185,8 +198,38 @@ ax[1].set_xlabel("Chain pair ipTM")
 ax[1].set_ylabel("ipSAE")
 add_second_axis(ax[1], iptm_af_valid, ipsae_valid, color="#0072BC")
 add_second_axis(ax[1], iptm_af_homo_valid, ipsae_homo_valid, color="#D25A45")
+
+mask1_dimer = iptm_af_valid.values >= 0.6
+r1_dimer = np.corrcoef(
+    iptm_af_valid.values[mask1_dimer], ipsae_valid.values[mask1_dimer]
+)[0, 1]
+mask1_homo = iptm_af_homo_valid.values >= 0.6
+r1_homo = np.corrcoef(
+    iptm_af_homo_valid.values[mask1_homo], ipsae_homo_valid.values[mask1_homo]
+)[0, 1]
+ax[1].text(
+    0.05,
+    0.95,
+    f"r = {r1_dimer:.2f} (dimer)",
+    transform=ax[1].transAxes,
+    fontsize=12,
+    va="top",
+    ha="left",
+    color="#0072BC",
+)
+ax[1].text(
+    0.05,
+    0.87,
+    f"r = {r1_homo:.2f} (assembly)",
+    transform=ax[1].transAxes,
+    fontsize=12,
+    va="top",
+    ha="left",
+    color="#D25A45",
+)
+
 excelfile = Path(
-    "/Users/YoshitakaM/Library/CloudStorage/OneDrive-TheUniversityofTokyo/bgccomplex/sup_data/positive_hetdimers/heterocomplexes_colored.xlsx"
+    "/Users/YoshitakaM/Library/CloudStorage/OneDrive-TheUniversityofTokyo/bgccomplex/sup_data/positive_hetdimers/heterocomplexes.xlsx"
 )
 df2 = pd.read_excel(excelfile)
 hetero_ipsae_values = df2.iloc[:, 3]  # column D
@@ -210,8 +253,22 @@ ax[2].set_xlabel("Chain pair ipTM", fontsize=16)
 ax[2].set_ylabel("ipSAE", fontsize=16)
 add_second_axis(ax[2], hetero_iptm_valid, hetero_ipsae_valid, color="#32C189")
 
+mask2 = hetero_iptm_valid.values >= 0.6
+r2 = np.corrcoef(hetero_iptm_valid.values[mask2], hetero_ipsae_valid.values[mask2])[
+    0, 1
+]
+ax[2].text(
+    0.05,
+    0.95,
+    f"r = {r2:.2f}",
+    transform=ax[2].transAxes,
+    fontsize=12,
+    va="top",
+    ha="left",
+)
+
 plt.tight_layout()
-plt.savefig("fig2.svg", format="svg")
+plt.savefig("fig3.svg", format="svg")
 plt.show()
 plt.clf()
 plt.close()

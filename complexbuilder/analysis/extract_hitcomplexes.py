@@ -155,7 +155,18 @@ def make_hitcomplexlist(
             list(item.keys())[0]: list(item.values())[0]
             for item in complexmetrics.get("ipTM", [])
         }
-
+        pDockQ = {
+            list(item.keys())[0]: list(item.values())[0]
+            for item in complexmetrics.get("pDockQ", [])
+        }
+        pDockQ2 = {
+            list(item.keys())[0]: list(item.values())[0]
+            for item in complexmetrics.get("pDockQ2", [])
+        }
+        LIS = {
+            list(item.keys())[0]: list(item.values())[0]
+            for item in complexmetrics.get("LIS", [])
+        }
         hitcomplexes = {}
         for key in ipSAE:
             if (
@@ -168,12 +179,18 @@ def make_hitcomplexlist(
                         "ipSAE": ipSAE[key],
                         "ipSAE_min": ipSAE_min[key],
                         "ipTM": ipTM[key],
+                        "pDockQ": pDockQ[key],
+                        "pDockQ2": pDockQ2[key],
+                        "LIS": LIS[key],
                         "complex_homo_hetero": _check_homo_hetero(key),
                     }
                 else:
                     hitcomplexes[key] = {
                         "ipSAE": ipSAE[key],
                         "ipSAE_min": ipSAE_min[key],
+                        "pDockQ": pDockQ[key],
+                        "pDockQ2": pDockQ2[key],
+                        "LIS": LIS[key],
                         "ipTM": ipTM[key],
                     }
         results[bgcdir] = hitcomplexes

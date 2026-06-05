@@ -134,6 +134,7 @@ def classify_proteins2(
     """
     proteins: list[SeqRecord] = []
     genbank_file = Path(genbank_file)
+    largeproteins_count = 0
     for record in SeqIO.parse(genbank_file, "genbank"):
         logger.info(f"Record ID: {record.id}")
         for feature in record.features:
@@ -164,11 +165,13 @@ def classify_proteins2(
                         )
                     )
                 else:
+                    largeproteins_count += 1
                     logger.warning(
                         f"The protein sequence {protein_id} is too long. "
                         f"Length: {len(aa_sequence)} > {max_length}"
                     )
-    logger.info(f"Number of proteins: {len(proteins)}")
+    logger.info(f"Number of small proteins: {len(proteins)}")
+    logger.info(f"Number of total proteins: {len(proteins) + largeproteins_count}")
     return proteins
 
 
@@ -187,13 +190,16 @@ def make_seqrecord_from_fasta(
     """
     proteins: list[SeqRecord] = []
     fasta_file = Path(fasta_file)
+    largeproteins_count = 0
     for record in SeqIO.parse(fasta_file, "fasta"):
         if len(record.seq) < max_length:
             proteins.append(record)
         else:
+            largeproteins_count += 1
             logger.warning(
                 f"The protein sequence {record.id} is too long. "
                 f"Length: {len(record.seq)} > {max_length}"
             )
-    logger.info(f"Number of proteins: {len(proteins)}")
+    logger.info(f"Number of small proteins: {len(proteins)}")
+    logger.info(f"Number of total proteins: {len(proteins) + largeproteins_count}")
     return proteins

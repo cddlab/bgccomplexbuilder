@@ -247,6 +247,30 @@ def make_network_svg(
                 print(f"problematic iptm: edge=({u}, {v}), iptm={w}, type={type(w)}")
 
         ### Draw Network ###
+        if len(G.nodes) == 0 or len(G.edges) == 0:
+            fig, ax = plt.subplots(1, 1, figsize=(8.0, 6.0), dpi=300)
+            ax.text(
+                0.5,
+                0.5,
+                "No valid dimer was predicted.",
+                ha="center",
+                va="center",
+                fontsize=16,
+                transform=ax.transAxes,
+            )
+            ax.axis("off")
+            os.makedirs(outputdir, exist_ok=True)
+            fig.savefig(os.path.join(outputdir, f"{bgc_id}.svg"))
+            plt.close()
+            plt.clf()
+            count += 1
+            print(f"Processed {count} / {len(dataInt)}: {bgc_id}")
+            if count > max_count:
+                print(
+                    f"More than {max_count} BGCs processed, stopping to avoid overload."
+                )
+                break
+            continue
         num_nodes = len(G.nodes)
         # proportional size based on number of nodes.
         base_width, base_height = 8.0, 6.0

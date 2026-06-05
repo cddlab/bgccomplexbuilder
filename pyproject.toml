@@ -1,10 +1,11 @@
 [project]
 name = "complexbuilder"
-version = "0.0.1"
+version = "0.0.2"
 description = "module to build and predict protein multimer with ColabFold"
 readme = "README.md"
 requires-python = ">=3.12"
 dependencies = [
+    "alphafold3-tools==0.3.1",
     "biopython>=1.85",
     "matplotlib>=3.10.0",
     "networkx==3.5",
@@ -15,14 +16,10 @@ dependencies = [
     "scipy",
     "scikit-image",
     "loguru",
-    "alphafold3-tools",
     "rcsb-api==1.1.3",
     "openpyxl",
     "seaborn>=0.13.2",
 ]
-
-[tool.uv.sources]
-alphafold3-tools = { git = "https://github.com/cddlab/alphafold3_tools.git" }
 
 [tool.ruff]
 indent-width = 4
